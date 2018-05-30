@@ -56,8 +56,8 @@ public:
     int size = buffer.getSize();
     unsigned int delaySamples;
       
-    rate     = getParameterValue(PARAMETER_A) * 30; // flanger needs slow rate
-    depth    = getParameterValue(PARAMETER_B);
+    rate     = (getParameterValue(PARAMETER_A)-1) * 30/100;
+    depth    = getParameterValue(PARAMETER_B)/100;
     waveshape = getParameterValue(PARAMETER_C); // so we keep a -3dB summation of the delayed signal
     mode = sine;
 
