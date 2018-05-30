@@ -61,11 +61,14 @@ public:
     waveshape = getParameterValue(PARAMETER_C); // so we keep a -3dB summation of the delayed signal
     mode = sine;
 
+    lfo.setFrequency(rate);
       
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         for (int i = 0 ; i < size; i++) {
             float* buf = buffer.getSamples(ch);
             lfo.updateLFO_value();
+            float dry = buf[i]*depth/100;
+            float wet = buf[i]*lfo.get_LFO_value()*(100-depth)/100;
             buf[i] = buf[i]*lfo.get_LFO_value();
         }
     }
