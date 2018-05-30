@@ -3,11 +3,12 @@
 #ifndef __LFO__
 #define __LFO__
 
+enum lfo_mode{sine,square,triangle,random,sampleHold};
+
 	class LFO
 	{
 	private:
 	    float fs, frequency, phase, LFO_value;
-	    enum lfo_mode{sine,square,triangle,random,sampleHold};
 	    lfo_mode mode;
 	public:
 	    void initLFO();
