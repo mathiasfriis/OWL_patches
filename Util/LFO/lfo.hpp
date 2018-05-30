@@ -58,11 +58,11 @@ enum lfo_mode{sine,square,triangle,sampleHold};
         {
             if(phase*100/(2*PI)<waveshape)
             {
-                return 1;
+                 LFO_value=1;
             }
             else
             {
-                return 0;
+                LFO_value=return 0;
             }
         }
     }
