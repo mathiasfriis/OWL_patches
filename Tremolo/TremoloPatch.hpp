@@ -67,7 +67,6 @@ public:
             float* buf = buffer.getSamples(ch);
             lfo.updateLFO_value();
             buf[i] = buf[i]*lfo.get_LFO_value();
-            delayBuffer.write(buf[i]); // update delay buffer
         }
     }
   }
