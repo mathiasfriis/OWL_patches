@@ -3,7 +3,6 @@
 #ifndef __LFO__
 #define __LFO__
 
-#define PI 3.14159265
 
 enum lfo_mode{sine,square,triangle,sampleHold};
 
