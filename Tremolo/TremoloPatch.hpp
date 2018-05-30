@@ -56,7 +56,7 @@ public:
     int size = buffer.getSize();
     unsigned int delaySamples;
       
-    rate     = (getParameterValue(PARAMETER_A));
+    rate     = (getParameterValue(PARAMETER_A)*30);
     depth    = getParameterValue(PARAMETER_B);
     waveshape = getParameterValue(PARAMETER_C); // so we keep a -3dB summation of the delayed signal
     mode = sine;
