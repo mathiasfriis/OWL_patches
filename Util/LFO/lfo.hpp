@@ -43,7 +43,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 
     void setWaveshape(float Waveshape)
     {
-        waveshape=Waveshape
+        waveshape=Waveshape;
     }
 
     void LFO::updateLFO_value()
