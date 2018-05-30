@@ -10,13 +10,14 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 	class LFO
 	{
 	private:
-	    float fs, frequency, phase, LFO_value;
+	    float fs, frequency, phase, LFO_value, waveshape;
 	    lfo_mode mode;
 	public:
 	    void initLFO();
 	    void setSampleRate(float sampleRate);
 	    void setLFO_mode(lfo_mode newMode);
 	    void setFrequency(float freq);
+        void setWaveshape(float Waveshape);
 	    void updateLFO_value();
 	    float get_LFO_value();
 	};
@@ -40,6 +41,12 @@ enum lfo_mode{sine,square,triangle,sampleHold};
     {
         frequency = freq;
     }
+
+    void setWaveshape(float Waveshape)
+    {
+        waveshape=Waveshape
+    }
+
     void LFO::updateLFO_value()
     {
         phase=(phase+2*PI/fs*frequency);
@@ -47,6 +54,17 @@ enum lfo_mode{sine,square,triangle,sampleHold};
         switch(mode)
         {
             case sine: LFO_value=sin(phase);
+        }
+        switch(square)
+        {
+            if(phase*100/(2*PI)<waveshape)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 
