@@ -10,7 +10,7 @@
 	    enum lfo_mode{sine,square,triangle,random,sampleHold};
 	    lfo_mode mode;
 	public:
-	    LFO::void initLFO();
+	    void initLFO();
 	    void setSampleRate(float sampleRate);
 	    void setLFO_mode(lfo_mode newMode);
 	    void setFrequency(float freq);
