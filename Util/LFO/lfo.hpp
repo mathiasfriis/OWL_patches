@@ -3,6 +3,8 @@
 #ifndef __LFO__
 #define __LFO__
 
+#define PI 3.14159265
+
 enum lfo_mode{sine,square,triangle,sampleHold};
 
 	class LFO
@@ -40,8 +42,8 @@ enum lfo_mode{sine,square,triangle,sampleHold};
     }
     void LFO::updateLFO_value()
     {
-        phase=(phase+360/(fs/frequency));
-        if(phase>=360) phase-=360;
+        phase=(phase+2*PI/fs*frequency);
+        if(phase>=2*PI) phase-=0;
         switch(mode)
         {
             case sine: LFO_value=sin(phase);
