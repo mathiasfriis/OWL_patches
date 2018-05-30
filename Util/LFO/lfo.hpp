@@ -3,7 +3,7 @@
 #ifndef __LFO__
 #define __LFO__
 
-enum lfo_mode{sine,square,triangle,random,sampleHold};
+enum lfo_mode{sine,square,triangle,rand,sampleHold};
 
 	class LFO
 	{
