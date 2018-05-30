@@ -50,23 +50,23 @@ enum lfo_mode{sine,square,triangle,sampleHold};
     void LFO::updateLFO_value()
     {
         phase=(phase+2*PI/fs*frequency);
-        if(phase>=2*PI) phase-=0;
+        if(phase>=2*PI) phase=0;
         switch(mode)
         {
-            case sine: LFO_value=sin(phase);
+            case sine: 
+                LFO_value=sin(phase);
+                break;
+            case square:
+                if(phase*100/(2*PI)<waveshape)
+                {
+                     LFO_value=1;
+                }
+                else
+                {
+                    LFO_value=0;
+                }
+                break;
         }
-        switch(square)
-        {
-            if(phase*100/(2*PI)<waveshape)
-            {
-                 LFO_value=1;
-            }
-            else
-            {
-                LFO_value=0;
-            }
-        }
-    }
 
     float LFO::get_LFO_value()
     {
