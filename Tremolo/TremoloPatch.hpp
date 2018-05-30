@@ -69,6 +69,7 @@ public:
         lfo.setLFO_mode(square);
     }
 
+    lfo.setWaveshape(waveshape);
     lfo.setFrequency(rate);
       
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
