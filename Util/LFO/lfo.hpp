@@ -67,6 +67,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                 }
                 break;
         }
+    }
 
     float LFO::get_LFO_value()
     {
