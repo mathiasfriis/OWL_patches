@@ -56,7 +56,7 @@ public:
     int size = buffer.getSize();
     unsigned int delaySamples;
       
-    rate     = (getParameterValue(PARAMETER_A)-1) * 30/100;
+    rate     = (getParameterValue(PARAMETER_A));
     depth    = getParameterValue(PARAMETER_B)/100;
     waveshape = getParameterValue(PARAMETER_C); // so we keep a -3dB summation of the delayed signal
     mode = sine;
@@ -69,7 +69,7 @@ public:
             lfo.updateLFO_value();
             float dry = buf[i]*depth/100;
             float wet = buf[i]*lfo.get_LFO_value()*(100-depth)/100;
-            buf[i] = buf[i]*lfo.get_LFO_value();
+            buf[i] = dry+wet;
         }
     }
   }
