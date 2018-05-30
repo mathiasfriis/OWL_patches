@@ -58,8 +58,8 @@ public:
       
     rate     = (getParameterValue(PARAMETER_A)*30);
     depth    = getParameterValue(PARAMETER_B);
-    waveshape = getParameterValue(PARAMETER_C); // so we keep a -3dB summation of the delayed signal
-    float waveFormFloat = getParameterValue(PARAMETER_D);
+    waveshape = getParameterValue(PARAMETER_C)*100; // so we keep a -3dB summation of the delayed signal
+    float waveFormFloat = getParameterValue(PARAMETER_D)*100;
     if(waveFormFloat<50)
     {
         lfo.setLFO_mode(sine);
@@ -76,8 +76,8 @@ public:
         for (int i = 0 ; i < size; i++) {
             float* buf = buffer.getSamples(ch);
             lfo.updateLFO_value();
-            float dry = buf[i]*depth;
-            float wet = buf[i]*lfo.get_LFO_value()*(1-depth);
+            float dry = buf[i]*(1-depth);
+            float wet = buf[i]*lfo.get_LFO_value()*(depth);
             buf[i] = dry+wet;
         }
     }
