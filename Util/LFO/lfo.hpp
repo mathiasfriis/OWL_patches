@@ -62,7 +62,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
             }
             else
             {
-                LFO_value=return 0;
+                LFO_value=0;
             }
         }
     }
