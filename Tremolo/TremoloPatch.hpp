@@ -64,7 +64,7 @@ public:
     {
         lfo.setLFO_mode(sine);
     }
-    else if(waveFormFloat>33 && waveFormFloat > 66)
+    else if(waveFormFloat>33 && waveFormFloat < 66)
     {
         lfo.setLFO_mode(square);
     }
