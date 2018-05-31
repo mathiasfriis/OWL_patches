@@ -12,6 +12,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 	private:
 	    float fs, frequency, phase, LFO_value, waveshape;
 	    lfo_mode mode;
+		bool isPhaseUnderWaveshapeLevel();
 	public:
 	    void initLFO();
 	    void setSampleRate(float sampleRate);
@@ -50,14 +51,14 @@ enum lfo_mode{sine,square,triangle,sampleHold};
     void LFO::updateLFO_value()
     {
         phase=(phase+2*PI/fs*frequency);
-        if(phase>=2*PI) phase=0;
+		phase = phase % 2 * PI;
         switch(mode)
         {
             case sine: 
                 LFO_value=sin(phase);
                 break;
             case square:
-                if(phase*100/(2*PI)<waveshape)
+                if(isPhaseUnderWaveshapeLevel())
                 {
                      LFO_value=1;
                 }
@@ -66,6 +67,18 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                     LFO_value=0;
                 }
                 break;
+
+			case triangle:
+				float dydt_UP = 1 / (2 * PI / 100 * waveshape); //slope of ramp when going up.
+				float dydt_DOWN = 1 / (2 * PI / 100 * (100-waveshape)); //slope of ramp when going down.
+				if (isPhaseUnderWaveshapeLevel())
+				{
+					LFO_value = phase*dydt_UP;
+				}
+				else
+				{
+					LFO_value = 1 - (phase - waveshape * 2 * PI)*dydt_DOWN;
+				}
         }
     }
 
@@ -74,5 +87,16 @@ enum lfo_mode{sine,square,triangle,sampleHold};
         return LFO_value;
     }
 
+	bool LFO::isPhaseUnderWaveshapeLevel()
+	{
+		if (phase * 100 / (2 * PI)<waveshape)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 #endif
