@@ -51,7 +51,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
     void LFO::updateLFO_value()
     {
         phase=(phase+2*PI/fs*frequency);
-		phase = phase % (float)(2 * PI);
+		phase = std::fmod(phase,(float)(2 * PI));
         switch(mode)
         {
             case sine: 
