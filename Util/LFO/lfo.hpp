@@ -77,7 +77,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 				}
 				else
 				{
-					LFO_value = 1 - (phase - waveshape * 2 * PI)*dydt_DOWN;
+					LFO_value = 1 - (phase - waveshape * 2 * PI/100)*dydt_DOWN;
 				}
         }
     }
