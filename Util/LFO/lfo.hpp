@@ -1,4 +1,6 @@
 #include <math.h>
+#include <cstdlib>
+#include <ctime>
 
 #ifndef __LFO__
 #define __LFO__
