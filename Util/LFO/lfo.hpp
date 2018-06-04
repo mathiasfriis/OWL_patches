@@ -58,6 +58,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
             case sine: 
                 LFO_value=sin(phase);
                 break;
+
             case square:
                 if(isPhaseUnderWaveshapeLevel())
                 {
@@ -70,18 +71,23 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                 break;
 
 			case triangle:
+			{
 				float dydt_UP = 1 / (2 * PI / 100 * waveshape); //slope of ramp when going up.
-				float dydt_DOWN = 1 / (2 * PI / 100 * (100-waveshape)); //slope of ramp when going down.
+				float dydt_DOWN = 1 / (2 * PI / 100 * (100 - waveshape)); //slope of ramp when going down.
 				if (isPhaseUnderWaveshapeLevel())
 				{
 					LFO_value = phase*dydt_UP;
 				}
 				else
 				{
-					LFO_value = 1 - (phase - waveshape * 2 * PI/100)*dydt_DOWN;
+					LFO_value = 1 - (phase - waveshape * 2 * PI / 100)*dydt_DOWN;
 				}
-				break;
+				break;	
+			}
+				
+
 			case sampleHold:
+			{
 				// Triggers at waveShape-level and at 0 ('ish)
 				if (isPhaseUnderWaveshapeLevel() != waveShapeStatusState)
 				{
@@ -90,6 +96,8 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 				//toggle waveShape status state
 				waveShapeStatusState = !waveShapeStatusState;
 				break;
+			}
+				
         }
     }
 
