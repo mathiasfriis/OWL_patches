@@ -23,12 +23,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#include "CircularBuffer.hpp"
+#include "lfo.hpp"
 
 #ifndef ___TremoloPatch_hpp__
 #define __TremoloPatch_hpp__
-
-#include "CircularBuffer.hpp"
-#include "lfo.hpp"
 
 #define FLANGER_BUFFER_SIZE 1024
 
