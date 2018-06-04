@@ -80,6 +80,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 				{
 					LFO_value = 1 - (phase - waveshape * 2 * PI/100)*dydt_DOWN;
 				}
+				break;
 			case sampleHold:
 				// Triggers at waveShape-level and at 0 ('ish)
 				if (isPhaseUnderWaveshapeLevel != waveShapeStatusState)
@@ -88,8 +89,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 				}
 				//toggle waveShape status state
 				waveShapeStatusState = !waveShapeStatusState;
-
-
+				break;
         }
     }
 
