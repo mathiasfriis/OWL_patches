@@ -17,6 +17,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 		bool waveShapeStatusState = false;
 	    lfo_mode mode;
 		bool isPhaseUnderWaveshapeLevel();
+		int randomNumber = 0;
 	public:
 	    void initLFO();
 	    void setSampleRate(float sampleRate);
@@ -24,6 +25,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 	    void setFrequency(float freq);
         void setWaveshape(float Waveshape);
 	    void updateLFO_value();
+		void feedRandomNumber(int r);
 	    float get_LFO_value();
 	};
 
@@ -51,6 +53,11 @@ enum lfo_mode{sine,square,triangle,sampleHold};
     {
         waveshape=ws;
     }
+
+	void LFO::feedRandomNumber(int r)
+	{
+		randomNumber = r % 100;
+	}
 
     void LFO::updateLFO_value()
     {

@@ -75,6 +75,7 @@ public:
 	}
 	else
 	{
+		lfo.feedRandomNumber(getElapsedCycles);
 		lfo.setLFO_mode(sampleHold);
 	}
 
