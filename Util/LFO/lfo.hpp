@@ -91,7 +91,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 				// Triggers at waveShape-level and at 0 ('ish)
 				if (isPhaseUnderWaveshapeLevel() != waveShapeStatusState)
 				{
-					LFO_value = static_cast <float> (rand()) / static_cast <float> (1);
+					LFO_value = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 				}
 				//toggle waveShape status state
 				waveShapeStatusState = !waveShapeStatusState;
