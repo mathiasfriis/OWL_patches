@@ -11,6 +11,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 	{
 	private:
 	    float fs, frequency, phase, LFO_value, waveshape;
+		bool waveShapeStatusState = false;
 	    lfo_mode mode;
 		bool isPhaseUnderWaveshapeLevel();
 	public:
@@ -79,6 +80,16 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 				{
 					LFO_value = 1 - (phase - waveshape * 2 * PI/100)*dydt_DOWN;
 				}
+			case sampleHold:
+				// Triggers at waveShape-level and at 0 ('ish)
+				if (isPhaseUnderWaveshapeLevel != waveShapeStatusState)
+				{
+					LFO_value = ((double)rand() / (1));
+				}
+				//toggle waveShape status state
+				waveShapeStatusState = !waveShapeStatusState;
+
+
         }
     }
 
