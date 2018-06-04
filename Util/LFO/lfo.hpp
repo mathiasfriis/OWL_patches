@@ -6,6 +6,7 @@
 #define __LFO__
 
 #define PI 3.14159265
+#define SEED 129635617
 
 enum lfo_mode{sine,square,triangle,sampleHold};
 
@@ -32,7 +33,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
         phase=0;
         frequency=1;
         LFO_value=0;
-		srand(static_cast <unsigned> (time(0)));
+		srand(SEED);
     }
     void LFO::setSampleRate(float sampleRate)
     {
