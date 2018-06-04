@@ -60,17 +60,21 @@ public:
     depth    = getParameterValue(PARAMETER_B);
     waveshape = getParameterValue(PARAMETER_C)*100; // so we keep a -3dB summation of the delayed signal
     float waveFormFloat = getParameterValue(PARAMETER_D)*100;
-    if(waveFormFloat<33)
+    if(waveFormFloat<25)
     {
         lfo.setLFO_mode(sine);
     }
-    else if(waveFormFloat>33 && waveFormFloat < 66)
+    else if(waveFormFloat>25 && waveFormFloat < 50)
     {
         lfo.setLFO_mode(square);
     }
-	else
+	else if (waveFormFloat>50 && waveFormFloat < 75)
 	{
 		lfo.setLFO_mode(triangle);
+	}
+	else
+	{
+		lfo.setLFO_mode(sampleHold);
 	}
 
     lfo.setWaveshape(waveshape);
