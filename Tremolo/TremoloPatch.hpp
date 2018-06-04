@@ -49,6 +49,8 @@ public:
     lfo.initLFO();
     float fs = getSampleRate();
     lfo.setSampleRate(fs);
+
+	srand(1);
   }
  
 
