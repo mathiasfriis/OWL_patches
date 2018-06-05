@@ -63,7 +63,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
         switch(mode)
         {
             case sine: 
-                LFO_value=sin(phase);
+                LFO_value=sin(phase)/2+1;
                 break;
 
             case square:
