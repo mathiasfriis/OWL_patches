@@ -1,12 +1,11 @@
+#ifndef __LFO__
+#define __LFO__
+
 #include <math.h>
 #include <cstdlib>
 #include <ctime>
 
-#ifndef __LFO__
-#define __LFO__
-
 #define PI 3.14159265
-#define SEED 129635617
 
 enum lfo_mode{sine,square,triangle,sampleHold};
 
