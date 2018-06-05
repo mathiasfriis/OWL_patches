@@ -57,7 +57,7 @@ public:
     filter.initFilter(fs);
 
     lfo.setWaveshape(sine);
-    filter.setFilterType(LOW_PASS);
+    filter.setFilterType(BAND_PASS);
   }
  
 
