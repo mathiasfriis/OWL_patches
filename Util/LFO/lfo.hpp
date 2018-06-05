@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 
-//#define PI 3.14159265
+#define myPI 3.14159265
 
 enum lfo_mode{sine,square,triangle,sampleHold};
 
@@ -60,8 +60,8 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 
     void LFO::updateLFO_value()
     {
-        phase=(phase+2*PI/fs*frequency);
-		phase = std::fmod(phase,(float)(2 * PI));
+        phase=(phase+2*myPI/fs*frequency);
+		phase = std::fmod(phase,(float)(2 * myPI));
         switch(mode)
         {
             case sine: 
@@ -81,15 +81,15 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 
 			case triangle:
 			{
-				float dydt_UP = 1 / (2 * PI / 100 * waveshape); //slope of ramp when going up.
-				float dydt_DOWN = 1 / (2 * PI / 100 * (100 - waveshape)); //slope of ramp when going down.
+				float dydt_UP = 1 / (2 * myPI / 100 * waveshape); //slope of ramp when going up.
+				float dydt_DOWN = 1 / (2 * myPI / 100 * (100 - waveshape)); //slope of ramp when going down.
 				if (isPhaseUnderWaveshapeLevel())
 				{
 					LFO_value = phase*dydt_UP;
 				}
 				else
 				{
-					LFO_value = 1 - (phase - waveshape * 2 * PI / 100)*dydt_DOWN;
+					LFO_value = 1 - (phase - waveshape * 2 * myPI / 100)*dydt_DOWN;
 				}
 				break;	
 			}
@@ -118,7 +118,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 
 	bool LFO::isPhaseUnderWaveshapeLevel()
 	{
-		if (phase * 100 / (2 * PI)<waveshape)
+		if (phase * 100 / (2 * myPI)<waveshape)
 		{
 			return true;
 		}
