@@ -18,6 +18,7 @@ private:
 	float bpf = 0;
 	float lpf = 0;
 	float Q = 0;
+	float q = 0;
 	uint16_t fc = 0;
 	float sampleRate;
 	SVF_FILTER_TYPE type = LOW_PASS;
