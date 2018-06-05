@@ -68,7 +68,7 @@ public:
     rate     = (getParameterValue(PARAMETER_A)*RATE_SCALER);
     depth    = getParameterValue(PARAMETER_B)*DEPTH_SCALER;
     Q = getParameterValue(PARAMETER_C)*Q_SCALER; // so we keep a -3dB summation of the delayed signal
-    fc= getParameterValue(PARAMETER_C)*100+CUTOFF_MIN;
+    fc= getParameterValue(PARAMETER_C)*CUTOFF_SCALER+CUTOFF_MIN;
     
     filter.setQfactor(Q);
     filter.setCutoff(fc+lfo.get_LFO_value()*depth);
@@ -83,7 +83,7 @@ public:
 
 
             float dry = buf[i]*(1-1);
-            float wet = filter.doFiltering((int16_t)buf[i]);;
+            float wet = (float)filter.doFiltering((int16_t)buf[i]);;
             buf[i] = dry+wet;
         }
     }
