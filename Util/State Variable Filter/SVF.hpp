@@ -21,6 +21,8 @@ private:
 	uint16_t fc = 0;
 	float sampleRate;
 	SVF_FILTER_TYPE type = LOW_PASS;
+    void SVFpass(int16_t);
+
 public:
 	void setFilterType(SVF_FILTER_TYPE filter_type);
 	void setCutoff(float frequency);
