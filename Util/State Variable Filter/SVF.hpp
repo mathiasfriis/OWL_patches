@@ -69,7 +69,7 @@ void StateVariableFilter::SVFpass(int16_t x)
 int16_t StateVariableFilter::doFiltering(int16_t x)
 {
     float q = 1 / Q;
-    float f = sin((3.141593 * fc)/SAMPLE_FREQUENCY);
+    float f = sin((3.141593 * fc)/sampleRate);
     if(f >= 0.5) f = 0.5;
 
     // Run two passes
