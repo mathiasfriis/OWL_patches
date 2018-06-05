@@ -71,7 +71,7 @@ public:
     fc= getParameterValue(PARAMETER_C)*100+CUTOFF_MIN;
     
     filter.setQfactor(Q);
-    filter.setCutoff(fc+lfo.get_LFO_value*depth);
+    filter.setCutoff(fc+lfo.get_LFO_value()*depth);
     
     lfo.setFrequency(rate);
       
@@ -83,7 +83,7 @@ public:
 
 
             float dry = buf[i]*(1-1);
-            float wet = doFiltering((int16_t)buf[i]);;
+            float wet = filter.doFiltering((int16_t)buf[i]);;
             buf[i] = dry+wet;
         }
     }
