@@ -99,10 +99,10 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 				if (isPhaseUnderWaveshapeLevel() != waveShapeStatusState)
 				{
 					//LFO_value = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-					LFO_value = (randomNumber % 100) / 100;
+					LFO_value = (randomNumber) / 100;
 				}
-				//toggle waveShape status state
-				waveShapeStatusState = !waveShapeStatusState;
+                //update waveShape status state
+                waveShapeStatusState = isPhaseUnderWaveshapeLevel();
 				break;
 			}
 				
