@@ -27,7 +27,7 @@ public:
 	void setQfactor(float value);
 	void initFilter(float fs);
 	int16_t doFiltering(int16_t x);
-}
+};
 
 //Initialize filter
 void StateVariableFilter::initFilter(float fs)
@@ -48,9 +48,9 @@ void StateVariableFilter::setQfactor(float value)
 }
 
 // Set cut off frequency
-void StateVariableFilter::setCutoff(uint16_t freq)
+void StateVariableFilter::setCutoff(float freq)
 {
-	fc = freq;
+	fc = (uint16_t)freq;
 }
 
 // SVF pass
