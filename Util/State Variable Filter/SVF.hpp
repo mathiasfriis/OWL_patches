@@ -19,6 +19,7 @@ private:
 	float lpf = 0;
 	float Q = 0;
 	float q = 0;
+	float f = 0;
 	uint16_t fc = 0;
 	float sampleRate;
 	SVF_FILTER_TYPE type = LOW_PASS;
@@ -76,9 +77,9 @@ int16_t StateVariableFilter::doFiltering(int16_t x)
     SVFpass(x);
 
     // Return selected filter outputs
-    if (type == LOW_PASS) return lpf
-    if (type == HIGH_PASS) return hpf
-    if (type == BAND_PASS) return bpf
+    if (type == LOW_PASS) return lpf;
+    if (type == HIGH_PASS) return hpf;
+    if (type == BAND_PASS) return bpf;
     return 0;
 }
 
