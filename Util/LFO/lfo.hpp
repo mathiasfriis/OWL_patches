@@ -2,8 +2,6 @@
 #define __LFO__
 
 #include <math.h>
-#include <cstdlib>
-#include <ctime>
 
 #define myPI 3.14159265
 
