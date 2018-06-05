@@ -2,7 +2,7 @@
 #define __LFO__
 
 #include <math.h>
-
+//
 #define myPI 3.14159265
 
 enum lfo_mode{sine,square,triangle,sampleHold};
