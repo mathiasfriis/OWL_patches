@@ -14,7 +14,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 		bool waveShapeStatusState = false;
 	    lfo_mode mode;
 		bool isPhaseUnderWaveshapeLevel();
-		int randomNumber = 0;
+		int randomNumber = 100;
 	public:
 	    void initLFO();
 	    void setSampleRate(float sampleRate);
