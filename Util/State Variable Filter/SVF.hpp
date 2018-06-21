@@ -58,15 +58,14 @@ void StateVariableFilter::setCutoff(float freq)
 }
 
 // SVF pass
-void StateVariableFilter::SVFpass(int16_t x)
+void StateVariableFilter::SVFpass(float x)
 {
     hpf = q * x - lpf - q * bpf;
     bpf = hpf * f + bpf;
     lpf = bpf * f + lpf;
 }
-
 // State variable filter
-int16_t StateVariableFilter::doFiltering(int16_t x)
+float StateVariableFilter::doFiltering(float x)
 {
     float q = 1 / Q;
     float f = sin((3.141593 * fc)/sampleRate);
