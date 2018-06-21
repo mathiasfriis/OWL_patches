@@ -20,7 +20,7 @@ private:
 	float Q = 0;
 	float q = 0;
 	float f = 0;
-	uint16_t fc = 0;
+	float fc = 0;
 	float sampleRate;
 	SVF_FILTER_TYPE type = LOW_PASS;
     void SVFpass(float);
@@ -54,7 +54,7 @@ void StateVariableFilter::setQfactor(float value)
 // Set cut off frequency
 void StateVariableFilter::setCutoff(float freq)
 {
-	fc = (uint16_t)freq;
+	fc = freq;
 }
 
 // SVF pass
