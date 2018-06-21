@@ -84,7 +84,7 @@ public:
 
 
             float dry = buf[i]*(1-0.9);
-            float wet = (float)filter.doFiltering((int16_t)buf[i]);;
+            float wet = filter.doFiltering(buf[i])*0.9;
             buf[i] = dry+wet;
         }
     }
