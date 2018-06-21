@@ -56,8 +56,8 @@ public:
     lfo.setSampleRate(fs);
     filter.initFilter(fs);
 
-    lfo.setWaveshape(sine);
-    filter.setFilterType(BAND_PASS);
+    //lfo.setWaveshape(sine);
+    //filter.setFilterType(BAND_PASS);
   }
  
 
@@ -70,16 +70,16 @@ public:
     Q = getParameterValue(PARAMETER_C)/100*Q_SCALER; // so we keep a -3dB summation of the delayed signal
     fc= getParameterValue(PARAMETER_D)*CUTOFF_SCALER/100+CUTOFF_MIN;
     
-    filter.setQfactor(10);
+    filter.setQfactor(1);
     //filter.setCutoff(fc+lfo.get_LFO_value()*depth);
-    filter.setCutoff(fc);
+    filter.setCutoff(3000);
     
     lfo.setFrequency(rate);
       
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         for (int i = 0 ; i < size; i++) {
             float* buf = buffer.getSamples(ch);
-            lfo.updateLFO_value();
+            //lfo.updateLFO_value();
 
             float dry = buf[i]*(1-1);
             float wet = filter.doFiltering(buf[i])*1;
