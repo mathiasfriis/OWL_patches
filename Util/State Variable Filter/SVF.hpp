@@ -76,8 +76,8 @@ float StateVariableFilter::doFiltering(float x)
 {
     q = 1 / Q;
     //f = sin((3.141593 * fc/2));
-    f=2*sin(3.141593*fc/sampleRate);
-
+    //f=2*sin(3.141593*fc/sampleRate);
+    f=2*(3.141593*fc/sampleRate);
     // Run two passes
     SVFpass(x);
     SVFpass(x);
