@@ -72,7 +72,7 @@ public:
     Q = getParameterValue(PARAMETER_C)/100*Q_SCALER; // so we keep a -3dB summation of the delayed signal
     //fc= getParameterValue(PARAMETER_D)*CUTOFF_SCALER/100+CUTOFF_MIN;
     
-    filter.setQfactor(1);
+    filter.setQfactor(30);
     //filter.setCutoff(fc+lfo.get_LFO_value()*depth);
     //filter.setCutoff(3000);
     
