@@ -59,7 +59,7 @@ public:
     fc=0;
 
     //lfo.setWaveshape(sine);
-    //filter.setFilterType(BAND_PASS);
+    filter.setFilterType(BAND_PASS);
   }
  
 
