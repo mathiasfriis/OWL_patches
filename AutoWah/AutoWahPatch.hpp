@@ -54,8 +54,8 @@ public:
     lfo.initLFO();
     float fs = getSampleRate();
     lfo.setSampleRate(fs);
-    //filter.initFilter(fs);
-    filter.initFilter(44100);
+    filter.initFilter(fs);
+    //filter.initFilter(44100);
     fc=0;
 
     //lfo.setWaveshape(sine);
