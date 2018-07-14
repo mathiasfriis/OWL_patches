@@ -60,7 +60,7 @@ public:
 
     lfo.setLFO_mode(triangle);
     lfo.setWaveshape(95);
-    filter.setFilterType(LOW_PASS);
+    filter.setFilterType(BAND_PASS);
   }
  
 
