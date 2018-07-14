@@ -32,7 +32,7 @@
 #define FLANGER_BUFFER_SIZE 1024
 #define CUTOFF_MIN 0
 #define CUTOFF_SCALER 8000
-#define Q_SCALER 30
+#define Q_SCALER 10
 #define RATE_SCALER 30
 #define DEPTH_SCALER 8000
 
@@ -59,7 +59,7 @@ public:
     fc=0;
 
     lfo.setLFO_mode(triangle);
-    lfo.setWaveshape(100);
+    lfo.setWaveshape(0);
     filter.setFilterType(BAND_PASS);
   }
  
