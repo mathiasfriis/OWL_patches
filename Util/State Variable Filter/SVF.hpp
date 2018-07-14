@@ -81,7 +81,7 @@ float StateVariableFilter::doFiltering(float x)
     if (type == BAND_PASS) return bpf;
     else
     {
-    	return x;
+    	return bpf;
     }
     return 0;
 }
