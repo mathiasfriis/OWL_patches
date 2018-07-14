@@ -33,7 +33,7 @@
 #define CUTOFF_MIN 0
 #define CUTOFF_SCALER 8000
 #define Q_SCALER 10
-#define RATE_SCALER 30
+#define RATE_SCALER 10
 #define DEPTH_SCALER 8000
 
 class AutoWahPatch : public Patch {
