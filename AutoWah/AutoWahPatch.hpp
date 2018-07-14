@@ -90,7 +90,7 @@ public:
             float* buf = buffer.getSamples(ch);
             //lfo.updateLFO_value();
 
-            float dry = buf[i]*(1-1);
+            float dry = buf[i]*(1-0.9);
             float wet = filter.doFiltering(buf[i])*1;
             buf[i] = dry+wet;
         }
