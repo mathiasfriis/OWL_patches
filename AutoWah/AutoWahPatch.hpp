@@ -83,7 +83,7 @@ public:
 
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {
-        buttonState=isButtonPressed(PUSHBUTTON)
+        buttonState=isButtonPressed(PUSHBUTTON);
         if(buttonState==false)
         {
             switch(FilterType)
