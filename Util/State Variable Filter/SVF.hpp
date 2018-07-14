@@ -69,7 +69,7 @@ void StateVariableFilter::SVFpass(float x)
 {
     lpf = bpf * f + lpf;
     hpf = q * x - lpf - q * bpf;
-    bpf = hpf * f + bpf;
+    bpf = bpf * f + hpf;
 }
 // State variable filter
 float StateVariableFilter::doFiltering(float x)
