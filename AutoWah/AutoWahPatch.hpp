@@ -42,6 +42,8 @@ private:
     lfo_mode mode;
     LFO lfo;
     StateVariableFilter filter;
+    bool buttonState;
+    SVF_FILTER_TYPE FilterType=BAND_PASS;
 
     
 public:
@@ -78,6 +80,27 @@ public:
     //filter.setCutoff(3000);
     
     lfo.setFrequency(rate);
+
+    if(buttonState!=isButtonPressed(PUSHBUTTON))
+    {
+        buttonState=isButtonPressed(PUSHBUTTON)
+        if(buttonState==false)
+        {
+            switch(FilterType)
+            {
+                case BAND_PASS:
+                    FilterType=LOW_PASS;
+                    break;
+                case LOW_PASS:
+                    FilterType=HIGH_PASS;
+                    break;
+                case HIGH_PASS:
+                    FilterType=BAND_PASS;
+                    break;
+            }
+        }
+        filter.setFilterType(FilterType);
+    }
 
    
     //filter.setCutoff(fc);
