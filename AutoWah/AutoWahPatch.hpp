@@ -32,7 +32,7 @@
 #define FLANGER_BUFFER_SIZE 1024
 #define CUTOFF_MIN 0
 #define CUTOFF_SCALER 8000
-#define Q_SCALER 30
+#define Q_SCALER 100
 #define RATE_SCALER 100
 #define DEPTH_SCALER 8000
 
@@ -68,11 +68,27 @@ public:
     unsigned int delaySamples;
       
     rate     = (getParameterValue(PARAMETER_A)*RATE_SCALER);
+    float modeSel=getParameterValue(PARAMETER_A);
+    if(modeSel<33)
+    {
+        filter.setFilterType(LOW_PASS);
+    }
+    else
+    {
+        if(modeSel<66)
+        {
+            filter.setFilterType(BAND_PASS);
+        }
+        else
+        {
+            filter.setFilterType(HIGH_PASS);
+        }
+    }
     depth    = getParameterValue(PARAMETER_B)*DEPTH_SCALER;
     Q = getParameterValue(PARAMETER_C)/100*Q_SCALER; // so we keep a -3dB summation of the delayed signal
     fc= getParameterValue(PARAMETER_D)*CUTOFF_SCALER/100+CUTOFF_MIN;
     
-    filter.setQfactor(30);
+    filter.setQfactor(Q);
     //filter.setCutoff(fc+lfo.get_LFO_value()*depth);
     //filter.setCutoff(3000);
     
