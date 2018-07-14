@@ -14,15 +14,15 @@ typedef enum
 class StateVariableFilter
 {
 private:
-	float hpf = 0;
-	float bpf = 0;
-	float lpf = 0;
-	float Q = 0;
-	float q = 0;
-	float f = 0;
-	float fc = 0;
-	float sampleRate = 0;
-	SVF_FILTER_TYPE type = BAND_PASS;
+	float hpf;
+	float bpf;
+	float lpf;
+	float Q;
+	float q;
+	float f;
+	float fc;
+	float sampleRate;
+	SVF_FILTER_TYPE type;
     void SVFpass(float);
 
 public:
