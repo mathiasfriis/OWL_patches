@@ -80,7 +80,7 @@ public:
     //filter.setCutoff(3000);
     
     lfo.setFrequency(rate);
-/*
+
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {
         buttonState=isButtonPressed(PUSHBUTTON);
@@ -101,7 +101,7 @@ public:
         }
         filter.setFilterType(FilterType);
     }
-*/
+
    
     //filter.setCutoff(fc);
 
