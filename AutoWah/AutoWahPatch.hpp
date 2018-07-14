@@ -79,14 +79,14 @@ public:
     
     lfo.setFrequency(rate);
 
-    fc=fc_offset+lfo.get_LFO_value()*depth;
-    filter.setCutoff(fc);
+   
     //filter.setCutoff(fc);
 
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         for (int i = 0 ; i < size; i++) {
             lfo.updateLFO_value();
-            
+            fc=fc_offset+lfo.get_LFO_value()*depth;
+            filter.setCutoff(fc);
             
             float* buf = buffer.getSamples(ch);
             //lfo.updateLFO_value();
