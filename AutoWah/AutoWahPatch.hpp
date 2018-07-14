@@ -33,12 +33,12 @@
 #define CUTOFF_MIN 1000
 #define CUTOFF_SCALER 3000
 #define Q_SCALER 30
-#define RATE_SCALER 100
+#define RATE_SCALER 30
 #define DEPTH_SCALER 1000
 
 class AutoWahPatch : public Patch {
 private:
-    float rate, depth, Q, fc;
+    float rate, depth, Q, fc, fc_offset;
     lfo_mode mode;
     LFO lfo;
     StateVariableFilter filter;
@@ -68,25 +68,9 @@ public:
     unsigned int delaySamples;
       
     rate     = (getParameterValue(PARAMETER_A)*RATE_SCALER);
-    float modeSel=getParameterValue(PARAMETER_A)*100;
-    if(modeSel<33)
-    {
-        filter.setFilterType(LOW_PASS);
-    }
-    else
-    {
-        if(modeSel<66)
-        {
-            filter.setFilterType(BAND_PASS);
-        }
-        else
-        {
-            filter.setFilterType(HIGH_PASS);
-        }
-    }
     depth    = getParameterValue(PARAMETER_B)*DEPTH_SCALER;
     Q = getParameterValue(PARAMETER_C)*Q_SCALER; // so we keep a -3dB summation of the delayed signal
-    fc= getParameterValue(PARAMETER_D)*CUTOFF_SCALER+CUTOFF_MIN;
+    fc_offset= getParameterValue(PARAMETER_D)*CUTOFF_SCALER+CUTOFF_MIN;
     
     filter.setQfactor(Q);
     
@@ -98,16 +82,16 @@ public:
 
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         for (int i = 0 ; i < size; i++) {
-
             lfo.updateLFO_value();
-            filter.setCutoff(fc+lfo.get_LFO_value()*depth);
+            fc=fc_offset+lfo.get_LFO_value()*depth;
+            filter.setCutoff(fc);
             
             float* buf = buffer.getSamples(ch);
             //lfo.updateLFO_value();
 
             float dry = buf[i]*(1-1);
             //float wet = buf[i]*fc/10000;
-            float wet = filter.doFiltering((float)buf[i])*1;
+            float wet = filter.doFiltering(buf[i])*1;
             buf[i] = dry+wet;
         }
     }
