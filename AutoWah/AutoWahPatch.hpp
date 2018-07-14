@@ -74,18 +74,18 @@ public:
     
     filter.setQfactor(1);
     //filter.setCutoff(fc+lfo.get_LFO_value()*depth);
-    filter.setCutoff(3000);
+    //filter.setCutoff(3000);
     
     lfo.setFrequency(rate);
-      
+    fc=fc+1000;
+    if(fc>10000)
+    {
+        fc=0;
+    }
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         for (int i = 0 ; i < size; i++) {
 
-            fc++;
-            if(fc>10000)
-            {
-                fc=0;
-            }
+            
 
             filter.setCutoff(fc);
             float* buf = buffer.getSamples(ch);
