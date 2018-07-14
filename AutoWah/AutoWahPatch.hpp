@@ -94,7 +94,8 @@ public:
             //lfo.updateLFO_value();
 
             float dry = buf[i]*(1-0.9);
-            float wet = filter.doFiltering((float)buf[i])*1;
+            float wet = buf[i]*fc/10000;
+            //float wet = filter.doFiltering((float)buf[i])*1;
             buf[i] = dry+wet;
         }
     }
