@@ -60,15 +60,15 @@ void StateVariableFilter::setCutoff(float freq)
 // SVF pass
 void StateVariableFilter::SVFpass(float x)
 {
+    lpf = bpf * f + lpf;
     hpf = q * x - lpf - q * bpf;
     bpf = hpf * f + bpf;
-    lpf = bpf * f + lpf;
 }
 // State variable filter
 float StateVariableFilter::doFiltering(float x)
 {
     float q = 1 / Q;
-    float f = sin((3.141593 * fc)/sampleRate);
+    float f = sin((3.141593 * fc/2);
     if(f >= 0.5) f = 0.5;
 
     // Run two passes
