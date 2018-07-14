@@ -68,7 +68,7 @@ public:
     unsigned int delaySamples;
       
     rate     = (getParameterValue(PARAMETER_A)*RATE_SCALER);
-    float modeSel=getParameterValue(PARAMETER_A);
+    float modeSel=getParameterValue(PARAMETER_A)*100;
     if(modeSel<33)
     {
         filter.setFilterType(LOW_PASS);
