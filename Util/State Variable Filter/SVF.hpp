@@ -69,7 +69,7 @@ float StateVariableFilter::doFiltering(float x)
 {
 	fc=5000;
     //q = 1 / Q;
-    q=0.99;
+    q=0.5;
     f = sin((3.141593 * fc/2));
     //f=2*sin(3.141593*fc/sampleRate);
 
