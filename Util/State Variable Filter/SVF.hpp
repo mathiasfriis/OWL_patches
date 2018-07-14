@@ -77,7 +77,7 @@ float StateVariableFilter::doFiltering(float x)
 
     // Run two passes
     SVFpass(x);
-    SVFpass(x);
+    //SVFpass(x);
 
     // Return selected filter outputs
     return bpf;
