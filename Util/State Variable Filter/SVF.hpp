@@ -62,6 +62,7 @@ void StateVariableFilter::setQfactor(float value)
 void StateVariableFilter::setCutoff(float freq)
 {
 	fc = freq;
+	/*
 	if(fc<0)
 	{
 		fc=0;
@@ -70,6 +71,7 @@ void StateVariableFilter::setCutoff(float freq)
 	{
 		fc=sampleRate/2;
 	}
+	*/
 }
 
 // SVF pass
