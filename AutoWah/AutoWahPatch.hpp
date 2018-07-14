@@ -55,6 +55,7 @@ public:
     float fs = getSampleRate();
     lfo.setSampleRate(fs);
     filter.initFilter(fs);
+    fc=0;
 
     //lfo.setWaveshape(sine);
     //filter.setFilterType(BAND_PASS);
@@ -68,7 +69,7 @@ public:
     rate     = (getParameterValue(PARAMETER_A)*RATE_SCALER);
     depth    = getParameterValue(PARAMETER_B)*DEPTH_SCALER;
     Q = getParameterValue(PARAMETER_C)/100*Q_SCALER; // so we keep a -3dB summation of the delayed signal
-    fc= getParameterValue(PARAMETER_D)*CUTOFF_SCALER/100+CUTOFF_MIN;
+    //fc= getParameterValue(PARAMETER_D)*CUTOFF_SCALER/100+CUTOFF_MIN;
     
     filter.setQfactor(1);
     //filter.setCutoff(fc+lfo.get_LFO_value()*depth);
