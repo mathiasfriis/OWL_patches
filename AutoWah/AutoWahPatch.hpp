@@ -77,8 +77,6 @@ public:
     
     filter.setQfactor(Q);
     
-    //filter.setCutoff(3000);
-    
     lfo.setFrequency(rate);
 
     if(buttonState!=isButtonPressed(PUSHBUTTON))
