@@ -82,17 +82,19 @@ public:
     {
         fc=0;
     }
+    filter.setCutoff(fc);
+
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         for (int i = 0 ; i < size; i++) {
 
             
 
-            filter.setCutoff(fc);
+            
             float* buf = buffer.getSamples(ch);
             //lfo.updateLFO_value();
 
             float dry = buf[i]*(1-0.9);
-            float wet = filter.doFiltering(buf[i])*1;
+            float wet = filter.doFiltering((float)buf[i])*1;
             buf[i] = dry+wet;
         }
     }
