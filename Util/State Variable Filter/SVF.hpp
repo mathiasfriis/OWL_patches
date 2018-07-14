@@ -84,7 +84,7 @@ float StateVariableFilter::doFiltering(float x)
     //SVFpass(x);
 
     // Return selected filter outputs
-    return bpf;
+    return hpf;
     if (type == LOW_PASS) return lpf;
     if (type == HIGH_PASS) return hpf;
     if (type == BAND_PASS) return bpf;
