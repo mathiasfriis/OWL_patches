@@ -70,7 +70,7 @@ void StateVariableFilter::SVFpass(float x)
 // State variable filter
 float StateVariableFilter::doFiltering(float x)
 {
-	fc=10000;
+	fc=3000;
     //q = 1 / Q;
     q=1;
     //f = sin((3.141593 * fc/2));
