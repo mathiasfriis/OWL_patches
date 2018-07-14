@@ -30,11 +30,11 @@
 #include "SVF.hpp"
 
 #define FLANGER_BUFFER_SIZE 1024
-#define CUTOFF_MIN 100
-#define CUTOFF_SCALER 3000
+#define CUTOFF_MIN 0
+#define CUTOFF_SCALER 8000
 #define Q_SCALER 30
 #define RATE_SCALER 30
-#define DEPTH_SCALER 100
+#define DEPTH_SCALER 8000
 
 class AutoWahPatch : public Patch {
 private:
@@ -59,8 +59,8 @@ public:
     fc=0;
 
     lfo.setLFO_mode(triangle);
-    lfo.setWaveshape(50);
-    filter.setFilterType(LOW_PASS);
+    lfo.setWaveshape(100);
+    filter.setFilterType(BAND_PASS);
   }
  
 
@@ -86,6 +86,10 @@ public:
         for (int i = 0 ; i < size; i++) {
             lfo.updateLFO_value();
             fc=fc_offset+lfo.get_LFO_value()*depth;
+            if(fc<0)
+            {
+                fc=0;
+            }
             filter.setCutoff(fc);
             
             float* buf = buffer.getSamples(ch);
