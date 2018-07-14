@@ -89,7 +89,7 @@ public:
     fc= getParameterValue(PARAMETER_D)*CUTOFF_SCALER+CUTOFF_MIN;
     
     filter.setQfactor(Q);
-    filter.setCutoff(fc+lfo.get_LFO_value()*depth);
+    
     //filter.setCutoff(3000);
     
     lfo.setFrequency(rate);
@@ -99,8 +99,8 @@ public:
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         for (int i = 0 ; i < size; i++) {
 
-            
-
+            lfo.updateLFO_value();
+            filter.setCutoff(fc+lfo.get_LFO_value()*depth);
             
             float* buf = buffer.getSamples(ch);
             //lfo.updateLFO_value();
