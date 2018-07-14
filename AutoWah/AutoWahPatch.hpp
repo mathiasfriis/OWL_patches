@@ -58,7 +58,8 @@ public:
     //filter.initFilter(44100);
     fc=0;
 
-    lfo.setWaveshape(sine);
+    lfo.setMode(triangle);
+    lfo.setWaveshape(50);
     filter.setFilterType(BAND_PASS);
   }
  
