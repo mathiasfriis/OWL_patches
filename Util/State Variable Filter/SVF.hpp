@@ -40,6 +40,10 @@ void StateVariableFilter::initFilter(float fs)
 	hpf=0;
 	lpf=0;
 	bpf=0;
+	fc=0;
+	q=0;
+	Q=0;
+	f=0;
 }
 
 // Set filter type
@@ -71,7 +75,7 @@ void StateVariableFilter::SVFpass(float x)
 float StateVariableFilter::doFiltering(float x)
 {
     //q = 1 / Q;
-    q=5;
+    q=100;
     //f = sin((3.141593 * fc/2));
     f=2*sin(3.141593*fc/sampleRate);
 
