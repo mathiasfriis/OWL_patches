@@ -77,7 +77,7 @@ public:
     //filter.setCutoff(3000);
     
     lfo.setFrequency(rate);
-    fc=fc+1000;
+    fc=fc++;
     if(fc>10000)
     {
         fc=0;
