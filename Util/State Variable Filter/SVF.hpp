@@ -21,8 +21,8 @@ private:
 	float q = 0;
 	float f = 0;
 	float fc = 0;
-	float sampleRate;
-	SVF_FILTER_TYPE type = LOW_PASS;
+	float sampleRate = 0;
+	SVF_FILTER_TYPE type = BAND_PASS;
     void SVFpass(float);
 
 public:
