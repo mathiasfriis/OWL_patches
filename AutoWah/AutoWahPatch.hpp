@@ -58,7 +58,7 @@ public:
     //filter.initFilter(44100);
     fc=0;
 
-    //lfo.setWaveshape(sine);
+    lfo.setWaveshape(sine);
     filter.setFilterType(BAND_PASS);
   }
  
@@ -89,12 +89,12 @@ public:
     fc= getParameterValue(PARAMETER_D)*CUTOFF_SCALER+CUTOFF_MIN;
     
     filter.setQfactor(Q);
-    //filter.setCutoff(fc+lfo.get_LFO_value()*depth);
+    filter.setCutoff(fc+lfo.get_LFO_value()*depth);
     //filter.setCutoff(3000);
     
     lfo.setFrequency(rate);
 
-    filter.setCutoff(fc);
+    //filter.setCutoff(fc);
 
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         for (int i = 0 ; i < size; i++) {
