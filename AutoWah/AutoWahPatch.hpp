@@ -30,11 +30,11 @@
 #include "SVF.hpp"
 
 #define FLANGER_BUFFER_SIZE 1024
-#define CUTOFF_MIN 1000
+#define CUTOFF_MIN 100
 #define CUTOFF_SCALER 3000
 #define Q_SCALER 30
 #define RATE_SCALER 30
-#define DEPTH_SCALER 1000
+#define DEPTH_SCALER 100
 
 class AutoWahPatch : public Patch {
 private:
