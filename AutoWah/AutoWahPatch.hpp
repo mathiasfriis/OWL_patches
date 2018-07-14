@@ -31,7 +31,7 @@
 
 #define FLANGER_BUFFER_SIZE 1024
 #define CUTOFF_MIN 0
-#define CUTOFF_SCALER 8000
+#define CUTOFF_SCALER 2000
 #define Q_SCALER 10
 #define RATE_SCALER 10
 #define DEPTH_SCALER 8000
@@ -61,7 +61,7 @@ public:
     fc=0;
 
     lfo.setLFO_mode(triangle);
-    lfo.setWaveshape(95);
+    lfo.setWaveshape(50);
     filter.setFilterType(LOW_PASS);
   }
  
@@ -93,6 +93,9 @@ public:
                     FilterType=HIGH_PASS;
                     break;
                 case HIGH_PASS:
+                    FilterType=NOTCH;
+                    break;
+                case NOTCH:
                     FilterType=BAND_PASS;
                     break;
             }

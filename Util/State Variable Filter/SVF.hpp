@@ -7,7 +7,8 @@ typedef enum
 {
 	LOW_PASS = 0,
 	BAND_PASS = 1,
-	HIGH_PASS = 2
+	HIGH_PASS = 2,
+	NOTCH = 3
 } SVF_FILTER_TYPE;
 
 
@@ -17,6 +18,7 @@ private:
 	float hpf;
 	float bpf;
 	float lpf;
+	float notch;
 	float Q;
 	float q;
 	float f;
@@ -96,6 +98,7 @@ float StateVariableFilter::doFiltering(float x)
     if (type == LOW_PASS) return lpf;
     if (type == HIGH_PASS) return hpf;
     if (type == BAND_PASS) return bpf;
+    if (type == NOTCH) return x-bpf;
     return 0;
 }
 
