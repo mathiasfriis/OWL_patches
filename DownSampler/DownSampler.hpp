@@ -41,7 +41,7 @@ private:
     float fs_system;
     float fs_offset;
     bool buttonState;
-    downSampler downSampler;
+    downSampler decimator;
 
 public:
   DownSamplerPatch(){
@@ -54,8 +54,8 @@ public:
    
     fs_system = getSampleRate();
 
-    downSampler.initDownSampler();
-    downSampler.setInputSampleRate(fs_system);
+    decimator.initDownSampler();
+    decimator.setInputSampleRate(fs_system);
    
     //lfo.initLFO();
     //lfo.setSampleRate(fs);
@@ -68,7 +68,7 @@ public:
     int size = buffer.getSize();
       
       fs_offset = getParameterValue(PARAMETER_D)*fs_system;
-      downSampler.setOutputSampleRate(fs_offset);
+      decimator.setOutputSampleRate(fs_offset);
 
   //lfo.setFrequency(rate);
 
@@ -82,7 +82,7 @@ public:
         }
     }
 
-    downSampler.downSample(buffer, buffer);
+    decimator.downSample(buffer, buffer);
 
   }
     
