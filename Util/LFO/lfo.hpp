@@ -6,7 +6,6 @@
 #define myPI 3.14159265
 #define UINT32MAX 4294967296
 
-static unsigned int z1 = 12345, z2 = 12345, z3 = 12345, z4 = 12345;
 enum lfo_mode{sine,square,triangle,sampleHold};
 
 	class LFO
@@ -18,6 +17,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 		bool isPhaseUnderWaveshapeLevel();
 		int randomNumber = 100;
         int cnt=0;
+        unsigned int lfsr113_Bits();
 	public:
 	    void initLFO();
 	    void setSampleRate(float sampleRate);
@@ -25,7 +25,6 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 	    void setFrequency(float freq);
         void setWaveshape(float Waveshape);
 	    void updateLFO_value();
-		void feedRandomNumber(int r);
 	    float get_LFO_value();
 	};
 
@@ -53,11 +52,6 @@ enum lfo_mode{sine,square,triangle,sampleHold};
     {
         waveshape=ws;
     }
-
-	void LFO::feedRandomNumber(int r)
-	{
-		randomNumber = r % 100;
-	}
 
     void LFO::updateLFO_value()
     {
@@ -105,22 +99,10 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 				// Triggers at waveShape-level and at 0 ('ish)
 				if (isPhaseUnderWaveshapeLevel() != waveShapeStatusState)
                 {
-                    unsigned int b;
-                    b  = ((z1 << 6) ^ z1) >> 13;
-                    z1 = ((z1 & 4294967294U) << 18) ^ b;
-                    b  = ((z2 << 2) ^ z2) >> 27; 
-                    z2 = ((z2 & 4294967288U) << 2) ^ b;
-                    b  = ((z3 << 13) ^ z3) >> 21;
-                    z3 = ((z3 & 4294967280U) << 7) ^ b;
-                    b  = ((z4 << 3) ^ z4) >> 12;
-                    z4 = ((z4 & 4294967168U) << 13) ^ b;
-                    
-                    unsigned int randomInt=(z1 ^ z2 ^ z3 ^ z4); //get random number between -2^31 and 2^31.
-
-                    //Scale random number to 0:1;
-                    //randomNumber=(float)randomInt/UINT32MAX;
+                   
+                    unsigned int randomInt = lfsr113_Bits();
                     randomNumber = *reinterpret_cast<float*>(&randomInt);
-                    randomNumber/=UINT32MAX;
+                    randomNumber=randomNumber/UINT32MAX;
     				
                     LFO_value = randomNumber;
     				}
@@ -149,5 +131,21 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 			return false;
 		}
 	}
+
+    //returns a random number between 0:2^32
+    unsigned int LFO::lfsr113_Bits()
+    {
+       static unsigned int z1 = 12345, z2 = 12345, z3 = 12345, z4 = 12345;
+       unsigned int b;
+       b  = ((z1 << 6) ^ z1) >> 13;
+       z1 = ((z1 & 4294967294U) << 18) ^ b;
+       b  = ((z2 << 2) ^ z2) >> 27; 
+       z2 = ((z2 & 4294967288U) << 2) ^ b;
+       b  = ((z3 << 13) ^ z3) >> 21;
+       z3 = ((z3 & 4294967280U) << 7) ^ b;
+       b  = ((z4 << 3) ^ z4) >> 12;
+       z4 = ((z4 & 4294967168U) << 13) ^ b;
+       return (z1 ^ z2 ^ z3 ^ z4);
+    }
 
 #endif
