@@ -101,8 +101,8 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                 {
                    
                     unsigned int randomInt = lfsr113_Bits();
-                    randomNumber = *reinterpret_cast<float*>(&randomInt);
-                    //randomNumber=randomNumber/UINT32MAX;
+                    randomNumber = (float)randomInt;
+                    randomNumber=randomNumber/UINT32MAX;
     				
                     LFO_value = randomNumber;
     				}
