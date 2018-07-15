@@ -17,6 +17,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 	    lfo_mode mode;
 		bool isPhaseUnderWaveshapeLevel();
 		int randomNumber = 100;
+        int cnt=0;
 	public:
 	    void initLFO();
 	    void setSampleRate(float sampleRate);
@@ -60,6 +61,11 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 
     void LFO::updateLFO_value()
     {
+        cnt++;
+        if(cnt==48000)
+        {
+            cnt=0;
+        }
         phase=(phase+2*myPI/fs*frequency);
 		phase = std::fmod(phase,(float)(2 * myPI));
         switch(mode)
@@ -94,12 +100,12 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 				break;	
 			}
 				
-
 			case sampleHold:
 			{
 				// Triggers at waveShape-level and at 0 ('ish)
-				if (isPhaseUnderWaveshapeLevel() != waveShapeStatusState)
-				{
+				//if (isPhaseUnderWaveshapeLevel() != waveShapeStatusState)
+				if(cnt==0)
+                {
                     unsigned int b;
                     b  = ((z1 << 6) ^ z1) >> 13;
                     z1 = ((z1 & 4294967294U) << 18) ^ b;
