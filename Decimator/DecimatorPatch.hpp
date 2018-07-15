@@ -36,7 +36,7 @@
 #define RATE_SCALER 10
 #define DEPTH_SCALER 8000
 
-class DownSamplerPatch : public Patch {
+class DecimatorPatch : public Patch {
 private:
     float fs_system;
     float fs_offset;
@@ -44,7 +44,7 @@ private:
     downSampler decimator;
 
 public:
-  DownSamplerPatch(){
+  DecimatorPatch(){
     AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
 
     //registerParameter(PARAMETER_A, "Rate");
