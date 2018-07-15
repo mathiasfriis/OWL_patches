@@ -72,7 +72,7 @@ public:
       
       LFO_rate=getParameterValue(PARAMETER_A)*RATE_SCALER;
       LFO_depth=getParameterValue(PARAMETER_B)*DEPTH_SCALER;
-      LFO_waveshape=getParameterValue/PARAMETER_C)*100;
+      LFO_waveshape=getParameterValue(PARAMETER_C)*100;
       
       lfo.setFrequency(LFO_rate);
       lfo.setWaveshape(LFO_waveshape);
