@@ -14,7 +14,7 @@ private:
 public:
 	void initDownSampler();
 
-	void downSample(AudioBuffer &buffer);
+	void downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer);
 	void setInputSampleRate(float fs);
 	void setOutputSampleRate(float fs);
 };
