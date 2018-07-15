@@ -33,23 +33,26 @@
 #define CUTOFF_MIN 0
 #define CUTOFF_SCALER 2000
 #define Q_SCALER 10
-#define RATE_SCALER 10
+#define RATE_SCALER 20
 #define DEPTH_SCALER 8000
 
 class DecimatorPatch : public Patch {
 private:
     float fs_system;
     float fs_offset;
+    float LFO_rate, LFO_depth, LFO_waveshape;
     bool buttonState;
     downSampler decimator;
+    LFO lfo;
+    lfo_mode LFO_MODE = sine;
 
 public:
   DecimatorPatch(){
     AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
 
-    //registerParameter(PARAMETER_A, "Rate");
-    //registerParameter(PARAMETER_B, "Depth");
-    //registerParameter(PARAMETER_C, "Q");
+    registerParameter(PARAMETER_A, "LFO Rate");
+    registerParameter(PARAMETER_B, "LFO Depth");
+    registerParameter(PARAMETER_C, "LFO Waveshape");
     registerParameter(PARAMETER_D, "Sample Freq Offset");
    
     fs_system = getSampleRate();
@@ -57,18 +60,31 @@ public:
     decimator.initDownSampler();
     decimator.setInputSampleRate(fs_system);
    
-    //lfo.initLFO();
-    //lfo.setSampleRate(fs);
-    //lfo.setLFO_mode(triangle);
-    //lfo.setWaveshape(50);
+    lfo.initLFO();
+    lfo.setSampleRate(fs);
+    lfo.setLFO_mode(LFO_MODE);
+    lfo.setWaveshape(50);
   }
  
 
   void processAudio(AudioBuffer &buffer){
     int size = buffer.getSize();
       
-      fs_offset = getParameterValue(PARAMETER_D)*fs_system;
-      decimator.setOutputSampleRate(fs_offset);
+      LFO_rate=getParameterValue(PARAMETER_A)*RATE_SCALER;
+      LFO_depth=getParameterValue(PARAMETER_B)*DEPTH_SCALER;
+      LFO_waveshape=getParameterValue/PARAMETER_C)*100;
+      
+      lfo.setFrequency(LFO_rate);
+      lfo.setWaveshape(LFO_waveshape);
+
+      fs_offset = getParameterValue(PARAMETER_D)*fs_system/2;
+
+      decimator.setOutputSampleRate(fs_offset + lfo.get_LFO_value()*LFO_depth);
+
+      for(int i = size)
+      {
+        lfo.updateLFO_value();
+      }
 
   //lfo.setFrequency(rate);
 
@@ -78,7 +94,19 @@ public:
         if(buttonState==false)
         {
             //If button pressed
-            //Do nothing   
+            switch(LFO_MODE)
+            {
+              case sine:
+                LFO_MODE = square;
+                break;
+              case square:
+                LFO_MODE = triangle;
+                break;
+              case triangle:
+                LFO_MODE = sine;
+                break;
+            }
+            lfo.setLFO_mode(LFO_MODE);
         }
     }
 
