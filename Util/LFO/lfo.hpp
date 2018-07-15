@@ -119,7 +119,8 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 
                     //Scale random number to 0:1;
                     //randomNumber=(float)randomInt/UINT32MAX;
-                    randomNumber = *reinterpret_cast<float*>(&randomInt)
+                    randomNumber = *reinterpret_cast<float*>(&randomInt);
+                    randomNumber/=UINT32MAX;
     				
                     LFO_value = randomNumber;
     				}
