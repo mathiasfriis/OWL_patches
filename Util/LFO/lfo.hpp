@@ -105,6 +105,8 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                     randomNumber=randomNumber/(2^32);
     				
                     LFO_value = randomNumber;
+                    if(LFO_value<0) LFO_value=0;
+                    if(LFO_value>1) LFO_value=1;
     				}
                     //update waveShape status state
                     waveShapeStatusState = isPhaseUnderWaveshapeLevel();
