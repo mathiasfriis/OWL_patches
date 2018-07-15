@@ -61,7 +61,7 @@ public:
     decimator.setInputSampleRate(fs_system);
    
     lfo.initLFO();
-    lfo.setSampleRate(fs);
+    lfo.setSampleRate(fs_system);
     lfo.setLFO_mode(LFO_MODE);
     lfo.setWaveshape(50);
   }
