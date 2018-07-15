@@ -4,7 +4,9 @@
 #include <math.h>
 //
 #define myPI 3.14159265
+#define INT32MAX 2147483648
 
+static unsigned int z1 = 12345, z2 = 12345, z3 = 12345, z4 = 12345;
 enum lfo_mode{sine,square,triangle,sampleHold};
 
 	class LFO
@@ -95,15 +97,35 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 
 			case sampleHold:
 			{
+
+               
+
 				// Triggers at waveShape-level and at 0 ('ish)
 				if (isPhaseUnderWaveshapeLevel() != waveShapeStatusState)
 				{
-					//LFO_value = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-					LFO_value = (randomNumber) / 100;
-				}
-                //update waveShape status state
-                waveShapeStatusState = isPhaseUnderWaveshapeLevel();
-				break;
+                    unsigned int b;
+                    b  = ((z1 << 6) ^ z1) >> 13;
+                    z1 = ((z1 & 4294967294U) << 18) ^ b;
+                    b  = ((z2 << 2) ^ z2) >> 27; 
+                    z2 = ((z2 & 4294967288U) << 2) ^ b;
+                    b  = ((z3 << 13) ^ z3) >> 21;
+                    z3 = ((z3 & 4294967280U) << 7) ^ b;
+                    b  = ((z4 << 3) ^ z4) >> 12;
+                    z4 = ((z4 & 4294967168U) << 13) ^ b;
+
+                    randomNumber=(z1 ^ z2 ^ z3 ^ z4); //get random number between -2^31 and 2^31.
+                    
+                    //Get "absolute" value of random number.
+                    if(randomNumber<0)
+                    {
+                        randomNumber=-randomNumber;
+                    }
+                    //Scale random number to 0:1;
+                    randomNumber=randomNumber/INT32MAX;
+    					LFO_value = (randomNumber) / 100;
+    				}
+                    //update waveShape status state
+                    waveShapeStatusState = isPhaseUnderWaveshapeLevel();
 			}
 				
         }

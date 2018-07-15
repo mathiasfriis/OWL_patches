@@ -103,6 +103,9 @@ public:
                 LFO_MODE = triangle;
                 break;
               case triangle:
+                LFO_MODE = sampleHold;
+                break;
+              case sampleHold:
                 LFO_MODE = sine;
                 break;
             }
