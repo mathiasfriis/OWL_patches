@@ -81,7 +81,7 @@ public:
 
       decimator.setOutputSampleRate(fs_offset + lfo.get_LFO_value()*LFO_depth);
 
-      for(int i = size)
+      for(int i = 0 ; i < size; i++)
       {
         lfo.updateLFO_value();
       }
