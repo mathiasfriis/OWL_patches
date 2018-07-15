@@ -12,15 +12,14 @@ private:
 	int sampleRateDivider;
 
 public:
-	void initDownsampler();
-
-	void downSample(AudioBuffer &buffer);
+	void initDownSampler();
+	void downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer);
 	void setInputSampleRate(float fs);
 	void setOutputSampleRate(float fs);
 };
 
 
-void initDownsampler()
+void downSampler::initDownSampler()
 {
 	currentSample=0;
 	inputSampleRate=44100;
@@ -48,7 +47,7 @@ void downSampler::downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer
     }
 }
 
-void downSampler:: setInputSampleRate(float fs)
+void downSampler::setInputSampleRate(float fs)
 {
 	inputSampleRate=fs;
 }
