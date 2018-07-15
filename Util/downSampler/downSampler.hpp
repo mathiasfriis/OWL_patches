@@ -36,8 +36,8 @@ void downSampler::downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer
 
 
 	for (int ch = 0; ch<inputBuffer.getChannels(); ++ch) {
-		float* inputBuf = inputbuffer.getSamples(ch);
-		float* outputBuf = inputbuffer.getSamples(ch);
+		float* inputBuf = inputBuffer.getSamples(ch);
+		float* outputBuf = outputBuffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
 
         	//Get downsampled signal
