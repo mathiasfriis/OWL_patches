@@ -103,8 +103,8 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 			case sampleHold:
 			{
 				// Triggers at waveShape-level and at 0 ('ish)
-				//if (isPhaseUnderWaveshapeLevel() != waveShapeStatusState)
-				if(cnt==0)
+				if (isPhaseUnderWaveshapeLevel() != waveShapeStatusState)
+				//if(cnt==0)
                 {
                     unsigned int b;
                     b  = ((z1 << 6) ^ z1) >> 13;
