@@ -118,7 +118,8 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                     unsigned int randomInt=(z1 ^ z2 ^ z3 ^ z4); //get random number between -2^31 and 2^31.
 
                     //Scale random number to 0:1;
-                    randomNumber=(float)randomInt/UINT32MAX;
+                    //randomNumber=(float)randomInt/UINT32MAX;
+                    randomNumber = *(float*)(&randomInt/UINT32MAX);
     				
                     LFO_value = randomNumber;
     				}
