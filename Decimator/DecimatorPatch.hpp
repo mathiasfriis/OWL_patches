@@ -84,9 +84,12 @@ public:
       for(int i = 0 ; i < size; i++)
       {
         lfo.updateLFO_value();
+        if(lfo.get_LFO_value()>0.99)
+        {
+
+        }
       }
 
-  //lfo.setFrequency(rate);
 
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {
