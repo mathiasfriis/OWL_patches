@@ -22,8 +22,8 @@
 /* created by the OWL team 2013 */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef ___DownSamplerPatch_hpp__
-#define __DownSamplerPatch_hpp__
+#ifndef ___DecimatorPatch_hpp__
+#define __DecimatorPatch_hpp__
 
 #include "CircularBuffer.hpp"
 #include "lfo.hpp"
@@ -89,4 +89,4 @@ public:
 };
 
 
-#endif /* __DownSamplerPatch_hpp__ */
+#endif /* __DecimatorPatch_hpp__ */
