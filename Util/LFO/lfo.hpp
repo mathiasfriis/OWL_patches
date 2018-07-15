@@ -115,7 +115,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                     b  = ((z4 << 3) ^ z4) >> 12;
                     z4 = ((z4 & 4294967168U) << 13) ^ b;
                     
-                    int randomInt = randomNumber=(z1 ^ z2 ^ z3 ^ z4); //get random number between -2^31 and 2^31.
+                    int randomInt=(z1 ^ z2 ^ z3 ^ z4); //get random number between -2^31 and 2^31.
 
                     
                     
