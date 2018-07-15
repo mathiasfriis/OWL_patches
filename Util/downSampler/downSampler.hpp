@@ -33,16 +33,20 @@ void downSampler::downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer
 	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
 	int size = inputBuffer.getSize();
 
+
+
 	for (int ch = 0; ch<inputBuffer.getChannels(); ++ch) {
+		float* inputBuf = inputbuffer.getSamples(ch);
+		float* outputBuf = inputbuffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
 
         	//Get downsampled signal
             if(i%sampleRateDivider==0)
             {
-            	currentSample=inputBuffer[i];
+            	currentSample=inputBuf[i];
             }
             //Copy current downsampled sample to output buffer.
-            outputBuffer[i]=currentSample;
+            outputBuf[i]=currentSample;
         }
     }
 }
