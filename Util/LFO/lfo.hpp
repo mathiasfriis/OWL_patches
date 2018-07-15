@@ -102,7 +102,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                    
                     unsigned int randomInt = lfsr113_Bits();
                     randomNumber = (float)(randomInt);
-                    randomNumber=randomNumber/(pow(2,31));
+                    randomNumber=randomNumber/(pow(2,32));
     				
                     LFO_value = randomNumber;
                     if(LFO_value<0) LFO_value=0;
