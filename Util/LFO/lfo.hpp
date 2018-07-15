@@ -132,7 +132,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                     //update waveShape status state
                     waveShapeStatusState = isPhaseUnderWaveshapeLevel();
 
-                    randomNumber = (float)isPhaseUnderWaveshapeLevel();
+                    //randomNumber = (float)isPhaseUnderWaveshapeLevel();
 			}
             break;
 
