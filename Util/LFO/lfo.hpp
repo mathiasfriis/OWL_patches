@@ -109,16 +109,18 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                     z3 = ((z3 & 4294967280U) << 7) ^ b;
                     b  = ((z4 << 3) ^ z4) >> 12;
                     z4 = ((z4 & 4294967168U) << 13) ^ b;
+                    
+                    int randomInt = randomNumber=(z1 ^ z2 ^ z3 ^ z4); //get random number between -2^31 and 2^31.
 
-                    randomNumber=(z1 ^ z2 ^ z3 ^ z4); //get random number between -2^31 and 2^31.
+                    
                     
                     //Get "absolute" value of random number.
-                    if(randomNumber<0)
+                    if(randomInt<0)
                     {
-                        randomNumber=-randomNumber;
+                        randomInt=-randomInt;
                     }
                     //Scale random number to 0:1;
-                    randomNumber=randomNumber/INT32MAX;
+                    randomNumber=(float)randomInt/INT32MAX;
     					LFO_value = randomNumber;
     				}
                     //update waveShape status state
