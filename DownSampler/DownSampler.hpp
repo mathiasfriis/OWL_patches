@@ -36,7 +36,7 @@
 #define RATE_SCALER 10
 #define DEPTH_SCALER 8000
 
-class AutoWahPatch : public Patch {
+class DownSamplerPatch : public Patch {
 private:
     float fs_system;
     float fs_offset;
@@ -44,7 +44,7 @@ private:
     downSampler downSampler;
 
 public:
-  AutoWahPatch(){
+  DownSamplerPatch(){
     AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
 
     //registerParameter(PARAMETER_A, "Rate");
