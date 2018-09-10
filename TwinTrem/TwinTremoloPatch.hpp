@@ -63,8 +63,8 @@ public:
     main_rate = getParameterValue(PARAMETER_C)*30;
     main_depth = getParameterValue(PARAMETER_D);
 
-    main_lfo.setWaveshape(waveshape);
-    main_lfo.setFrequency(rate);
+    main_lfo.setWaveshape(main_waveshape);
+    main_lfo.setFrequency(main_rate);
     
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {
