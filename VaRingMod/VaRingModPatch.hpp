@@ -58,6 +58,8 @@ public:
 
     control_waveshape=sine;
     main_waveshape=sine;
+
+    control_lfo.setLFO_mode(control_mode);
   }
  
 
