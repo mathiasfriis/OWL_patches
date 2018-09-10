@@ -51,6 +51,9 @@ public:
     float fs = getSampleRate();
     main_lfo.setSampleRate(fs);
     control_lfo.setSampleRate(fs);
+
+    control_waveshape=sine;
+    main_waveshape=sine;
   }
  
 
@@ -65,6 +68,8 @@ public:
 
     main_lfo.setWaveshape(main_waveshape);
     main_lfo.setFrequency(main_rate);
+
+    control_lfo.setWaveshape(control_waveshape);
 
     control_lfo.setFrequency(control_rate);
     
@@ -96,7 +101,7 @@ public:
         for (int i = 0 ; i < size; i++) {
             float* buf = buffer.getSamples(ch);
             control_lfo.updateLFO_value();
-            main_lfo.setFrequency(main_rate+control_lfo.get_LFO_value()); //Modulate main LFO rate by value gained from control LFO.
+            main_lfo.setFrequency(main_rate+control_lfo.get_LFO_value()*30); //Modulate main LFO rate by value gained from control LFO.
             main_lfo.updateLFO_value();
             float dry = buf[i]*(1-main_depth);
             float wet = buf[i]*main_lfo.get_LFO_value()*(main_depth);
