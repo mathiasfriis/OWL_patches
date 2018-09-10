@@ -40,7 +40,7 @@ private:
 
     
 public:
-  TremoloPatch(){
+  TwinTremoloPatch(){
     AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
     registerParameter(PARAMETER_A, "Control Rate");
     registerParameter(PARAMETER_B, "Control Depth");
