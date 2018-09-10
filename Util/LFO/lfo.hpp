@@ -93,7 +93,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
 				}
 				break;	
 			}
-				
+			/*	
 			case sampleHold:
 			{
 				// Triggers at waveShape-level and at 0 ('ish)
@@ -111,6 +111,7 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                     //update waveShape status state
                     waveShapeStatusState = isPhaseUnderWaveshapeLevel();
 			}
+            */
             break;
 
 				
