@@ -96,7 +96,7 @@ public:
         for (int i = 0 ; i < size; i++) {
             float* buf = buffer.getSamples(ch);
             control_lfo.updateLFO_value();
-            main_lfo.setFrequency(main_rate+control_lfo.get_LFO_value); //Modulate main LFO rate by value gained from control LFO.
+            main_lfo.setFrequency(main_rate+control_lfo.get_LFO_value()); //Modulate main LFO rate by value gained from control LFO.
             main_lfo.updateLFO_value();
             float dry = buf[i]*(1-main_depth);
             float wet = buf[i]*main_lfo.get_LFO_value()*(main_depth);
