@@ -28,7 +28,7 @@
 #include "CircularBuffer.hpp"
 #include "lfo.hpp"
 #include "downSampler.hpp"
-#include "Resampler.hpp"
+//#include "Resampler.hpp"
 
 #define FLANGER_BUFFER_SIZE 1024
 #define CUTOFF_MIN 0
@@ -47,7 +47,7 @@ private:
     downSampler decimator;
     LFO lfo;
     lfo_mode LFO_MODE = sine;
-
+    Resampler resampler = new Resampler();
     //Find interpolation rate and decimation rate for a desired multirate with the given margin.
     float findMultiRates(float desiredRate, float margin)
     {
