@@ -28,6 +28,7 @@
 #include "CircularBuffer.hpp"
 #include "lfo.hpp"
 #include "downSampler.hpp"
+#include "Resampler.hpp"
 
 #define FLANGER_BUFFER_SIZE 1024
 #define CUTOFF_MIN 0
@@ -41,10 +42,30 @@ private:
     float fs_system;
     float fs_offset;
     float LFO_rate, LFO_depth, LFO_waveshape;
+    int L, M; //Interpolation rate and decimation rate.
     bool buttonState;
     downSampler decimator;
     LFO lfo;
     lfo_mode LFO_MODE = sine;
+
+    //Find interpolation rate and decimation rate for a desired multirate with the given margin.
+    float findMultiRates(float desiredRate, float margin)
+    {
+    	float achievedRate;
+    	for(int l=1;l<100;l++)
+    	{
+    		for(int m=1;m<100;m++)
+	    	{
+	    		achievedRate=l/m;
+	    		if((abs(achievedRate-desiredRate)/desiredRate)<margin)
+	    		{
+	    			L=l;
+	    			M=m;
+	    			return achievedRate;
+	    		}
+	    	}
+    	}
+    }
 
 public:
   DecimatorPatch(){
