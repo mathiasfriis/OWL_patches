@@ -28,7 +28,7 @@
 #include "CircularBuffer.hpp"
 #include "lfo.hpp"
 #include "downSampler.hpp"
-//#include "Resampler.hpp"
+#include "Resample.h"
 
 #define FLANGER_BUFFER_SIZE 1024
 #define CUTOFF_MIN 0
