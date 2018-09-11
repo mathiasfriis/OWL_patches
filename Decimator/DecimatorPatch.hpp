@@ -47,7 +47,7 @@ private:
     downSampler decimator;
     LFO lfo;
     lfo_mode LFO_MODE = sine;
-    Resampler resampler = new Resampler();
+    Resampler resampler;
     //Find interpolation rate and decimation rate for a desired multirate with the given margin.
     float findMultiRates(float desiredRate, float margin)
     {
@@ -70,6 +70,8 @@ private:
 public:
   DecimatorPatch(){
     AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
+
+    resampler = new Resampler(1);
 
     registerParameter(PARAMETER_A, "LFO Rate");
     registerParameter(PARAMETER_B, "LFO Depth");
