@@ -118,7 +118,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 float reSampler::getDecimalSampleWithInterpolation(float* buffer,float sampleNo)
 {
 	int wholeSample=(int)sampleNo;
-	float decimal = sampleNo%1;
+	float decimal = fmod(sampleNo,1);
 
 	float x0=buffer[wholeSample];
 	float x1=buffer[wholeSample+1];
