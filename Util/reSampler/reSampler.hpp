@@ -15,8 +15,8 @@ private:
 	float getDecimalSampleWithInterpolation(float*,float);
 public:
 	void initDownSampler();
-	void downSample(float inputBuffer[], float outputBuffer[], int decimationRate);
-	void upSample(float inputBuffer[], float outputBuffer[], int interpolationRate);
+	void downSample(float inputBuffer[], float outputBuffer[], int size, int decimationRate);
+	void upSample(float inputBuffer[], float outputBuffer[], int size, int interpolationRate);
 	void reSample(AudioBuffer &inputbuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin);
 	void setInputSampleRate(float fs);
 	void setOutputSampleRate(float fs);
@@ -32,8 +32,53 @@ void reSampler::initDownSampler()
 }
 
 
-void reSampler::downSample(float inputBuffer[], float outputBuffer[], int decimationRate)
+void reSampler::downSample(float inputBuffer[], float outputBuffer[], int size, int decimationRate)
 {
+
+	for (int i = 0 ; i < size; i++) 
+	{
+    	//Get downsampled signal
+        if(i%decimationRate==0)
+        {
+        	currentSample=inputBuf[i];
+        }
+        //Copy current downsampled sample to output buffer.
+        outputBuf[i]=currentSample;
+    }        
+ }
+
+//Unknown if this works!
+void reSampler::upSample(float inputBuffer[], float outputBuffer[], int size, int interpolationRate)
+{
+	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
+	int inputBufferSize = size;
+	int outputBufferSize = inputBufferSize*interpolationRate;
+
+	float dy_dx_over_L;
+
+	for (int i = 0 ; i < inputBufferSize; i++) 
+	{
+        //Copy samples of input buffer to outputbuffer and do zero-stuffing.
+        outputBuffer[i*interpolationRate]=inputBuffer[i];
+        
+		//create new points with linear interpolation.
+        dy_dx_over_L=(inputBuffer[i+1]-inputBuffer[i])/interpolationRate;
+        for (int j = 1; j< interpolationRate; j++)
+        {
+        	outputBuffer[i*interpolationRate+j]=inputBuffer[i]+j*dy_dx_over_L;
+        }
+    }
+
+    //Last L points cannot use dy/dx, and thus just copies the last known sample.
+    for (int j = 1; j< interpolationRate; j++)
+    {
+    	outputBuffer[inputBufferSize*interpolationRate+j]=outputBuffer[inputBufferSize*interpolationRate];
+    }
+}
+
+void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
+{
+
 	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
 	int size = inputBuffer.getSize();
 
@@ -55,41 +100,7 @@ void reSampler::downSample(float inputBuffer[], float outputBuffer[], int decima
     }
 }
 
-//Unknown if this works!
-void reSampler::upSample(float inputBuffer[], float outputBuffer[], int interpolationRate)
-{
-	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
-	int inputBufferSize = inputBuffer.getSize();
-	int outputBufferSize = inputBufferSize*interpolationRate;
-
-
-	for (int ch = 0; ch<inputBuffer.getChannels(); ++ch) {
-		float* inputBuf = inputBuffer.getSamples(ch);
-
-		float dy_dx_over_L;
-
-        for (int i = 0 ; i < inputBufferSize; i++) {
-            //Copy samples of input buffer to outputbuffer and do zero-stuffing.
-            outputBuffer[i*interpolationRate]=inputBuf[i];
-            
-			//create new points with linear interpolation.
-            dy_dx_over_L=(inputBuf[i+1]-inputBuf[i])/interpolationRate;
-            for (int j = 1; j< interpolationRate; j++)
-            {
-            	outputBuffer[i*interpolationRate+j]=inputBuf[i]+j*dy_dx_over_L;
-            }
-        }
-        //Last L points cannot use dy/dx, and thus just copies the last known sample.
-        for (int j = 1; j< interpolationRate; j++)
-        {
-        	outputBuffer[inputBufferSize*interpolationRate+j]=outputBuffer[inputBufferSize*interpolationRate];
-        }
-        
-    }
-}
-
-void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
-{
+	//find L(Interpolation rate) and M(Decimation Rate)
 	findMultiRates(multiRate,multiRateMargin);
 
 	int inputBufferSize = inputBuffer.getSize();
