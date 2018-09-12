@@ -102,11 +102,11 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	downSample(InterpolatedSignalBuffer,DownsampledSignalBuffer,size*L/M,M);
 
 	//Fit downsampled buffer into outputBuffer with linear interpolation
-	float[] buf = outputbuffer.getSamples(1);
+	float* buf = outputbuffer.getSamples(1);
 	float achievedMultiRate=L/M;
 	for(int i=0 ; i<outputbuffer.getSize();i++)
 	{
-		buf[i]=getDecimalSampleWithInterpolation[i*achievedMultiRate];
+		buf[i]=getDecimalSampleWithInterpolation(DownsampledSignalBuffer,i*achievedMultiRate);
 	}
 
 	//Free up memory of InterpolatedSignalBuffer
