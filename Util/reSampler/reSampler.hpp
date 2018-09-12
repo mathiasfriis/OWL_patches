@@ -55,7 +55,7 @@ void reSampler::downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, 
 }
 
 //Unknown if this works!
-void reSampler::upSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, int interpolationRate)
+void reSampler::upSample(AudioBuffer &inputBuffer, float &outputBuffer, int interpolationRate)
 {
 	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
 	int inputBufferSize = inputBuffer.getSize();
