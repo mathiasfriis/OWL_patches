@@ -91,7 +91,7 @@ public:
       if(multiRate!=multiRateState)
       {
       }
-      decimator.setOutputSampleRate();
+      //decimator.setOutputSampleRate();
 
       for(int i = 0 ; i < size; i++)
       {

@@ -80,7 +80,7 @@ void reSampler::upSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, in
             }
         }
         //Last L points cannot use dy/dx, and thus just copies the last known sample.
-        for (int j = 1; j< interpolationRate)
+        for (int j = 1; j< interpolationRate; j++)
         {
         	outputBuf[inputBufferSize*interpolationRate+j]=outputBuf[inputBufferSize*interpolationRate];
         }
