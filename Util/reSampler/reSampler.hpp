@@ -59,7 +59,7 @@ void reSampler::upSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, in
 {
 	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
 	int inputBufferSize = inputBuffer.getSize();
-	int outputBufferSize = outputBuffer*getSize();
+	int outputBufferSize = outputBuffer.getSize();
 
 
 	for (int ch = 0; ch<inputBuffer.getChannels(); ++ch) {
@@ -70,7 +70,7 @@ void reSampler::upSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, in
 
         for (int i = 0 ; i < inputBufferSize; i++) {
             //Copy samples of input buffer to outputbuffer and do zero-stuffing.
-            *outputBuf[i*interpolationRate]=inputBuf[i];
+            outputBuf[i*interpolationRate]=inputBuf[i];
             
 			//create new points with linear interpolation.
             dy_dx_over_L=(inputBuf[i+1]-inputBuf[i])/interpolationRate;
@@ -90,15 +90,17 @@ void reSampler::upSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, in
 
 void reSampler::reSample(AudioBuffer &inputbuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
 {
-	findMultiRates(multiRate,multiRateMargin)
+	findMultiRates(multiRate,multiRateMargin);
 
 	int inputBufferSize = inputBuffer.getSize();
 
 	//create buffer to hold interpolated signal that's L(Interpolation Rate) times as big as the input buffer
 	AudioBuffer* InterpolatedSignalBuffer = createMemoryBuffer(1, inputBufferSize*L);
 
-	//Interpolate signal and save in new buffer
-	upSample(inputBuffer, &InterpolatedSignalBuffer, L);
+	//Interpolate signal by a rate of L and save in new buffer
+	upSample(&inputBuffer, &InterpolatedSignalBuffer, L);
+
+	//Downsample interpolated signal by a rate of M and save in outputBuffer.
 
 }
 
