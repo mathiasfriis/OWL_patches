@@ -129,7 +129,7 @@ public:
         }
     }
 
-    reSampler.reSample(&AudioBuffer,&AudioBuffer,fs_offset,0.9);
+    decimator.reSample(&AudioBuffer,&AudioBuffer,fs_offset,0.9);
     /*
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         
