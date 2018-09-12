@@ -103,7 +103,6 @@ public:
         }
       }
 */
-      setSystemSampleRate(multiRate);
 
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {

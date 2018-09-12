@@ -12,6 +12,7 @@ private:
 	int sampleRateDivider;
 	float findMultiRates(float,float);
 	int L,M;
+	float getDecimalSampleWithInterpolation(float*,float);
 public:
 	void initDownSampler();
 	void downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, int decimationRate);
@@ -31,7 +32,7 @@ void reSampler::initDownSampler()
 }
 
 
-void reSampler::downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, int decimationRate)
+void reSampler::downSample(float inputBuffer[], float outputBuffer[], int decimationRate)
 {
 	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
 	int size = inputBuffer.getSize();
@@ -55,7 +56,7 @@ void reSampler::downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, 
 }
 
 //Unknown if this works!
-void reSampler::upSample(AudioBuffer &inputBuffer, float outputBuffer[], int interpolationRate)
+void reSampler::upSample(float inputBuffer[], float outputBuffer[], int interpolationRate)
 {
 	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
 	int inputBufferSize = inputBuffer.getSize();
@@ -98,13 +99,36 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	float *InterpolatedSignalBuffer = (float*)malloc(sizeof(float)*inputBufferSize*L);
 
 	//Interpolate signal by a rate of L and save in new buffer
-	upSample(inputBuffer, InterpolatedSignalBuffer, L);
+	upSample(inputBuffer.getSamples, InterpolatedSignalBuffer, L);
 
-	//Downsample interpolated signal by a rate of M and save in outputBuffer.
+	//create buffer to hold interpolated signal that's L(Interpolation Rate)/M(Decimation Rate) times as big as the input buffer
+	float *DownsampledSignalBuffer = (float*)malloc(sizeof(float)*inputBufferSize*L/M);
+	//Downsample interpolated signal by a rate of M and save in a buffer.
+	downSample(InterpolatedSignalBuffer,DownsampledSignalBuffer);
+
+	//Fit downsampled buffer into outputBuffer with linear interpolation
+	float* buf = outputbuffer.getSamples(1);
+	float achievedMultiRate=L/M;
+	for(int i=0 ; i<outputbuffer.getSize();i++)
+	{
+		buf[i]=getDecimalSampleWithInterpolation[i*achievedMultiRate];
+	}
 
 	//Free up memory of InterpolatedSignalBuffer
+	free(InterpolatedSignalBuffer);
+	free(DownsampledSignalBuffer);
 
+}
 
+float reSampler::getDecimalSampleWithInterpolation(float* buffer,float sampleNo)
+{
+	int wholeSample=(int)sampleNo;
+	float decimal = sampleNo%1;
+
+	x0=buffer[wholeSample];
+	x1=buffer[wholeSample+1];
+
+	return x0 + (x1-x0)*decimal;
 }
 
 //Find interpolation rate and decimation rate for a desired multirate with the given margin.
