@@ -15,7 +15,7 @@ private:
 public:
 	void initDownSampler();
 	void downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, int decimationRate);
-	void upSample(AudioBuffer &inputbuffer, AudioBuffer &outputBuffer, int interpolationRate);
+	void upSample(AudioBuffer &inputbuffer, float &outputBuffer, int interpolationRate);
 	void reSample(AudioBuffer &inputbuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin);
 	void setInputSampleRate(float fs);
 	void setOutputSampleRate(float fs);
