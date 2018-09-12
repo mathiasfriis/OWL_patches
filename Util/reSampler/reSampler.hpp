@@ -40,10 +40,10 @@ void reSampler::downSample(float inputBuffer[], float outputBuffer[], int size, 
     	//Get downsampled signal
         if(i%decimationRate==0)
         {
-        	currentSample=inputBuf[i];
+        	currentSample=inputBuffer[i];
         }
         //Copy current downsampled sample to output buffer.
-        outputBuf[i]=currentSample;
+        inputBuffer[i]=currentSample;
     }        
  }
 
@@ -81,24 +81,6 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 
 	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
 	int size = inputBuffer.getSize();
-
-
-
-	for (int ch = 0; ch<inputBuffer.getChannels(); ++ch) {
-		float* inputBuf = inputBuffer.getSamples(ch);
-		float* outputBuf = outputBuffer.getSamples(ch);
-        for (int i = 0 ; i < size; i++) {
-
-        	//Get downsampled signal
-            if(i%decimationRate==0)
-            {
-            	currentSample=inputBuf[i];
-            }
-            //Copy current downsampled sample to output buffer.
-            outputBuf[i]=currentSample;
-        }
-    }
-}
 
 	//find L(Interpolation rate) and M(Decimation Rate)
 	findMultiRates(multiRate,multiRateMargin);
