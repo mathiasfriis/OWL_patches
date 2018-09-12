@@ -98,7 +98,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	float* InterpolatedSignalBuffer = malloc(sizeof(float)*inputBufferSize*L);
 
 	//Interpolate signal by a rate of L and save in new buffer
-	upSample(&inputBuffer, &InterpolatedSignalBuffer, L);
+	upSample(&inputBuffer, InterpolatedSignalBuffer, L);
 
 	//Downsample interpolated signal by a rate of M and save in outputBuffer.
 
