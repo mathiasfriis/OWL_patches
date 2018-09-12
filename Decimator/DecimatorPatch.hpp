@@ -129,7 +129,7 @@ public:
         }
     }
 
-    decimator.reSample(&buffer,&buffer,fs_offset,0.9);
+    decimator.reSample(buffer,buffer,fs_offset,0.9);
     /*
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         
