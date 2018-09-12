@@ -59,30 +59,29 @@ void reSampler::upSample(AudioBuffer &inputBuffer, float &outputBuffer, int inte
 {
 	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
 	int inputBufferSize = inputBuffer.getSize();
-	int outputBufferSize = outputBuffer.getSize();
+	int outputBufferSize = inputBufferSize*interpolationRate;
 
 
 	for (int ch = 0; ch<inputBuffer.getChannels(); ++ch) {
 		float* inputBuf = inputBuffer.getSamples(ch);
-		float* outputBuf = outputBuffer.getSamples(ch);
 
 		float dy_dx_over_L;
 
         for (int i = 0 ; i < inputBufferSize; i++) {
             //Copy samples of input buffer to outputbuffer and do zero-stuffing.
-            outputBuf[i*interpolationRate]=inputBuf[i];
+            outputBuffer[i*interpolationRate]=inputBuf[i];
             
 			//create new points with linear interpolation.
             dy_dx_over_L=(inputBuf[i+1]-inputBuf[i])/interpolationRate;
             for (int j = 1; j< interpolationRate; j++)
             {
-            	outputBuf[i*interpolationRate+j]=inputBuf[i]+j*dy_dx_over_L;
+            	outputBuffer[i*interpolationRate+j]=inputBuf[i]+j*dy_dx_over_L;
             }
         }
         //Last L points cannot use dy/dx, and thus just copies the last known sample.
         for (int j = 1; j< interpolationRate; j++)
         {
-        	outputBuf[inputBufferSize*interpolationRate+j]=outputBuf[inputBufferSize*interpolationRate];
+        	outputBuffer[inputBufferSize*interpolationRate+j]=outputBuffer[inputBufferSize*interpolationRate];
         }
         
     }
