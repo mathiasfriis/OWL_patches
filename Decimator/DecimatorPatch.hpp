@@ -88,6 +88,7 @@ public:
       multiRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
       //multiRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
 
+/*
       if(multiRate!=multiRateState)
       {
       }
@@ -101,7 +102,8 @@ public:
 
         }
       }
-
+*/
+      setSystemSampleRate(multiRate);
 
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {
@@ -130,6 +132,11 @@ public:
 
     //decimator.downSample(buffer, buffer);
 
+  }
+
+  void setSystemSampleRate(float fs_new)
+  {
+  	getProgramVector()->audio_samplingrate=fs_new;
   }
     
 };
