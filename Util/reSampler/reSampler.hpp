@@ -55,7 +55,7 @@ void reSampler::downSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, 
 }
 
 //Unknown if this works!
-void reSampler::upSample(AudioBuffer &inputBuffer, float &outputBuffer, int interpolationRate)
+void reSampler::upSample(AudioBuffer &inputBuffer, float outputBuffer[], int interpolationRate)
 {
 	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
 	int inputBufferSize = inputBuffer.getSize();
@@ -104,7 +104,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//Downsample interpolated signal by a rate of M and save in outputBuffer.
 
 	//Free up memory of InterpolatedSignalBuffer
-	
+
 
 }
 
