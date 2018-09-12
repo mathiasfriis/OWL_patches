@@ -129,15 +129,22 @@ public:
         }
     }
 
-    //decimator.downSample(buffer, buffer);
+    reSampler.reSample(&AudioBuffer,&AudioBuffer,fs_offset,0.9);
+    /*
+    for (int ch = 0; ch<buffer.getChannels(); ++ch) {
+        
+        for (int i = 0 ; i < size; i++) {
+            float* buf = buffer.getSamples(ch);
+            main_lfo.updateLFO_value();
+
+            float dry = buf[i]*(1-main_depth);
+            float wet = buf[i]*main_lfo.get_LFO_value()*(main_depth);
+            buf[i] = dry+wet;
+        }
+    }
+    */
 
   }
-
-  void setSystemSampleRate(float fs_new)
-  {
-  	getProgramVector()->audio_samplingrate=fs_new;
-  }
-    
 };
 
 
