@@ -27,7 +27,7 @@
 
 #include "CircularBuffer.hpp"
 #include "lfo.hpp"
-#include "downSampler.hpp"
+#include "reSampler.hpp"
 #include "Resample.h"
 
 #define FLANGER_BUFFER_SIZE 1024
@@ -36,42 +36,24 @@
 #define Q_SCALER 10
 #define RATE_SCALER 20
 #define DEPTH_SCALER 8000
+#define MULTIRATE_MARGIN 0.05
 
 class DecimatorPatch : public Patch {
 private:
     float fs_system;
     float fs_offset;
     float LFO_rate, LFO_depth, LFO_waveshape;
+    float multiRate, multiRateState;
     int L, M; //Interpolation rate and decimation rate.
     bool buttonState;
-    downSampler decimator;
+    reSampler decimator;
     LFO lfo;
     lfo_mode LFO_MODE = sine;
-    Resampler* resampler;
-    //Find interpolation rate and decimation rate for a desired multirate with the given margin.
-    float findMultiRates(float desiredRate, float margin)
-    {
-    	float achievedRate;
-    	for(int l=1;l<100;l++)
-    	{
-    		for(int m=1;m<100;m++)
-	    	{
-	    		achievedRate=l/m;
-	    		if((abs(achievedRate-desiredRate)/desiredRate)<margin)
-	    		{
-	    			L=l;
-	    			M=m;
-	    			return achievedRate;
-	    		}
-	    	}
-    	}
-    }
+    
 
 public:
   DecimatorPatch(){
     AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
-
-    resampler = new Resampler();
 
     registerParameter(PARAMETER_A, "LFO Rate");
     registerParameter(PARAMETER_B, "LFO Depth");
@@ -94,15 +76,24 @@ public:
     int size = buffer.getSize();
       
       LFO_rate=getParameterValue(PARAMETER_A)*RATE_SCALER;
-      LFO_depth=getParameterValue(PARAMETER_B)*DEPTH_SCALER;
+      LFO_depth=getParameterValue(PARAMETER_B)*DEPTH_SCALER; //0:1
       LFO_waveshape=getParameterValue(PARAMETER_C)*100;
       
       lfo.setFrequency(LFO_rate);
       lfo.setWaveshape(LFO_waveshape);
 
-      fs_offset = getParameterValue(PARAMETER_D)*fs_system/2;
+      fs_offset = getParameterValue(PARAMETER_D); //0:1
 
-      decimator.setOutputSampleRate(fs_offset + lfo.get_LFO_value()*LFO_depth);
+      multiRateState=multiRate;
+      multiRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
+      //multiRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
+
+      if(multiRate!=multiRateState)
+      {
+      	findMultiRates(multiRate,MULTIRATE_MARGIN);
+      	downSampler.
+      }
+      decimator.setOutputSampleRate();
 
       for(int i = 0 ; i < size; i++)
       {
