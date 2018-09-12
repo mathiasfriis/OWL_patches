@@ -128,7 +128,7 @@ public:
         }
     }
 
-    decimator.downSample(buffer, buffer);
+    //decimator.downSample(buffer, buffer);
 
   }
     
