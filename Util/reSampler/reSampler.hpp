@@ -2,6 +2,7 @@
 #define __reSampler_hpp__
 
 #include "CircularBuffer.hpp"
+#include "Patch.h"
 
 class reSampler
 {
@@ -88,7 +89,7 @@ void reSampler::upSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, in
     }
 }
 
-void reSampler::reSample(AudioBuffer &inputbuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
+void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
 {
 	findMultiRates(multiRate,multiRateMargin);
 
