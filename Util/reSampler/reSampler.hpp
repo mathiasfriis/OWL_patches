@@ -2,7 +2,6 @@
 #define __reSampler_hpp__
 
 #include "CircularBuffer.hpp"
-#include "Patch.h"
 
 class reSampler
 {
@@ -96,7 +95,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	int inputBufferSize = inputBuffer.getSize();
 
 	//create buffer to hold interpolated signal that's L(Interpolation Rate) times as big as the input buffer
-	AudioBuffer* InterpolatedSignalBuffer = createMemoryBuffer(1, inputBufferSize*L);
+	float* InterpolatedSignalBuffer = malloc(sizeof(float)*inputBufferSize*L);
 
 	//Interpolate signal by a rate of L and save in new buffer
 	upSample(&inputBuffer, &InterpolatedSignalBuffer, L);
