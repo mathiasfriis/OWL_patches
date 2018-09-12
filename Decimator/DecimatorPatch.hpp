@@ -90,8 +90,6 @@ public:
 
       if(multiRate!=multiRateState)
       {
-      	findMultiRates(multiRate,MULTIRATE_MARGIN);
-      	downSampler.
       }
       decimator.setOutputSampleRate();
 

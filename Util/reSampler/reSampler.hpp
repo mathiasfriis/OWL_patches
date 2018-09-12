@@ -74,7 +74,7 @@ void reSampler::upSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, in
             
 			//create new points with linear interpolation.
             dy_dx_over_L=(inputBuf[i+1]-inputBuf[i])/interpolationRate;
-            for (int j = 1; j< interpolationRate)
+            for (int j = 1; j< interpolationRate; j++)
             {
             	outputBuf[i*interpolationRate+j]=inputBuf[i]+j*dy_dx_over_L;
             }
@@ -82,7 +82,7 @@ void reSampler::upSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, in
         //Last L points cannot use dy/dx, and thus just copies the last known sample.
         for (int j = 1; j< interpolationRate)
         {
-        	outputbuffer[inputBufferSize*interpolationRate+j]=outputbuffer[inputBufferSize*interpolationRate];
+        	outputBuf[inputBufferSize*interpolationRate+j]=outputBuf[inputBufferSize*interpolationRate];
         }
         
     }
