@@ -97,7 +97,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	L=Ls[30];
 	M=Ms[30];
 	L=1;
-	M=10;
+	M=30;
 
 	int inputBufferSize = inputBuffer.getSize();
 
