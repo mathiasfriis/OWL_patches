@@ -41,7 +41,7 @@ void reSampler::downSample(float inputBuffer[], float outputBuffer[], int size, 
 	for (int i = 0 ; i < size; i++) 
 	{
     	//Get downsampled signal
-        if(i%decimationRate==0)
+        if((i%decimationRate)==0)
         {
         	currentSample=inputBuffer[i];
         }
