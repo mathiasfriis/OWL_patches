@@ -128,7 +128,7 @@ public:
         }
     }
 
-
+    fs_offset=0.2;
     decimator.reSample(buffer,buffer,fs_offset,0.1);
     /*
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
