@@ -44,7 +44,6 @@ private:
     float fs_offset;
     float LFO_rate, LFO_depth, LFO_waveshape;
     float multiRate, multiRateState;
-    int L, M; //Interpolation rate and decimation rate.
     bool buttonState;
     reSampler decimator;
     LFO lfo;
@@ -130,7 +129,7 @@ public:
     }
 
 	float a = 0.2;
-    decimator.reSample(buffer,buffer,a,0.1);
+    decimator.reSample(*buffer,*buffer,a,0.1);
     /*
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         
