@@ -99,7 +99,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//float *InterpolatedSignalBuffer=new float[3];
 	float *InterpolatedSignalBuffer = (float*)malloc(sizeof(float)*inputBufferSize*L);
 
-	float* inputSamples = inputBuffer.getSamples(1);
+	float* inputSamples = inputBuffer.getSamples(0);
 
 	//Interpolate signal by a rate of L and save in new buffer
 	upSample(inputSamples, InterpolatedSignalBuffer,size, L);
@@ -111,7 +111,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	downSample(InterpolatedSignalBuffer, InterpolatedSignalBuffer,size*L,M);
 
 	//Fit downsampled buffer into outputBuffer with linear interpolation
-	float* buf = outputBuffer.getSamples(1);
+	float* buf = outputBuffer.getSamples(0);
 	float achievedMultiRate=L;
 	
 	for(int i=0 ; i<outputBuffer.getSize();i++)
