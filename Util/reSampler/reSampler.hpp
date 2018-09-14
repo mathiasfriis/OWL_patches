@@ -126,12 +126,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//Free up memory of InterpolatedSignalBuffer
 	free(InterpolatedSignalBuffer);
 	//free(DownsampledSignalBuffer);
-
-        }
     }
-
-	
-
 }
 
 
