@@ -134,7 +134,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 
 	//Fit downsampled buffer into outputBuffer with linear interpolation
 	float* buf = outputBuffer.getSamples(1);
-	float achievedMultiRate=L;
+	float achievedMultiRate=L/2;
 	
 	for(int i=0 ; i<outputBuffer.getSize();i++)
 	{
