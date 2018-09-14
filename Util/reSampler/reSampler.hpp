@@ -82,7 +82,7 @@ void reSampler::upSample(float inputBuffer[], float outputBuffer[], int size, in
 }
 
 
-void reSampler::reSample(AudioBuffer inputBuffer, AudioBuffer outputBuffer, float multiRate, float multiRateMargin)
+void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
 {
 
 	for (int ch = 0; ch<inputBuffer.getChannels(); ++ch) {
@@ -92,7 +92,7 @@ void reSampler::reSample(AudioBuffer inputBuffer, AudioBuffer outputBuffer, floa
 	int size = inputBuffer.getSize();
 
 	//find L(Interpolation rate) and M(Decimation Rate)
-	findMultiRates(multiRate,multiRateMargin);
+	//findMultiRates(multiRate,multiRateMargin);
 	L=3;
 	M=100;
 
@@ -120,6 +120,15 @@ void reSampler::reSample(AudioBuffer inputBuffer, AudioBuffer outputBuffer, floa
 	for(int i=0 ; i<outputBuffer.getSize();i++)
 	{
 		buf[i]=InterpolatedSignalBuffer[i*L];
+
+		if(i%2==0)
+		{
+			buf[i]=1;
+		}
+		else
+		{
+			buf[i]=-1;
+		}
 		//buf[i]=getDecimalSampleWithInterpolation(InterpolatedSignalBuffer,i*achievedMultiRate);
 	}
 
