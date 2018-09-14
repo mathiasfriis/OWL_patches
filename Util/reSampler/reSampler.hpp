@@ -121,7 +121,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	{
 		buf[i]=InterpolatedSignalBuffer[i*L];
 
-		if(i%2==0)
+		if((i%2)==0)
 		{
 			buf[i]=2^31;-1
 		}
