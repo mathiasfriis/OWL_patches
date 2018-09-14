@@ -119,16 +119,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	
 	for(int i=0 ; i<outputBuffer.getSize();i++)
 	{
-		buf[i]=InterpolatedSignalBuffer[i*L];
-
-		if((i%2)==0)
-		{
-			buf[i]=2^31-1;
-		}
-		else
-		{
-			buf[i]=-2^31;
-		}
+		buf[i]=InterpolatedSignalBuffer[i];
 		//buf[i]=getDecimalSampleWithInterpolation(InterpolatedSignalBuffer,i*achievedMultiRate);
 	}
 
