@@ -94,8 +94,8 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//find L(Interpolation rate) and M(Decimation Rate)
 	findMultiRates(multiRate,multiRateMargin);
 
-	L=Ls[50];
-	M=Ms[50];
+	L=Ls[3];
+	M=Ms[3];
 
 	int inputBufferSize = inputBuffer.getSize();
 
