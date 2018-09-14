@@ -114,6 +114,8 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 
 	//find L(Interpolation rate) and M(Decimation Rate)
 	findMultiRates(multiRate,multiRateMargin);
+	L=1;
+	M=10;
 
 	int inputBufferSize = inputBuffer.getSize();
 
@@ -134,7 +136,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 
 	//Fit downsampled buffer into outputBuffer with linear interpolation
 	float* buf = outputBuffer.getSamples(1);
-	float achievedMultiRate=L/2;
+	float achievedMultiRate=L;
 	
 	for(int i=0 ; i<outputBuffer.getSize();i++)
 	{
