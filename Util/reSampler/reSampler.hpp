@@ -3,6 +3,9 @@
 
 #include "CircularBuffer.hpp"
 
+static int Ls [100] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,4,4,4,4,4,5,5,1,1,1,1,1,1,1,1,1,1};
+static int Ms [100] = {91,46,31,23,19,16,13,12,11,10,9,8,7,7,7,6,6,6,5,5,5,5,4,4,4,4,4,7,7,7,3,3,3,3,3,3,3,5,5,5,5,5,5,5,7,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,5,5,5,5,5,6,6,1,1,1,1,1,1,1,1,1,1};
+
 class reSampler
 {
 private:
@@ -76,6 +79,7 @@ void reSampler::upSample(float inputBuffer[], float outputBuffer[], int size, in
     }
 }
 
+/*
 void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
 {
 
@@ -83,7 +87,6 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	int size = inputBuffer.getSize();
 
 	//find L(Interpolation rate) and M(Decimation Rate)
-	findMultiRates(multiRate, multiRateMargin);
 
 	//Fit downsampled buffer into outputBuffer with linear interpolation
 	float* buf = outputBuffer.getSamples(1);
@@ -100,9 +103,9 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//free(DownsampledSignalBuffer);
 
 }
+*/
 
 
-/*
 void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
 {
 
@@ -143,7 +146,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//free(DownsampledSignalBuffer);
 
 }
-*/
+
 
 float reSampler::getDecimalSampleWithInterpolation(float* buffer,float sampleNo)
 {
@@ -155,7 +158,7 @@ float reSampler::getDecimalSampleWithInterpolation(float* buffer,float sampleNo)
 
 	return x0 + (x1-x0)*decimal;
 }
-
+/*
 //Find interpolation rate and decimation rate for a desired multirate with the given margin.
 float reSampler::findMultiRates(float desiredRate, float margin)
     {
@@ -173,6 +176,15 @@ float reSampler::findMultiRates(float desiredRate, float margin)
 	    		}
 	    	}
     	}
+    }
+    */
+
+//Find interpolation rate and decimation rate for a desired multirate with the given margin.
+float reSampler::findMultiRates(float desiredRate, float margin)
+    {
+    	int index = (int)desiredRate*100+0.5; //Add 0.5 for proper rounding
+    	M=Ms[index];
+    	L=Ls[index];
     }
 
 
