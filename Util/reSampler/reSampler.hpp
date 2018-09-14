@@ -64,14 +64,14 @@ void reSampler::upSample(float inputBuffer[], float outputBuffer[], int size, in
         //Copy samples of input buffer to outputbuffer and do zero-stuffing.
         outputBuffer[i*interpolationRate]=inputBuffer[i];
         
-        /*
+        
 		//create new points with linear interpolation.
         dy_dx_over_L=(inputBuffer[i+1]-inputBuffer[i])/interpolationRate;
         for (int j = 1; j< interpolationRate; j++)
         {
         	outputBuffer[i*interpolationRate+j]=inputBuffer[i]+j*dy_dx_over_L;
         }
-        */
+        
     }
 
     //Last L points cannot use dy/dx, and thus just copies the last known sample.
