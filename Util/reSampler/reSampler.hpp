@@ -85,7 +85,6 @@ void reSampler::upSample(float inputBuffer[], float outputBuffer[], int size, in
 void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
 {
 
-	return;
 	for (int ch = 0; ch<inputBuffer.getChannels(); ++ch) {
         
         
@@ -108,6 +107,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//Interpolate signal by a rate of L and save in new buffer
 	upSample(inputSamples, InterpolatedSignalBuffer,size, L);
 
+	return;
 	//create buffer to hold interpolated signal that's L(Interpolation Rate)/M(Decimation Rate) times as big as the input buffer
 	//float *DownsampledSignalBuffer = (float*)malloc(sizeof(float)*inputBufferSize*L/M);
 
