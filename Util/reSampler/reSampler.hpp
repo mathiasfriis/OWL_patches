@@ -107,12 +107,13 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//Interpolate signal by a rate of L and save in new buffer
 	upSample(inputSamples, InterpolatedSignalBuffer,size, L);
 
-	return;
+
 	//create buffer to hold interpolated signal that's L(Interpolation Rate)/M(Decimation Rate) times as big as the input buffer
 	//float *DownsampledSignalBuffer = (float*)malloc(sizeof(float)*inputBufferSize*L/M);
 
 	//Fake-Downsample interpolated signal by a rate of M and save in a buffer.
 	downSample(InterpolatedSignalBuffer, InterpolatedSignalBuffer,size*L,M);
+	return;
 
 	//Fit downsampled buffer into outputBuffer with linear interpolation
 	float* buf = outputBuffer.getSamples(ch);
