@@ -85,6 +85,7 @@ void reSampler::upSample(float inputBuffer[], float outputBuffer[], int size, in
 void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
 {
 
+	return;
 	for (int ch = 0; ch<inputBuffer.getChannels(); ++ch) {
         
         
