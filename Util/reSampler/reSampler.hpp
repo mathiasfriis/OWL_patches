@@ -3,12 +3,12 @@
 
 #include "CircularBuffer.hpp"
 
+static int Ls [100] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,4,4,4,4,4,5,5,1,1,1,1,1,1,1,1,1,1};
+static int Ms [100] = {91,46,31,23,19,16,13,12,11,10,9,8,7,7,7,6,6,6,5,5,5,5,4,4,4,4,4,7,7,7,3,3,3,3,3,3,3,5,5,5,5,5,5,5,7,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,5,5,5,5,5,6,6,1,1,1,1,1,1,1,1,1,1};
 
 class reSampler
 {
 private:
-	int Ls [100] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,4,4,4,4,4,5,5,1,1,1,1,1,1,1,1,1,1};
-	int Ms [100] = {91,46,31,23,19,16,13,12,11,10,9,8,7,7,7,6,6,6,5,5,5,5,4,4,4,4,4,7,7,7,3,3,3,3,3,3,3,5,5,5,5,5,5,5,7,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,5,5,5,5,5,6,6,1,1,1,1,1,1,1,1,1,1};
 	float currentSample;
 	float inputSampleRate;
 	float outputSampleRate;
@@ -92,12 +92,9 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	int size = inputBuffer.getSize();
 
 	//find L(Interpolation rate) and M(Decimation Rate)
-	findMultiRates(multiRate,multiRateMargin);
-
-	L=Ls[30];
-	M=Ms[30];
-	L=1;
-	M=30;
+	//findMultiRates(multiRate,multiRateMargin);
+	L=3;
+	M=100;
 
 	int inputBufferSize = inputBuffer.getSize();
 
@@ -116,6 +113,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 
 	//Fake-Downsample interpolated signal by a rate of M and save in a buffer.
 	downSample(InterpolatedSignalBuffer, InterpolatedSignalBuffer,size*L,M);
+
 
 	//Fit downsampled buffer into outputBuffer with linear interpolation
 	float* buf = outputBuffer.getSamples(ch);
