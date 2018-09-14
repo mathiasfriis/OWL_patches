@@ -46,7 +46,7 @@ void reSampler::downSample(float inputBuffer[], float outputBuffer[], int size, 
         	currentSample=inputBuffer[i];
         }
         //Copy current downsampled sample to output buffer.
-        ouputBuffer[i]=currentSample;
+        outputBuffer[i]=currentSample;
     }        
  }
 
