@@ -117,7 +117,6 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//Fake-Downsample interpolated signal by a rate of M and save in a buffer.
 	downSample(InterpolatedSignalBuffer, InterpolatedSignalBuffer,size*L,M);
 
-
 	//Fit downsampled buffer into outputBuffer with linear interpolation
 	float* buf = outputBuffer.getSamples(ch);
 	float achievedMultiRate=L;
