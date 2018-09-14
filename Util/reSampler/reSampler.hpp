@@ -85,7 +85,10 @@ void reSampler::upSample(float inputBuffer[], float outputBuffer[], int size, in
 void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin)
 {
 
-	//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
+	for (int ch = 0; ch<buffer.getChannels(); ++ch) {
+        
+        
+		//get size of inputbuffer - NOTE: SIZE OF BUFFERS MUST MATCH!
 	int size = inputBuffer.getSize();
 
 	//find L(Interpolation rate) and M(Decimation Rate)
@@ -99,7 +102,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//float *InterpolatedSignalBuffer=new float[3];
 	float *InterpolatedSignalBuffer = (float*)malloc(sizeof(float)*inputBufferSize*L);
 
-	float* inputSamples = inputBuffer.getSamples(0);
+	float* inputSamples = inputBuffer.getSamples(ch);
 
 	//Interpolate signal by a rate of L and save in new buffer
 	upSample(inputSamples, InterpolatedSignalBuffer,size, L);
@@ -111,7 +114,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	downSample(InterpolatedSignalBuffer, InterpolatedSignalBuffer,size*L,M);
 
 	//Fit downsampled buffer into outputBuffer with linear interpolation
-	float* buf = outputBuffer.getSamples(0);
+	float* buf = outputBuffer.getSamples(ch);
 	float achievedMultiRate=L;
 	
 	for(int i=0 ; i<outputBuffer.getSize();i++)
@@ -123,6 +126,11 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//Free up memory of InterpolatedSignalBuffer
 	free(InterpolatedSignalBuffer);
 	//free(DownsampledSignalBuffer);
+
+        }
+    }
+
+	
 
 }
 
