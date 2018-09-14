@@ -123,11 +123,11 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 
 		if(i%2==0)
 		{
-			buf[i]=1;
+			buf[i]=2^31;-1
 		}
 		else
 		{
-			buf[i]=-1;
+			buf[i]=-2^31;
 		}
 		//buf[i]=getDecimalSampleWithInterpolation(InterpolatedSignalBuffer,i*achievedMultiRate);
 	}
