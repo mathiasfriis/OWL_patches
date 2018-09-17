@@ -126,6 +126,9 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 		buf[i]=InterpolatedSignalBuffer[i*L];
 		//buf[i]=getDecimalSampleWithInterpolation(InterpolatedSignalBuffer,i*achievedMultiRate);
 	}
+
+	free (*InterpolatedSignalBuffer);
+
 	return;
     }
 }
