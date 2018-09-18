@@ -105,14 +105,14 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	float* inputSamples = inputBuffer.getSamples(ch);
 
 	//Interpolate signal by a rate of L and save in new buffer
-	upSample(inputSamples, InterpolatedSignalBuffer,size, L);
+	upSample(inputSamples, pInterpolatedBuffer,size, L);
 
 
 	//create buffer to hold interpolated signal that's L(Interpolation Rate)/M(Decimation Rate) times as big as the input buffer
 	//float *DownsampledSignalBuffer = (float*)malloc(sizeof(float)*inputBufferSize*L/M);
 
 	//Fake-Downsample interpolated signal by a rate of M and save in a buffer.
-	downSample(InterpolatedSignalBuffer, InterpolatedSignalBuffer,size*L,M);
+	downSample(pInterpolatedBuffer, pInterpolatedBuffer,size*L,M);
 
 
 	//Fit downsampled buffer into outputBuffer with linear interpolation
@@ -123,11 +123,11 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 
 	for(int i=0 ; i<outputBufferSize;i++)
 	{
-		buf[i]=InterpolatedSignalBuffer[i*L];
+		buf[i]=pInterpolatedBuffer[i*L];
 		//buf[i]=getDecimalSampleWithInterpolation(InterpolatedSignalBuffer,i*achievedMultiRate);
 	}
 
-	free (InterpolatedSignalBuffer);
+	free (pInterpolatedBuffer);
 
 	return;
     }
