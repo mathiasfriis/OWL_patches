@@ -61,7 +61,8 @@ public:
    
     fs_system = getSampleRate();
 
-    decimator.initDownSampler();
+    decimator.initDownSampler(getBlockSize());
+
     decimator.setInputSampleRate(fs_system);
    
     lfo.initLFO();
@@ -74,6 +75,8 @@ public:
   void processAudio(AudioBuffer &buffer){
     int size = buffer.getSize();
       
+	  
+
       LFO_rate=getParameterValue(PARAMETER_A)*RATE_SCALER;
       LFO_depth=getParameterValue(PARAMETER_B)*DEPTH_SCALER; //0:1
       LFO_waveshape=getParameterValue(PARAMETER_C)*100;
@@ -128,8 +131,8 @@ public:
         }
     }
 
-    fs_offset=0.2;
-    decimator.reSample(buffer,buffer,fs_offset,0.1);
+	float a = 0.2;
+    decimator.reSample(buffer,buffer,a,0.1);
     /*
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         

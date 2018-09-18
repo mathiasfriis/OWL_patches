@@ -6,9 +6,12 @@
 static int Ls [100] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,1,2,2,2,2,2,2,2,3,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,4,4,4,4,4,5,5,1,1,1,1,1,1,1,1,1,1};
 static int Ms [100] = {91,46,31,23,19,16,13,12,11,10,9,8,7,7,7,6,6,6,5,5,5,5,4,4,4,4,4,7,7,7,3,3,3,3,3,3,3,5,5,5,5,5,5,5,7,2,2,2,2,2,2,2,2,2,2,5,5,5,5,5,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,5,5,5,5,5,6,6,1,1,1,1,1,1,1,1,1,1};
 
+#define MAX_L 5
+
 class reSampler
 {
 private:
+	float* pInterpolatedBuffer;
 	float currentSample;
 	float inputSampleRate;
 	float outputSampleRate;
@@ -17,7 +20,7 @@ private:
 	int L,M;
 	float getDecimalSampleWithInterpolation(float*,float);
 public:
-	void initDownSampler();
+	void initDownSampler(int audioBufferLength);
 	void downSample(float inputBuffer[], float outputBuffer[], int size, int decimationRate);
 	void upSample(float inputBuffer[], float outputBuffer[], int size, int interpolationRate);
 	void reSample(AudioBuffer &inputbuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin);
@@ -26,12 +29,9 @@ public:
 };
 
 
-void reSampler::initDownSampler()
+void reSampler::initDownSampler(int audioBufferLength)
 {
-	currentSample=0;
-	inputSampleRate=44100;
-	outputSampleRate=44100;
-	sampleRateDivider =1;
+	pInterpolatedBuffer = (float*)malloc(sizeof(float)*audioBufferLength*MAX_L);
 }
 
 
@@ -100,7 +100,7 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 
 	//create buffer to hold interpolated signal that's L(Interpolation Rate) times as big as the input buffer
 	//float *InterpolatedSignalBuffer=new float[3];
-	float *InterpolatedSignalBuffer = (float*)malloc(sizeof(float)*inputBufferSize*L);
+	//float *InterpolatedSignalBuffer = (float*)malloc(sizeof(float)*inputBufferSize*L);
 
 	float* inputSamples = inputBuffer.getSamples(ch);
 
