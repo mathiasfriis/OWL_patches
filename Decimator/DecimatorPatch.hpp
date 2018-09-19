@@ -132,7 +132,7 @@ public:
     }
 
 	float a = 0.02;
-    decimator.reSample(buffer,buffer,a,0.1);
+    decimator.reSample(buffer,buffer,fs_offset,0.1);
     /*
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         
