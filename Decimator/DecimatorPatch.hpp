@@ -31,12 +31,9 @@
 #include "Resample.h"
 
 #define FLANGER_BUFFER_SIZE 1024
-#define CUTOFF_MIN 0
-#define CUTOFF_SCALER 2000
-#define Q_SCALER 10
+
 #define RATE_SCALER 20
-#define DEPTH_SCALER 8000
-#define MULTIRATE_MARGIN 0.05
+#define DEPTH_SCALER 0.4
 #define OFFSET_SCALER 0.4
 
 class DecimatorPatch : public Patch {
@@ -44,7 +41,7 @@ private:
     float fs_system;
     float fs_offset;
     float LFO_rate, LFO_depth, LFO_waveshape;
-    float multiRate, multiRateState;
+    float relativeSampleRate, multiRateState;
     bool buttonState;
     reSampler decimator;
     LFO lfo;
@@ -78,36 +75,20 @@ public:
     int size = buffer.getSize();
       
 	  
-
+    	//read parameters from knobs
       LFO_rate=getParameterValue(PARAMETER_A)*RATE_SCALER;
       LFO_depth=getParameterValue(PARAMETER_B)*DEPTH_SCALER; //0:1
       LFO_waveshape=getParameterValue(PARAMETER_C)*100;
-      
+      fs_offset = getParameterValue(PARAMETER_D)*OFFSET_SCALER; //0:1
+
+      //set LFO rate and Waveshape
       lfo.setFrequency(LFO_rate);
       lfo.setWaveshape(LFO_waveshape);
 
-      fs_offset = getParameterValue(PARAMETER_D)*OFFSET_SCALER; //0:1
 
-      multiRateState=multiRate;
-      multiRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
-      //multiRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
-
-/*
-      if(multiRate!=multiRateState)
-      {
-      }
-      //decimator.setOutputSampleRate();
-
-      for(int i = 0 ; i < size; i++)
-      {
-        lfo.updateLFO_value();
-        if(lfo.get_LFO_value()>0.99)
-        {
-
-        }
-      }
-*/
-
+      relativeSampleRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
+     
+      //Manage button push - If pushed, change LFO mode
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {
         buttonState=isButtonPressed(PUSHBUTTON);
