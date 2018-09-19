@@ -27,10 +27,16 @@ public:
 	void setInputSampleRate(float fs);
 	void setOutputSampleRate(float fs);
 	reSampler(int);
+	reSampler();
 	~reSampler();
 
 };
 
+//Allocate memory in constructor
+reSampler::reSampler()
+{
+	//do nothing
+}
 
 //Allocate memory in constructor
 reSampler::reSampler(int audioBufferLength)
