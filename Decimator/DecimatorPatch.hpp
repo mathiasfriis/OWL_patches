@@ -85,6 +85,11 @@ public:
       lfo.setFrequency(LFO_rate);
       lfo.setWaveshape(LFO_waveshape);
 
+	//Update LFO value according to chunk size.
+      for (int i = 0; i < size ; i++)
+      {
+      	lfo.updateLFO_value();
+      }
 
       relativeSampleRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
      
@@ -116,20 +121,6 @@ public:
 
 	float a = 0.02;
     decimator.reSample(buffer,buffer,fs_offset,0.1);
-    /*
-    for (int ch = 0; ch<buffer.getChannels(); ++ch) {
-        
-        for (int i = 0 ; i < size; i++) {
-            float* buf = buffer.getSamples(ch);
-            main_lfo.updateLFO_value();
-
-            float dry = buf[i]*(1-main_depth);
-            float wet = buf[i]*main_lfo.get_LFO_value()*(main_depth);
-            buf[i] = dry+wet;
-        }
-    }
-    */
-
   }
 };
 
