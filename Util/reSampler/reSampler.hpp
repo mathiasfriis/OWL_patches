@@ -105,6 +105,12 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	//M=100;
 
 	int index = (int)(multiRate*100+0.5-1); //Add 0.5 for proper rounding
+
+	if(index<0)
+	{
+		index=0;
+	}
+
 	if(index>(100-1))
 	{
 		index=100-1;
