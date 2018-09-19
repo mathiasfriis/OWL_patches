@@ -61,8 +61,8 @@ public:
    
     fs_system = getSampleRate();
 
-    decimator = new reSampler(getBlockSize());
-    //decimator.initDownSampler(getBlockSize());
+    //decimator = new reSampler(getBlockSize());
+    decimator.initDownSampler(getBlockSize());
 
     decimator.setInputSampleRate(fs_system);
    
