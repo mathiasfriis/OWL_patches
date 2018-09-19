@@ -6,6 +6,8 @@
 #define myPI 3.14159265
 #define UINT32MAX 4294967296
 
+//Update 1.1 - Woo, sample&hold now works!
+
 enum lfo_mode{sine,square,triangle,sampleHold};
 
 	class LFO
