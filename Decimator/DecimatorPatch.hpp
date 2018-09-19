@@ -37,6 +37,7 @@
 #define RATE_SCALER 20
 #define DEPTH_SCALER 8000
 #define MULTIRATE_MARGIN 0.05
+#define OFFSET_SCALER 0.4
 
 class DecimatorPatch : public Patch {
 private:
@@ -85,7 +86,7 @@ public:
       lfo.setFrequency(LFO_rate);
       lfo.setWaveshape(LFO_waveshape);
 
-      fs_offset = getParameterValue(PARAMETER_D); //0:1
+      fs_offset = getParameterValue(PARAMETER_D)*OFFSET_SCALER; //0:1
 
       multiRateState=multiRate;
       multiRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
