@@ -119,7 +119,10 @@ public:
         }
     }
 
-	float a = 0.02;
+    if(relativeSampleRate>1)
+    {
+    	relativeSampleRate=1;
+    }
     decimator.reSample(buffer,buffer,relativeSampleRate,0.1);
   }
 };
