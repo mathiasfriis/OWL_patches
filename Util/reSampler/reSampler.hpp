@@ -92,9 +92,13 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 	int size = inputBuffer.getSize();
 
 	//find L(Interpolation rate) and M(Decimation Rate)
-	findMultiRates(multiRate,multiRateMargin);
+	//findMultiRates(multiRate,multiRateMargin);
 	//L=3;
 	//M=100;
+
+	int index = (int)(multiRate*100+0.5); //Add 0.5 for proper rounding
+    M=Ms[index];
+    L=Ls[index];
 
 	int inputBufferSize = inputBuffer.getSize();
 
@@ -171,9 +175,7 @@ float reSampler::findMultiRates(float desiredRate, float margin)
     	L=3;
     	M=100;
 
-    	//int index = (int)(desiredRate*100+0.5); //Add 0.5 for proper rounding
-    	//M=Ms[index];
-    	//L=Ls[index];
+    	
     }
 
 
