@@ -172,8 +172,8 @@ float reSampler::findMultiRates(float desiredRate, float margin)
     	M=Ms[index];
     	L=Ls[index];
 
-    	L=2;
-    	M=35;
+    	L=3;
+    	M=100;
     }
 
 
