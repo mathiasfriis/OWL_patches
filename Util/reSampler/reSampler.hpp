@@ -168,7 +168,7 @@ float reSampler::findMultiRates(float desiredRate, float margin)
 //Find interpolation rate and decimation rate for a desired multirate with the given margin.
 float reSampler::findMultiRates(float desiredRate, float margin)
     {
-    	int index = (int)desiredRate*100+0.5; //Add 0.5 for proper rounding
+    	int index = (int)(desiredRate*100+0.5); //Add 0.5 for proper rounding
     	M=Ms[index];
     	L=Ls[index];
     }
