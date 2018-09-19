@@ -131,7 +131,7 @@ public:
         }
     }
 
-	float a = 0.2;
+	float a = 0.02;
     decimator.reSample(buffer,buffer,a,0.1);
     /*
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
