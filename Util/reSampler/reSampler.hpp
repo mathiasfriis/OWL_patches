@@ -26,14 +26,23 @@ public:
 	void reSample(AudioBuffer &inputbuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin);
 	void setInputSampleRate(float fs);
 	void setOutputSampleRate(float fs);
+	reSampler();
+	~reSampler();
+
 };
 
 
-void reSampler::initDownSampler(int audioBufferLength)
+//Allocate memory in constructor
+reSampler::reSampler(int audioBufferLength)
 {
 	pInterpolatedBuffer = (float*)malloc(sizeof(float)*audioBufferLength*MAX_L);
 }
 
+//free memory in destructor
+reSampler::~reSampler()
+{
+	free(pInterpolatedBuffer);
+}
 
 void reSampler::downSample(float inputBuffer[], float outputBuffer[], int size, int decimationRate)
 {
@@ -134,8 +143,6 @@ void reSampler::reSample(AudioBuffer &inputBuffer, AudioBuffer &outputBuffer, fl
 		buf[i]=pInterpolatedBuffer[i*L];
 		//buf[i]=getDecimalSampleWithInterpolation(InterpolatedSignalBuffer,i*achievedMultiRate);
 	}
-
-	//free (pInterpolatedBuffer);
 
 	return;
     }
