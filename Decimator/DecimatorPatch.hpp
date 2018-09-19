@@ -120,7 +120,7 @@ public:
     }
 
 	float a = 0.02;
-    decimator.reSample(buffer,buffer,fs_offset,0.1);
+    decimator.reSample(buffer,buffer,relativeSampleRate,0.1);
   }
 };
 
