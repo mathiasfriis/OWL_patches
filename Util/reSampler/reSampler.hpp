@@ -171,6 +171,9 @@ float reSampler::findMultiRates(float desiredRate, float margin)
     	int index = (int)(desiredRate*100+0.5); //Add 0.5 for proper rounding
     	M=Ms[index];
     	L=Ls[index];
+
+    	L=2;
+    	M=5;
     }
 
 
