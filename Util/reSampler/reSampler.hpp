@@ -35,7 +35,7 @@ public:
 //Allocate memory in constructor
 reSampler::reSampler(int audioBufferLength)
 {
-	pInterpolatedBuffer = (float*)malloc(sizeof(float)*audioBufferLength*MAX_L);
+	pInterpolatedBuffer = (float*)malloc(sizeof(float)*audioBufferLength*(MAX_L+1); //Testing out +1 for safety?
 }
 
 //free memory in destructor
