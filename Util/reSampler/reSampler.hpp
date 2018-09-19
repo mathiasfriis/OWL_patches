@@ -26,9 +26,7 @@ public:
 	void reSample(AudioBuffer &inputbuffer, AudioBuffer &outputBuffer, float multiRate, float multiRateMargin);
 	void setInputSampleRate(float fs);
 	void setOutputSampleRate(float fs);
-	reSampler();
 	~reSampler();
-
 };
 
 
