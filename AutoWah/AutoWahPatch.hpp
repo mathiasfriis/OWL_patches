@@ -60,7 +60,7 @@ public:
     //filter.initFilter(44100);
     fc=0;
 
-    lfo.setLFO_mode(sampleHold);
+    lfo.setLFO_mode(triangle);
     lfo.setWaveshape(50);
     filter.setFilterType(LOW_PASS);
   }
