@@ -104,7 +104,7 @@ public:
     }
 
    
-    filter.setCutoff(fc);
+    //filter.setCutoff(fc);
 
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         for (int i = 0 ; i < size; i++) {
@@ -114,7 +114,7 @@ public:
             {
                 fc=0;
             }
-            //filter.setCutoff(fc);
+            filter.setCutoff(fc);
             
             float* buf = buffer.getSamples(ch);
             //lfo.updateLFO_value();
