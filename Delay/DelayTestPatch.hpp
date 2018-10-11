@@ -80,7 +80,7 @@ public:
             float dry = buf[i]*(1-depth); //Get dry signal
             float wet = y->interpolate(delaySamples); //Get wet signal
             buf[i] = dry+wet;
-            y->write(delaySamples*feedback); //Write to write to y-buffer
+            y->write(wet*feedback); //Write to write to y-buffer
         }
     }
   }
