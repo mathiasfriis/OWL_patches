@@ -30,16 +30,16 @@
 
 #define MAX_DELAY_MS 3000
 
-class TremoloPatch : public Patch {
+class DelayPatch : public Patch {
 private:
     CircularBuffer x, y;
     float delay_ms;
     float feedback;
 
 public:
-  TremoloPatch(){
+  DelayPatch(){
     float fs = getSampleRate();
-    AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
+    //AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
     x = CircularBuffer::create(MAX_DELAY_MS*fs);
     y = CircularBuffer::create(MAX_DELAY_MS*fs);
     registerParameter(PARAMETER_A, "Delay");
