@@ -33,7 +33,7 @@
 
 class DelayTestPatch : public Patch {
 private:
-    static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE;
+    static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE/1000;
     //CircularBuffer* x;
     CircularBuffer* y;
     float delay_ms;
@@ -48,7 +48,7 @@ public:
   DelayTestPatch(){
     //fs = getSampleRate();
     //x = CircularBuffer::create(MAX_DELAY_MS*fs);
-    y = CircularBuffer::create(REQUEST_BUFFER_SIZE);
+    y = CircularBuffer::create(MAX_DELAY_SAMPLES);
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
     registerParameter(PARAMETER_C, "asd");
