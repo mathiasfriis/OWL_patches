@@ -95,7 +95,7 @@ public:
     if((stutterTriggered==true) && (stutterTriggered_state==false))
     {
         //Calculate the variation in samples - LFO supplies random number between 0 and 1.
-        variation_ms=lfo.get_LFO_value()*variation*DELAY_RANGE_MS;
+        variation_ms=lfo.get_LFO_value()*variation*MAX_VARIATION_MS;
         variation_samples=variation_ms*getSampleRate()/1000;
     }
 
