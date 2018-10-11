@@ -48,19 +48,19 @@ public:
   DelayTestPatch(){
     //fs = getSampleRate();
     //x = CircularBuffer::create(MAX_DELAY_MS*fs);
-    //y = CircularBuffer::create(MAX_DELAY_SAMPLES);
+    y = CircularBuffer::create(REQUEST_BUFFER_SIZE);
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
     registerParameter(PARAMETER_C, "asd");
     registerParameter(PARAMETER_D, "Depth");
     //AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
 
-    delayBuffer = CircularBuffer::create(REQUEST_BUFFER_SIZE);
+    //delayBuffer = CircularBuffer::create(REQUEST_BUFFER_SIZE);
   }
 
   ~DelayTestPatch() {
-        //CircularBuffer::destroy(y);
-        CircularBuffer::destroy(delayBuffer);
+        CircularBuffer::destroy(y);
+        //CircularBuffer::destroy(delayBuffer);
     }
  
 
