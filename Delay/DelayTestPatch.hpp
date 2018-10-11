@@ -76,14 +76,17 @@ public:
         float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
 
-            //Write input to x-buffer
+            //Write input to input delay line
             x->write(buf[i]);
             
+            //Seperate delay line and input signal
             float delayedSignal = y->readDelayed(delaySamples);
             float inputSignal = buf[i];
 
+            //write the feedback to the output delay line.
             y->write(inputSignal+delayedSignal*feedback);
 
+            //Write to output buffer.
             buf[i]=inputSignal+delayedSignal*depth;
         }
     }
