@@ -30,7 +30,7 @@
 
 #define MAX_DELAY_MS 3000
 
-class DelayPatch : public Patch {
+class DelayTestPatch : public Patch {
 private:
     CircularBuffer* x;
     CircularBuffer* y;
@@ -40,7 +40,7 @@ private:
     float fs;
 
 public:
-  DelayPatch(){
+  DelayTestPatch(){
     fs = getSampleRate();
     //AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
     x = CircularBuffer::create(MAX_DELAY_MS*fs);
