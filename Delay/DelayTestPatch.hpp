@@ -41,17 +41,27 @@ private:
     float depth;
     //float fs;
 
+    static const int REQUEST_BUFFER_SIZE = 1<<15;
+    CircularBuffer* delayBuffer;
+
 public:
   DelayTestPatch(){
     //fs = getSampleRate();
     //x = CircularBuffer::create(MAX_DELAY_MS*fs);
-    y = CircularBuffer::create(MAX_DELAY_SAMPLES);
+    //y = CircularBuffer::create(MAX_DELAY_SAMPLES);
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
     registerParameter(PARAMETER_C, "asd");
     registerParameter(PARAMETER_D, "Depth");
     //AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
+
+    delayBuffer = CircularBuffer::create(REQUEST_BUFFER_SIZE);
   }
+
+  ~DubDelayPatch() {
+        //CircularBuffer::destroy(y);
+        CircularBuffer::destroy(delayBuffer);
+    }
  
 
   void processAudio(AudioBuffer &buffer){
