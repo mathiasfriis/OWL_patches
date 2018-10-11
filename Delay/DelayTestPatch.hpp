@@ -34,7 +34,7 @@
 class DelayTestPatch : public Patch {
 private:
     //CircularBuffer* x;
-    //CircularBuffer* y;
+    CircularBuffer* y;
     float delay_ms;
     float feedback;
     float depth;
@@ -44,7 +44,7 @@ public:
   DelayTestPatch(){
     //fs = getSampleRate();
     //x = CircularBuffer::create(MAX_DELAY_MS*fs);
-    //y = CircularBuffer::create(MAX_DELAY_MS*getSampleRate());
+    y = CircularBuffer::create(MAX_DELAY_MS*getSampleRate());
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
     registerParameter(PARAMETER_C, "asd");
