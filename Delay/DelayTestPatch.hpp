@@ -28,12 +28,13 @@
 #include "CircularBuffer.hpp"
 //#include "lfo.hpp"
 
-#define MAX_DELAY_MS 3000
+#define MAX_DELAY_MS 1000
 #define DEFAULT_SAMPLE_RATE 48000
 
 class DelayTestPatch : public Patch {
 private:
-    static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE/1000;
+    //static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE/1000;
+    static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*getSampleRate/1000;
     CircularBuffer* x;
     CircularBuffer* y;
     float delay_ms;
