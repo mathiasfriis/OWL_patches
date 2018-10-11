@@ -31,7 +31,7 @@
 #define MAX_DELAY_MS 300
 #define MIN_DELAY_MS 50
 #define DELAY_RANGE_MS (MAX_DELAY_MS-MIN_DELAY_MS)
-#define MAX_VARIATION_MS 100
+#define MAX_VARIATION_MS 300
 #define DEFAULT_SAMPLE_RATE 48000
 
 class StutterPatch : public Patch {
