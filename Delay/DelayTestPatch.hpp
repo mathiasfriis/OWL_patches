@@ -70,6 +70,7 @@ public:
     //Calculate delay in samples
     //unsigned int delaySamples = delay_ms*DEFAULT_SAMPLE_RATE/1000;
     int delaySamples =DEFAULT_SAMPLE_RATE;
+    feedback=0.8;
 
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         
