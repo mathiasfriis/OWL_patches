@@ -26,29 +26,40 @@
 #define __StutterPatch_hpp__
 
 #include "CircularBuffer.hpp"
-//#include "lfo.hpp"
+#include "lfo.hpp"
 
 #define MAX_DELAY_MS 300
+#define MAX_VARIATION_MS 100
 #define DEFAULT_SAMPLE_RATE 48000
 
 class StutterPatch : public Patch {
 private:
-    int MAX_DELAY_SAMPLES = MAX_DELAY_MS*getSampleRate()/1000;
+    int MAX_DELAY_SAMPLES = (MAX_DELAY_MS + MAX_VARIATION_MS)*getSampleRate()/1000;
     CircularBuffer* x;
+    lfo_mode mode;
+    LFO lfo;
     float period_ms;
+    float variation;
+    float variation_ms;
+    int variation_samples;
     bool stutterTriggered;
+    bool stutterTriggered_state;
     int index;
 
 public:
   StutterPatch(){
     registerParameter(PARAMETER_A, "Time");
-    registerParameter(PARAMETER_B, "N/A");
+    registerParameter(PARAMETER_B, "Variation");
     registerParameter(PARAMETER_C, "N/A");
-    registerParameter(PARAMETER_D, "N/A");
+    registerParameter(PARAMETER_D, "Depth");
     registerParameter(PARAMETER_E, "Triggerer");
 
     x = CircularBuffer::create(MAX_DELAY_SAMPLES);
     stutterTriggered=false;
+    stutterTriggered_state=false;
+
+    lfo.setSampleRate(getSampleRate());
+    lfo.setLFO_mode(sampleHold)
   }
 
   ~StutterPatch() {
@@ -59,8 +70,10 @@ public:
   void processAudio(AudioBuffer &buffer){
     int size = buffer.getSize();
       
+    lfo.updateLFO_value();
     //Read knobs
     period_ms     = getParameterValue(PARAMETER_A)*MAX_DELAY_MS;
+    variation = getParameterValue(PARAMETER_B)*MAX_VARIATION_MS;
     //Calculate delay in samples
     int periodSamples =period_ms*getSampleRate()/1000;
     if(getParameterValue(PARAMETER_E)<0.05)
@@ -71,6 +84,18 @@ public:
     {
         stutterTriggered=false;
     }
+
+     //If just triggered
+    if((stutterTriggered==true) && (stutterTriggered_state==false))
+    {
+        //Calculate the variation in samples - LFO supplies random number between 0 and 1.
+        variation_ms=lfo.get_LFO_value()*variation*MAX_VARIATION_MS;
+        variation_samples=variation_ms*getSampleRate()/1000;
+    }
+
+    stutterTriggered_state=stutterTriggered;
+
+
 
     for (int ch = 0; ch<buffer.getChannels()-1; ++ch) {
         
@@ -85,8 +110,9 @@ public:
             }
             else
             {
+               
                 //Write to output buffer.
-                buf[i]=x->readDelayed(index);
+                buf[i]=buf[i]*(1-depth) + x->readDelayed(index)*depth;
                 index--; //Decrement index counter.
                 if(index<0) //If reaching head, reset counter.
                 {
