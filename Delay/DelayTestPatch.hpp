@@ -22,8 +22,8 @@
 /* created by the OWL team 2013 */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef ___DelayPatch_hpp__
-#define __DelayPatch_hpp__
+#ifndef ___DelayTestPatch_hpp__
+#define __DelayTestPatch_hpp__
 
 #include "CircularBuffer.hpp"
 //#include "lfo.hpp"
@@ -78,4 +78,4 @@ public:
 };
 
 
-#endif /* __FlangerPatch_hpp__ */
+#endif /* __DelayTestPatch_hpp__ */
