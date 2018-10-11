@@ -117,7 +117,7 @@ public:
                 //Make sure that index stays in range
                 if(index > x-> getSize())
                 {
-                    index = x-> getSize()
+                    index = x-> getSize();
                 }  
             }
             else
@@ -132,7 +132,7 @@ public:
                     //Make sure that index stays in range
                     if(index > x-> getSize())
                     {
-                        index = x-> getSize()
+                        index = x-> getSize();
                     }  
                 }
             }
