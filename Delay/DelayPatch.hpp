@@ -47,6 +47,7 @@ public:
     y = CircularBuffer::create(MAX_DELAY_MS*fs);
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
+    registerParameter(PARAMETER_C, "asd");
     registerParameter(PARAMETER_D, "Depth");
   }
  
