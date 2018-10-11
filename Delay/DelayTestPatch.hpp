@@ -25,7 +25,7 @@
 #ifndef ___DelayTestPatch_hpp__
 #define __DelayTestPatch_hpp__
 
-//#include "CircularBuffer.hpp"
+#include "CircularBuffer.hpp"
 //#include "lfo.hpp"
 
 #define MAX_DELAY_MS 3000
