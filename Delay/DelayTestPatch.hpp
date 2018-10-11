@@ -41,7 +41,7 @@ private:
     float depth;
     //float fs;
 
-    static const int REQUEST_BUFFER_SIZE = 1<<15;
+    static const int REQUEST_BUFFER_SIZE = 1<<17;
     CircularBuffer* delayBuffer;
 
 public:
