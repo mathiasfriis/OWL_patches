@@ -76,7 +76,7 @@ public:
     
     //Read knobs
     period_ms     = getParameterValue(PARAMETER_A)*MAX_DELAY_MS;
-    variation = getParameterValue(PARAMETER_B)*MAX_VARIATION_MS;
+    variation = getParameterValue(PARAMETER_B);
     depth = getParameterValue(PARAMETER_D);
     //Calculate delay in samples
     int periodSamples =period_ms*getSampleRate()/1000;
