@@ -34,7 +34,7 @@
 class DelayTestPatch : public Patch {
 private:
     static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE/1000;
-    //CircularBuffer* x;
+    CircularBuffer* x;
     CircularBuffer* y;
     float delay_ms;
     float feedback;
@@ -45,7 +45,7 @@ private:
 public:
   DelayTestPatch(){
     //fs = getSampleRate();
-    //x = CircularBuffer::create(MAX_DELAY_SAMPLES);
+    x = CircularBuffer::create(MAX_DELAY_SAMPLES);
     y = CircularBuffer::create(MAX_DELAY_SAMPLES);
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
@@ -54,7 +54,7 @@ public:
   }
 
   ~DelayTestPatch() {
-        //CircularBuffer::destroy(x);
+        CircularBuffer::destroy(x);
         CircularBuffer::destroy(y);
     }
  
@@ -77,10 +77,8 @@ public:
         
         float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
-            float dry = buf[i]*(1-depth); //Get dry signal
-            float wet = (y->read(delaySamples))*depth; //Get wet signal
-            buf[i] += y->read(delaySamples);
-            y->write(buf[i]*feedback); //Write to y-buffer
+            x->write(buf[i]);
+            buf[i]=buf[i]+x->read(delaySamples)*0.5;
         }
     }
   }
