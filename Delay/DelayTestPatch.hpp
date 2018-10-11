@@ -45,13 +45,13 @@ private:
 
 public:
   DelayTestPatch(){
-    //fs = getSampleRate();
-    x = CircularBuffer::create(MAX_DELAY_SAMPLES);
-    y = CircularBuffer::create(MAX_DELAY_SAMPLES);
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
-    registerParameter(PARAMETER_C, "asd");
+    registerParameter(PARAMETER_C, "N/A");
     registerParameter(PARAMETER_D, "Depth");
+
+    x = CircularBuffer::create(MAX_DELAY_SAMPLES);
+    y = CircularBuffer::create(MAX_DELAY_SAMPLES);
   }
 
   ~DelayTestPatch() {
@@ -76,9 +76,9 @@ public:
         float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
             x->write(buf[i]);
-            buf[i]=buf[i]+y->readDelayed(delaySamples)*depth;
-            //buf[i]=x->readDelayed(delaySamples);
+            buf[i]=buf[i]+y->readDelayed(delaySamples)*feedback;
             y->write(buf[i]);
+            buf[i]=buf[i]*(1-depth) + y->readDelayed(delaySamples)*depth;
         }
     }
   }
