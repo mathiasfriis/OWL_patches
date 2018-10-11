@@ -58,7 +58,7 @@ public:
     delayBuffer = CircularBuffer::create(REQUEST_BUFFER_SIZE);
   }
 
-  ~DubDelayPatch() {
+  ~DelayTestPatch() {
         //CircularBuffer::destroy(y);
         CircularBuffer::destroy(delayBuffer);
     }
