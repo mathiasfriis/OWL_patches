@@ -73,7 +73,7 @@ public:
     feedback=0.5;
     depth=0.5;
 
-    for (int ch = 0; ch<buffer.getChannels(); ++ch) {
+    for (int ch = 0; ch<buffer.getChannels()-1; ++ch) {
         
         float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
