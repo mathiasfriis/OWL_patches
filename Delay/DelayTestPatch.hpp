@@ -29,10 +29,11 @@
 //#include "lfo.hpp"
 
 #define MAX_DELAY_MS 3000
-#define FLANGER_BUFFER_SIZE 1024
+#define DEFAULT_SAMPLE_RATE 48000
 
 class DelayTestPatch : public Patch {
 private:
+    static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE;
     //CircularBuffer* x;
     CircularBuffer* y;
     float delay_ms;
@@ -44,7 +45,7 @@ public:
   DelayTestPatch(){
     //fs = getSampleRate();
     //x = CircularBuffer::create(MAX_DELAY_MS*fs);
-    y = CircularBuffer::create(MAX_DELAY_MS*getSampleRate());
+    y = CircularBuffer::create(MAX_DELAY_SAMPLES);
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
     registerParameter(PARAMETER_C, "asd");
