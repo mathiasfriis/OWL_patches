@@ -79,7 +79,8 @@ public:
         float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
             x->write(buf[i]);
-            buf[i]=buf[i]+x->read(delaySamples)*0.5;
+            //buf[i]=buf[i]+x->read(delaySamples)*0.5;
+            buf[i]=x->read(delaySamples);
         }
     }
   }
