@@ -29,6 +29,8 @@
 #include "lfo.hpp"
 
 #define MAX_DELAY_MS 300
+#define MIN_DELAY_MS 50
+#define DELAY_RANGE_MS MAX_DELAY_MS-MIN_DELAY_MS
 #define MAX_VARIATION_MS 100
 #define DEFAULT_SAMPLE_RATE 48000
 
@@ -75,7 +77,7 @@ public:
       
     
     //Read knobs
-    period_ms     = getParameterValue(PARAMETER_A)*MAX_DELAY_MS;
+    period_ms     = MIN_DELAY_MS+getParameterValue(PARAMETER_A)*DELAY_RANGE_MS;
     variation = getParameterValue(PARAMETER_B);
     depth = getParameterValue(PARAMETER_D);
     //Calculate delay in samples
@@ -93,7 +95,7 @@ public:
     if((stutterTriggered==true) && (stutterTriggered_state==false))
     {
         //Calculate the variation in samples - LFO supplies random number between 0 and 1.
-        variation_ms=lfo.get_LFO_value()*variation*MAX_VARIATION_MS;
+        variation_ms=lfo.get_LFO_value()*variation*DELAY_RANGE_MS;
         variation_samples=variation_ms*getSampleRate()/1000;
     }
 
@@ -110,7 +112,13 @@ public:
             if(!stutterTriggered)
             {
                 x->write(buf[i]); 
-                index=periodSamples+variation_samples;   
+                index=periodSamples+variation_samples; 
+
+                //Make sure that index stays in range
+                if(index > x-> getSize())
+                {
+                    index = x-> getSize()
+                }  
             }
             else
             {
@@ -121,6 +129,11 @@ public:
                 if(index<0) //If reaching head, reset counter.
                 {
                     index=periodSamples+variation_samples; 
+                    //Make sure that index stays in range
+                    if(index > x-> getSize())
+                    {
+                        index = x-> getSize()
+                    }  
                 }
             }
         }
