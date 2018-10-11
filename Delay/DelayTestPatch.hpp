@@ -38,14 +38,14 @@ private:
     float delay_ms;
     float feedback;
     float depth;
-    float fs;
+    //float fs;
 
 public:
   DelayTestPatch(){
-    fs = getSampleRate();
+    //fs = getSampleRate();
     AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
     //x = CircularBuffer::create(MAX_DELAY_MS*fs);
-    y = CircularBuffer::create(MAX_DELAY_MS*fs);
+    y = CircularBuffer::create(MAX_DELAY_MS*getSampleRate());
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
     registerParameter(PARAMETER_C, "asd");
@@ -62,7 +62,7 @@ public:
     depth    = getParameterValue(PARAMETER_D);
 
     //Calculate delay in samples
-    unsigned int delaySamples = delay_ms*fs/1000;
+    unsigned int delaySamples = delay_ms*getSampleRate()/1000;
 
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         
