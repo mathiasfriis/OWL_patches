@@ -25,7 +25,7 @@
 #ifndef ___DelayTestPatch_hpp__
 #define __DelayTestPatch_hpp__
 
-#include "CircularBuffer.hpp"
+//#include "CircularBuffer.hpp"
 //#include "lfo.hpp"
 
 #define MAX_DELAY_MS 3000
@@ -34,7 +34,7 @@
 class DelayTestPatch : public Patch {
 private:
     //CircularBuffer* x;
-    CircularBuffer* y;
+    //CircularBuffer* y;
     float delay_ms;
     float feedback;
     float depth;
@@ -43,13 +43,13 @@ private:
 public:
   DelayTestPatch(){
     //fs = getSampleRate();
-    AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
     //x = CircularBuffer::create(MAX_DELAY_MS*fs);
-    y = CircularBuffer::create(MAX_DELAY_MS*getSampleRate());
+    //y = CircularBuffer::create(MAX_DELAY_MS*getSampleRate());
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
     registerParameter(PARAMETER_C, "asd");
     registerParameter(PARAMETER_D, "Depth");
+    AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
   }
  
 
@@ -69,9 +69,9 @@ public:
         float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
             float dry = buf[i]*(1-depth); //Get dry signal
-            float wet = y->read(delaySamples); //Get wet signal
+            //float wet = y->read(delaySamples); //Get wet signal
             buf[i] = dry+wet;
-            y->write(delaySamples*feedback); //Write to write to y-buffer
+            //y->write(delaySamples*feedback); //Write to write to y-buffer
         }
     }
   }
