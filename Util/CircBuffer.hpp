@@ -1,7 +1,7 @@
 #include
 class CircBuffer{
 public:
-    CircBuffer(unsigned int size);
+    Buffer(unsigned int size);
     void write(float input);
     float read();
 private:
@@ -10,18 +10,18 @@ private:
     unsigned int writeIndex;
 };
 
-CircBuffer::CircBuffer(unsigned int size) : buffer(int size){
+Buffer::Buffer(unsigned int size) : buffer(int size){
     readIndex = 0;
     writeIndex = size - 1;
 }
  
-void CircBuffer::write(float input){
+void Buffer::write(float input){
     buffer[writeIndex++] = input;
     if(writeIndex &gt;= buffer.size())
         writeIndex = 0;
 }
  
-float CircBuffer::read(){
+float Buffer::read(){
     float val = buffer[readIndex++];
     if(readIndex &gt;= buffer.size())
         readIndex = 0;
