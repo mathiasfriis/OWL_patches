@@ -54,7 +54,7 @@ public:
   }
 
   ~DelayTestPatch() {
-        CircularBuffer::destroy(x);
+        //CircularBuffer::destroy(x);
         CircularBuffer::destroy(y);
     }
  
