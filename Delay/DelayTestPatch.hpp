@@ -68,7 +68,8 @@ public:
     depth    = getParameterValue(PARAMETER_D);
 
     //Calculate delay in samples
-    unsigned int delaySamples = delay_ms*getSampleRate()/1000;
+    //unsigned int delaySamples = delay_ms*DEFAULT_SAMPLE_RATE/1000;
+    int delaySamples =DEFAULT_SAMPLE_RATE;
 
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
         
