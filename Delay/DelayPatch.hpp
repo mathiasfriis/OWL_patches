@@ -26,7 +26,7 @@
 #define __DelayPatch_hpp__
 
 #include "CircularBuffer.hpp"
-#include "lfo.hpp"
+//#include "lfo.hpp"
 
 #define MAX_DELAY_MS 3000
 
