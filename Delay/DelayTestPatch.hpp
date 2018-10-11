@@ -50,7 +50,7 @@ public:
     registerParameter(PARAMETER_B, "Feedback");
     registerParameter(PARAMETER_C, "asd");
     registerParameter(PARAMETER_D, "Depth");
-    AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
+    //AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
   }
  
 
