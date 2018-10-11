@@ -69,8 +69,8 @@ public:
 
     //Calculate delay in samples
     //unsigned int delaySamples = delay_ms*DEFAULT_SAMPLE_RATE/1000;
-    int delaySamples =getSampleRate();
-    feedback=0.8;
+    int delaySamples =getSampleRate()*0.3;
+    feedback=0.5;
     depth=0.5;
 
     for (int ch = 0; ch<buffer.getChannels(); ++ch) {
@@ -79,7 +79,7 @@ public:
         for (int i = 0 ; i < size; i++) {
             float dry = buf[i]*(1-depth); //Get dry signal
             float wet = (y->read(delaySamples))*depth; //Get wet signal
-            buf[i] += y->read(delaySamples)*feedback;
+            buf[i] += y->read(delaySamples);
             y->write(buf[i]*feedback); //Write to y-buffer
         }
     }
