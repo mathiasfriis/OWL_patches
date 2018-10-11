@@ -63,7 +63,7 @@ public:
     period_ms     = getParameterValue(PARAMETER_A)*MAX_DELAY_MS;
     //Calculate delay in samples
     int periodSamples =period_ms*getSampleRate()/1000;
-    if(getParameterValue(PARAMETER_E)<0.5)
+    if(getParameterValue(PARAMETER_E)<0.0.5)
     {
         stutterTriggered=true;
     }
