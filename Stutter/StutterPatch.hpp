@@ -108,7 +108,7 @@ public:
             if(!stutterTriggered)
             {
                 x->write(buf[i]); 
-                index=periodSamples;   
+                index=periodSamples+variation_samples;   
             }
             else
             {
@@ -118,7 +118,7 @@ public:
                 index--; //Decrement index counter.
                 if(index<0) //If reaching head, reset counter.
                 {
-                    index=periodSamples; 
+                    index=periodSamples+variation_samples; 
                 }
             }
         }
