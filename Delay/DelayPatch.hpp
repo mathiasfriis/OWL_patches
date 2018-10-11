@@ -32,7 +32,8 @@
 
 class DelayPatch : public Patch {
 private:
-    CircularBuffer x, y;
+    CircularBuffer* x;
+    CircularBuffer* y;
     float delay_ms;
     float feedback;
 
