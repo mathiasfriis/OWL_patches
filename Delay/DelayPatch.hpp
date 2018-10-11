@@ -36,10 +36,12 @@ private:
     CircularBuffer* y;
     float delay_ms;
     float feedback;
+    float depth;
+    float fs;
 
 public:
   DelayPatch(){
-    float fs = getSampleRate();
+    fs = getSampleRate();
     //AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
     x = CircularBuffer::create(MAX_DELAY_MS*fs);
     y = CircularBuffer::create(MAX_DELAY_MS*fs);
