@@ -29,6 +29,7 @@
 //#include "lfo.hpp"
 
 #define MAX_DELAY_MS 3000
+#define FLANGER_BUFFER_SIZE 1024
 
 class DelayTestPatch : public Patch {
 private:
@@ -42,7 +43,7 @@ private:
 public:
   DelayTestPatch(){
     fs = getSampleRate();
-    //AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
+    AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
     //x = CircularBuffer::create(MAX_DELAY_MS*fs);
     y = CircularBuffer::create(MAX_DELAY_MS*fs);
     registerParameter(PARAMETER_A, "Delay");
