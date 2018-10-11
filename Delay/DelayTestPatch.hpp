@@ -80,7 +80,6 @@ public:
         for (int i = 0 ; i < size; i++) {
             x->write(buf[i]);
             //buf[i]=buf[i]+x->read(delaySamples)*0.5;
-            int bufferIndex=x->getSamples
             buf[i]=x->readDelayed(delaySamples);
         }
     }
