@@ -79,7 +79,7 @@ public:
         for (int i = 0 ; i < size; i++) {
             float dry = buf[i]*(1-depth); //Get dry signal
             float wet = (y->read(delaySamples))*depth; //Get wet signal
-            buf[i] = dry+wet;
+            buf[i] += y->read(delaySamples)*feedback;
             y->write(buf[i]*feedback); //Write to y-buffer
         }
     }
