@@ -61,6 +61,8 @@ public:
 
     lfo.setSampleRate(getSampleRate());
     lfo.setLFO_mode(sampleHold);
+    lfo.setFrequency(100);
+    lfo.setWaveshape(50);
   }
 
   ~StutterPatch() {
@@ -71,7 +73,7 @@ public:
   void processAudio(AudioBuffer &buffer){
     int size = buffer.getSize();
       
-    lfo.updateLFO_value();
+    
     //Read knobs
     period_ms     = getParameterValue(PARAMETER_A)*MAX_DELAY_MS;
     variation = getParameterValue(PARAMETER_B)*MAX_VARIATION_MS;
@@ -103,7 +105,7 @@ public:
         
         float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
-
+            lfo.updateLFO_value();
             //If not triggered, just write input to buffer, and reset index-counter.
             if(!stutterTriggered)
             {
