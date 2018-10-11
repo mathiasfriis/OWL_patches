@@ -41,6 +41,7 @@ private:
     float period_ms;
     float variation;
     float variation_ms;
+    float depth;
     int variation_samples;
     bool stutterTriggered;
     bool stutterTriggered_state;
@@ -59,7 +60,7 @@ public:
     stutterTriggered_state=false;
 
     lfo.setSampleRate(getSampleRate());
-    lfo.setLFO_mode(sampleHold)
+    lfo.setLFO_mode(sampleHold);
   }
 
   ~StutterPatch() {
@@ -74,6 +75,7 @@ public:
     //Read knobs
     period_ms     = getParameterValue(PARAMETER_A)*MAX_DELAY_MS;
     variation = getParameterValue(PARAMETER_B)*MAX_VARIATION_MS;
+    depth = getParameterValue(PARAMETER_D);
     //Calculate delay in samples
     int periodSamples =period_ms*getSampleRate()/1000;
     if(getParameterValue(PARAMETER_E)<0.05)
