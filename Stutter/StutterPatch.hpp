@@ -50,6 +50,10 @@ public:
     x = CircularBuffer::create(MAX_DELAY_SAMPLES);
     stutterTriggered=false;
   }
+
+  ~StutterPatch() {
+        CircularBuffer::destroy(x);
+    }
  
 
   void processAudio(AudioBuffer &buffer){
