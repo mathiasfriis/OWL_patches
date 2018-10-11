@@ -28,7 +28,7 @@
 #include "CircularBuffer.hpp"
 //#include "lfo.hpp"
 
-#define MAX_DELAY_MS 1000
+#define MAX_DELAY_MS 3000
 #define DEFAULT_SAMPLE_RATE 48000
 
 class DelayTestPatch : public Patch {
@@ -69,10 +69,7 @@ public:
     depth    = getParameterValue(PARAMETER_D);
 
     //Calculate delay in samples
-    //unsigned int delaySamples = delay_ms*DEFAULT_SAMPLE_RATE/1000;
-    int delaySamples =getSampleRate()*0.3;
-    feedback=0.5;
-    depth=0.5;
+    int delaySamples =delay_ms*getSampleRate()/1000;
 
     for (int ch = 0; ch<buffer.getChannels()-1; ++ch) {
         
