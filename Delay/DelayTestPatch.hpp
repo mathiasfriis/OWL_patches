@@ -69,7 +69,7 @@ public:
 
     //Calculate delay in samples
     //unsigned int delaySamples = delay_ms*DEFAULT_SAMPLE_RATE/1000;
-    int delaySamples =DEFAULT_SAMPLE_RATE;
+    int delaySamples =getSampleRate();
     feedback=0.8;
     depth=0.5;
 
