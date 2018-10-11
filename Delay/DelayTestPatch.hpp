@@ -40,27 +40,22 @@ private:
     float feedback;
     float depth;
     //float fs;
-
-    static const int REQUEST_BUFFER_SIZE = 1<<17;
     CircularBuffer* delayBuffer;
 
 public:
   DelayTestPatch(){
     //fs = getSampleRate();
-    //x = CircularBuffer::create(MAX_DELAY_MS*fs);
+    //x = CircularBuffer::create(MAX_DELAY_SAMPLES);
     y = CircularBuffer::create(MAX_DELAY_SAMPLES);
     registerParameter(PARAMETER_A, "Delay");
     registerParameter(PARAMETER_B, "Feedback");
     registerParameter(PARAMETER_C, "asd");
     registerParameter(PARAMETER_D, "Depth");
-    //AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
-
-    //delayBuffer = CircularBuffer::create(REQUEST_BUFFER_SIZE);
   }
 
   ~DelayTestPatch() {
+        CircularBuffer::destroy(x);
         CircularBuffer::destroy(y);
-        //CircularBuffer::destroy(delayBuffer);
     }
  
 
@@ -80,10 +75,9 @@ public:
         float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
             float dry = buf[i]*(1-depth); //Get dry signal
-            //float wet = y->read(delaySamples); //Get wet signal
-            //buf[i] = dry+wet;
-            buf[i]=dry;
-            //y->write(delaySamples*feedback); //Write to write to y-buffer
+            float wet = y->read(delaySamples); //Get wet signal
+            buf[i] = dry+wet;
+            y->write(delaySamples*feedback); //Write to write to y-buffer
         }
     }
   }
