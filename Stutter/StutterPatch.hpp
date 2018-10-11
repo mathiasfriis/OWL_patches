@@ -28,7 +28,7 @@
 #include "CircularBuffer.hpp"
 //#include "lfo.hpp"
 
-#define MAX_DELAY_MS 500
+#define MAX_DELAY_MS 300
 #define DEFAULT_SAMPLE_RATE 48000
 
 class StutterPatch : public Patch {
