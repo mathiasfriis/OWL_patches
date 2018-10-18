@@ -36,6 +36,8 @@ enum lfo_mode{sine,square,triangle,sampleHold};
         phase=0;
         frequency=1;
         LFO_value=1;
+        waveshape=50;
+        mode = sine;
     }
     void LFO::setSampleRate(float sampleRate)
     {

@@ -93,7 +93,7 @@ public:
 
       relativeSampleRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
      
-      //Manage button push - If pushed, change LFO mode
+    //Manage button push - If pushed, change LFO mode
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {
         buttonState=isButtonPressed(PUSHBUTTON);
