@@ -136,7 +136,7 @@ public:
     ExpressionPedalTriggered_state=ExpressionPedalTriggered;
 
     lfo_freq = getParameterValue(PARAMETER_A)*MAX_LFO_RATE;
-    feedback = getParameterValue(PARAMETER_B);
+    feedback = (getParameterValue(PARAMETER_B)-0.5)*2;
     depth    = getParameterValue(PARAMETER_C);
     mix    = getParameterValue(PARAMETER_D);
 
