@@ -155,10 +155,10 @@ public:
             switch(mod_mode)
             {
                 case flanger:
-                    delay_ms     = lfo.get_LFO_value()*depth*MAX_DELAY_MS/5+MIN_DELAY_MS; //0-6ms
+                    delay_ms     = lfo.get_LFO_value()*depth*MAX_DELAY_MS/5+MIN_DELAY_MS; //1-7ms
                     break;
                 case chorus:
-                    delay_ms     = lfo.get_LFO_value()*depth*MAX_DELAY_MS+MIN_DELAY_MS; //0-30ms
+                    delay_ms     = lfo.get_LFO_value()*depth*MAX_DELAY_MS+MIN_DELAY_MS; //1-31ms
                     break;
             }
 
@@ -166,6 +166,11 @@ public:
             if(delay_ms>MAX_DELAY_MS)
             {
                 delay_ms=MAX_DELAY_MS;
+            }
+
+            if(delay_ms<0)
+            {
+                delay_ms=0;
             }
 
             //Calculate delay in samples
