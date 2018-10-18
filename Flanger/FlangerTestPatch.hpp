@@ -61,7 +61,7 @@ public:
     registerParameter(PARAMETER_C, "Depth");
     registerParameter(PARAMETER_D, "Mix");
     y = CircularBuffer::create(MAX_DELAY_SAMPLES);
-    mode = flanger;
+    modulator_mode = flanger;
     LFO_mode = sine;
 
     lfo.initLFO();
@@ -160,7 +160,7 @@ public:
   }
 
 
-  void FlangerTestPatch::changeLFOMode()
+  void changeLFOMode()
   {
     switch(LFO_mode)
     {
@@ -180,7 +180,7 @@ public:
     lfo.setLFO_mode(LFO_mode);
   }
 
-  void FlangerTestPatch::changeModulationMode()
+  void changeModulationMode()
   {
     //Change modulation mode
     switch(mod_mode)
