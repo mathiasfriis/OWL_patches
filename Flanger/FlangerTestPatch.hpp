@@ -168,9 +168,9 @@ public:
                 delay_ms=MAX_DELAY_MS;
             }
 
-            if(delay_ms<0)
+            if(delay_ms<MIN_DELAY_MS)
             {
-                delay_ms=0;
+                delay_ms=MIN_DELAY_MS;
             }
 
             //Calculate delay in samples
