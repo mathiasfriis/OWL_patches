@@ -39,7 +39,7 @@ enum lfo_mode{sine,square,triangle,sampleHold,walk};
         LFO_value_target=1;
         waveshape=50;
         mode = sine;
-        walkTime=1; //Seconds to go from minVal(0) to maxVal(1);
+        walkTime=0.3; //Seconds to go from minVal(0) to maxVal(1);
     }
     void LFO::setSampleRate(float sampleRate)
     {
