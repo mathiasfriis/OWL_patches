@@ -8,12 +8,12 @@
 
 //Update 1.1 - Woo, sample&hold now works!
 
-enum lfo_mode{sine,square,triangle,sampleHold};
+enum lfo_mode{sine,square,triangle,sampleHold,walk};
 
 	class LFO
 	{
 	private:
-	    float fs, frequency, phase, LFO_value, waveshape;
+	    float fs, frequency, phase, LFO_value, LFO_value_target, waveshape, walkTime, walkSpeedPrSample;
 		bool waveShapeStatusState = false;
 	    lfo_mode mode;
 		bool isPhaseUnderWaveshapeLevel();
@@ -36,12 +36,15 @@ enum lfo_mode{sine,square,triangle,sampleHold};
         phase=0;
         frequency=1;
         LFO_value=1;
+        LFO_value_target=1;
         waveshape=50;
         mode = sine;
+        walkTime=1; //Seconds to go from minVal(0) to maxVal(1);
     }
     void LFO::setSampleRate(float sampleRate)
     {
         fs=sampleRate;
+        walkSpeedPrSample=1/(fs*walkSpeed);
     }
     void LFO::setLFO_mode(lfo_mode newMode)
     {
@@ -112,6 +115,49 @@ enum lfo_mode{sine,square,triangle,sampleHold};
                     //update waveShape status state
                     waveShapeStatusState = isPhaseUnderWaveshapeLevel();
 			}
+            break;
+            case walk:
+            {
+                // Triggers at waveShape-level and at 0 ('ish)
+                if (isPhaseUnderWaveshapeLevel() != waveShapeStatusState)
+                {
+                   
+                    unsigned int randomInt = lfsr113_Bits();
+                    LFO_value_target = (float)(randomInt/(pow(2,32)));
+                    
+                    if(LFO_value_target<0) LFO_value_target=0;
+                    if(LFO_value_target>1) LFO_value_target=1;
+                    }
+
+                    //if current value is lower than target value
+                    if(LFO_value<LFO_value_target)
+                    {
+                        //If difference is lower than stepSize, stabilize.
+                        if(abs(LFO_value_target-LFO_value)<walkSpeedPrSample)
+                        {
+                            LFO_value=LFO_value_target;
+                        }
+                        else
+                        {
+                            LFO_value+=walkSpeedPrSample;
+                        }
+                    }
+                    else
+                    {
+                        //If difference is lower than stepSize, stabilize.
+                        if(abs(LFO_value_target-LFO_value)<walkSpeedPrSample)
+                        {
+                            LFO_value=LFO_value_target;
+                        }
+                        else
+                        {
+                            LFO_value-=walkSpeedPrSample;
+                        }
+                    }
+
+                    //update waveShape status state
+                    waveShapeStatusState = isPhaseUnderWaveshapeLevel();
+            }
             break;
 
         }

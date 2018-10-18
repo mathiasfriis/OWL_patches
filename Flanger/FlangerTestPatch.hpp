@@ -102,8 +102,10 @@ public:
                 LFO_mode = sampleHold;
                 break;
               case sampleHold:
-                LFO_mode = sine;
+                LFO_mode = walk;
                 break;
+              case walk:
+                LFO_mode = sine;
             }
             lfo.setLFO_mode(LFO_mode);
         }
