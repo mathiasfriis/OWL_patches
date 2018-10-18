@@ -89,7 +89,22 @@ public:
         if(buttonState==false)
         {
             //If button pressed
-            changeLFOMode();
+            switch(LFO_mode)
+            {
+              case sine:
+                LFO_mode = square;
+                break;
+              case square:
+                LFO_mode = triangle;
+                break;
+              case triangle:
+                LFO_mode = sampleHold;
+                break;
+              case sampleHold:
+                LFO_mode = sine;
+                break;
+            }
+            lfo.setLFO_mode(LFO_mode);
         }
     }
 
@@ -105,7 +120,16 @@ public:
      //If just triggered
     if((ExpressionPedalTriggered==true) && (ExpressionPedalTriggered_state==false))
     {
-        changeModulationMode();
+        //Change modulation mode
+        switch(mod_mode)
+        {
+            case flanger:
+                mod_mode=chorus;
+                break;
+            case chorus:
+                mod_mode=flanger;
+                break;
+        }
     }
 
     ExpressionPedalTriggered_state=ExpressionPedalTriggered;
@@ -156,41 +180,6 @@ public:
             //Write to output buffer.
             buf[i]=inputSignal*(1-mix)+delayedSignal*mix;
         }
-    }
-  }
-
-
-  void changeLFOMode()
-  {
-    switch(LFO_mode)
-    {
-      case sine:
-        LFO_mode = square;
-        break;
-      case square:
-        LFO_mode = triangle;
-        break;
-      case triangle:
-        LFO_mode = sampleHold;
-        break;
-      case sampleHold:
-        LFO_mode = sine;
-        break;
-    }
-    lfo.setLFO_mode(LFO_mode);
-  }
-
-  void changeModulationMode()
-  {
-    //Change modulation mode
-    switch(mod_mode)
-    {
-        case flanger:
-            mod_mode=chorus;
-            break;
-        case chorus:
-            mod_mode=flanger;
-            break;
     }
   }
 };
