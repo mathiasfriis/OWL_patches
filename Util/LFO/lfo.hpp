@@ -44,7 +44,7 @@ enum lfo_mode{sine,square,triangle,sampleHold,walk};
     void LFO::setSampleRate(float sampleRate)
     {
         fs=sampleRate;
-        walkSpeedPrSample=1/(fs*walkSpeed);
+        walkSpeedPrSample=1/(fs*walkTime);
     }
     void LFO::setLFO_mode(lfo_mode newMode)
     {
