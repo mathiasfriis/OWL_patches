@@ -61,7 +61,7 @@ public:
     registerParameter(PARAMETER_C, "Depth");
     registerParameter(PARAMETER_D, "Mix");
     y = CircularBuffer::create(MAX_DELAY_SAMPLES);
-    modulator_mode = flanger;
+    mod_mode = flanger;
     LFO_mode = sine;
 
     lfo.initLFO();
