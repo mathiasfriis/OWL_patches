@@ -44,7 +44,7 @@ private:
     float depth; //modulation depth
     float mix; //dry wet mix
     modulator_mode mod_mode;
-    lfo_mode lfo_mode;
+    lfo_mode LFO_mode;
     LFO lfo;
     float lfo_freq;
     bool buttonState, ExpressionPedalTriggered, ExpressionPedalTriggered_state;
@@ -62,13 +62,13 @@ public:
     registerParameter(PARAMETER_D, "Mix");
     y = CircularBuffer::create(MAX_DELAY_SAMPLES);
     mode = flanger;
-    lfo_mode = sine;
+    LFO_mode = sine;
 
     lfo.initLFO();
     float fs = getSampleRate();
     lfo.setSampleRate(fs);
     lfo.setWaveshape(50);
-    lfo.setLFO_mode(lfo_mode);
+    lfo.setLFO_mode(LFO_mode);
 
     ExpressionPedalTriggered=false;
     ExpressionPedalTriggered_state=false;
@@ -160,27 +160,27 @@ public:
   }
 
 
-  void changeLFOMode()
+  void FlangerTestPatch::changeLFOMode()
   {
-    switch(lfo_mode)
+    switch(LFO_mode)
     {
       case sine:
-        lfo_mode = square;
+        LFO_mode = square;
         break;
       case square:
-        lfo_mode = triangle;
+        LFO_mode = triangle;
         break;
       case triangle:
-        lfo_mode = sampleHold;
+        LFO_mode = sampleHold;
         break;
       case sampleHold:
-        lfo_mode = sine;
+        LFO_mode = sine;
         break;
     }
-    lfo.setLFO_mode(lfo_mode);
+    lfo.setLFO_mode(LFO_mode);
   }
 
-  void changeModulationMode()
+  void FlangerTestPatch::changeModulationMode()
   {
     //Change modulation mode
     switch(mod_mode)
