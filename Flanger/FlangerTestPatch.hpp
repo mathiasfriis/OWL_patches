@@ -29,6 +29,7 @@
 #include "lfo.hpp"
 
 #define MAX_DELAY_MS 30
+#define MIN_DELAY_MS 1
 #define DEFAULT_SAMPLE_RATE 48000
 #define MAX_LFO_RATE 15
 
@@ -37,7 +38,7 @@ enum modulator_mode{flanger,chorus};
 class FlangerTestPatch : public Patch {
 private:
     //static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE/1000;
-    int MAX_DELAY_SAMPLES = MAX_DELAY_MS*getSampleRate()/1000;
+    int MAX_DELAY_SAMPLES = (MAX_DELAY_MS+MIN_DELAY_MS)*getSampleRate()/1000;
     CircularBuffer* y;
     float delay_ms;
     float feedback;
@@ -154,10 +155,10 @@ public:
             switch(mod_mode)
             {
                 case flanger:
-                    delay_ms     = lfo.get_LFO_value()*depth*MAX_DELAY_MS/5; //0-6ms
+                    delay_ms     = lfo.get_LFO_value()*depth*MAX_DELAY_MS/5+MIN_DELAY_MS; //0-6ms
                     break;
                 case chorus:
-                    delay_ms     = lfo.get_LFO_value()*depth*MAX_DELAY_MS; //0-30ms
+                    delay_ms     = lfo.get_LFO_value()*depth*MAX_DELAY_MS+MIN_DELAY_MS; //0-30ms
                     break;
             }
 
