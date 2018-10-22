@@ -1,9 +1,9 @@
 #ifndef ENVELOPE_H_
 #define ENVELOPE_H_
 
-#define ENVELOPE_VALUE_DIVIDER 32000
+#define ENVELOPE_VALUE_DIVIDER 1
 
-class envelope_follower
+class envelopeFollower
 	{
 	private:
 		float alpha = 0.01;
@@ -15,18 +15,18 @@ class envelope_follower
 	};
 
 // Update envelope value
-void envelope_follower::updateEnvelopeValue(float input)
+void envelopeFollower::updateEnvelopeValue(float input)
 {
 	envelopeValue = alpha * abs(input) + (1.0 - alpha) * envelopeValue;
 }
 
 // Get latest envelope value
-float envelope_follower::getEnvelopeValue()
+float envelopeFollower::getEnvelopeValue()
 {
 	return envelopeValue / ENVELOPE_VALUE_DIVIDER;
 }
 
-void envelope_follower::setResponsiveness(float responsiveness)
+void envelopeFollower::setResponsiveness(float responsiveness)
 {
 	alpha=responsiveness;
 }
