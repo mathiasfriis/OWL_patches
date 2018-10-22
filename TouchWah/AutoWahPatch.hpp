@@ -93,7 +93,7 @@ public:
     	float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
             ef.updateEnvelopeValue(buf[i]);
-            fc=fc_offset+lfo.get_LFO_value()*depth;
+            fc=fc_offset+ef.getEnvelopeValue()*sensitivity;
             if(fc<0)
             {
                 fc=0;
