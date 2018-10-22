@@ -32,7 +32,7 @@
 #define CUTOFF_SCALER 2000
 #define Q_SCALER 10
 #define RESPONSIVENESS_SCALER 0.01
-#define EG_TO_CUTOFF_SCALER 1000
+#define EG_TO_CUTOFF_SCALER 10000
 
 class AutoWahPatch : public Patch {
 private:
