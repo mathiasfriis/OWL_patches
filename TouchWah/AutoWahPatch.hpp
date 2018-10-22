@@ -31,7 +31,7 @@
 #define CUTOFF_MIN 0
 #define CUTOFF_SCALER 2000
 #define Q_SCALER 10
-#define SENSITIVITY_SCALER 1000
+#define EG_TO_CUTOFF_SCALER 1000
 
 class AutoWahPatch : public Patch {
 private:
@@ -60,12 +60,13 @@ public:
   void processAudio(AudioBuffer &buffer){
     int size = buffer.getSize();
       
-    sensitivity     = (getParameterValue(PARAMETER_A)*SENSITIVITY_SCALER);
+    sensitivity     = getParameterValue(PARAMETER_A);
     Q = getParameterValue(PARAMETER_B)*Q_SCALER; // so we keep a -3dB summation of the delayed signal
     fc_offset= getParameterValue(PARAMETER_C)*CUTOFF_SCALER+CUTOFF_MIN;
     mix = getParameterValue(PARAMETER_D);
     
     filter.setQfactor(Q);
+    eg.setResponsiveness(sensitivity);
 
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {
@@ -95,7 +96,7 @@ public:
     	float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
             ef.updateEnvelopeValue(buf[i]);
-            fc=fc_offset+ef.getEnvelopeValue()*sensitivity;
+            fc=fc_offset+ef.getEnvelopeValue()*EG_TO_CUTOFF_SCALER;
             if(fc<0)
             {
                 fc=0;
