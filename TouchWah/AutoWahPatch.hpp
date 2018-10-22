@@ -25,7 +25,6 @@
 #ifndef ___AutoWahPatch_hpp__
 #define __AutoWahPatch_hpp__
 
-#include "CircularBuffer.hpp"
 #include "envelopeFollower.hpp"
 #include "SVF.hpp"
 
