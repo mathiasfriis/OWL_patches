@@ -93,7 +93,7 @@ public:
         filter.setFilterType(FilterType);
     }
 
-    for (int ch = 0; ch<buffer.getChannels(); ++ch) {
+    for (int ch = 0; ch<buffer.getChannels()-1; ++ch) {
     	float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
             ef.updateEnvelopeValue(buf[i]);
