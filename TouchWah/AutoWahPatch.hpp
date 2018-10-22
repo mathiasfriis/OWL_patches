@@ -38,6 +38,7 @@ private:
     float sensitivity, Q, fc, fc_offset, mix;
     envelopeFollower ef;
     StateVariableFilter filter;
+    SVF_FILTER_TYPE FilterType;
     bool buttonState;
 
     
@@ -51,7 +52,8 @@ public:
     float fs = getSampleRate();
     filter.initFilter(fs);
     fc=0;
-    filter.setFilterType(BAND_PASS);
+    FilterType = BAND_PASS;
+    filter.setFilterType(FilterType);
   }
  
 
