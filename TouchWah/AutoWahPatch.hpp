@@ -67,7 +67,7 @@ public:
     mix = getParameterValue(PARAMETER_D);
     
     filter.setQfactor(Q);
-    ef.setResponsiveness(sensitivity);
+    ef.setResponsiveness(responsiveness);
 
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {
