@@ -31,7 +31,7 @@
 #define CUTOFF_MIN 0
 #define CUTOFF_SCALER 2000
 #define Q_SCALER 10
-#define SENSITIVITY_SCALER 1
+#define SENSITIVITY_SCALER 1000
 
 class AutoWahPatch : public Patch {
 private:
