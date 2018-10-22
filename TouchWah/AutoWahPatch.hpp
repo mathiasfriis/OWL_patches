@@ -31,11 +31,12 @@
 #define CUTOFF_MIN 0
 #define CUTOFF_SCALER 2000
 #define Q_SCALER 10
+#define RESPONSIVENESS_SCALER 0.01
 #define EG_TO_CUTOFF_SCALER 1000
 
 class AutoWahPatch : public Patch {
 private:
-    float sensitivity, Q, fc, fc_offset, mix;
+    float responsiveness, Q, fc, fc_offset, mix;
     envelopeFollower ef;
     StateVariableFilter filter;
     SVF_FILTER_TYPE FilterType;
@@ -45,7 +46,7 @@ private:
 public:
   AutoWahPatch(){
     //AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
-    registerParameter(PARAMETER_A, "Sensitivity");
+    registerParameter(PARAMETER_A, "Responsiveness");
     registerParameter(PARAMETER_B, "Q");
     registerParameter(PARAMETER_C, "Cutoff");
     registerParameter(PARAMETER_D, "Mix"); 
@@ -60,7 +61,7 @@ public:
   void processAudio(AudioBuffer &buffer){
     int size = buffer.getSize();
       
-    sensitivity     = getParameterValue(PARAMETER_A);
+    responsiveness     = getParameterValue(PARAMETER_A)*RESPONSIVENESS_SCALER;
     Q = getParameterValue(PARAMETER_B)*Q_SCALER; // so we keep a -3dB summation of the delayed signal
     fc_offset= getParameterValue(PARAMETER_C)*CUTOFF_SCALER+CUTOFF_MIN;
     mix = getParameterValue(PARAMETER_D);
