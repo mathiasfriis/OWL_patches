@@ -22,8 +22,8 @@
 /* created by the OWL team 2013 */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef ___AutoWahPatch_hpp__
-#define __AutoWahPatch_hpp__
+#ifndef ___TouchWahPatch_hpp__
+#define __TouchWahPatch_hpp__
 
 #include "envelopeFollower.hpp"
 #include "SVF.hpp"
@@ -34,9 +34,9 @@
 #define RESPONSIVENESS_SCALER 0.01
 #define EG_TO_CUTOFF_SCALER 50000
 
-class AutoWahPatch : public Patch {
+class TouchWahPatch : public Patch {
 private:
-    float responsiveness, Q, fc, fc_offset, mix;
+    float responsiveness, Q, fc, fc_offset, mix, depth;
     envelopeFollower ef;
     StateVariableFilter filter;
     SVF_FILTER_TYPE FilterType;
@@ -44,17 +44,18 @@ private:
 
     
 public:
-  AutoWahPatch(){
+  TouchWahPatch(){
     //AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
     registerParameter(PARAMETER_A, "Responsiveness");
     registerParameter(PARAMETER_B, "Q");
     registerParameter(PARAMETER_C, "Cutoff");
-    registerParameter(PARAMETER_D, "Mix"); 
+    registerParameter(PARAMETER_D, "Depth"); 
     float fs = getSampleRate();
     filter.initFilter(fs);
     fc=0;
     FilterType = BAND_PASS;
     filter.setFilterType(FilterType);
+    mix=1;
   }
  
 
@@ -64,7 +65,7 @@ public:
     responsiveness     = getParameterValue(PARAMETER_A)*RESPONSIVENESS_SCALER;
     Q = getParameterValue(PARAMETER_B)*Q_SCALER; // so we keep a -3dB summation of the delayed signal
     fc_offset= getParameterValue(PARAMETER_C)*CUTOFF_SCALER+CUTOFF_MIN;
-    mix = getParameterValue(PARAMETER_D);
+    depth = getParameterValue(PARAMETER_D)*2-1; //-1:1
     
     filter.setQfactor(Q);
     ef.setResponsiveness(responsiveness);
@@ -97,7 +98,7 @@ public:
     	float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size; i++) {
             ef.updateEnvelopeValue(buf[i]);
-            fc=fc_offset+ef.getEnvelopeValue()*EG_TO_CUTOFF_SCALER;
+            fc=fc_offset+ef.getEnvelopeValue()*EG_TO_CUTOFF_SCALER*depth;
             if(fc<0)
             {
                 fc=0;
@@ -115,4 +116,4 @@ public:
 };
 
 
-#endif /* __FlangerPatch_hpp__ */
+#endif /* __TouchWahPatch_hpp__ */
