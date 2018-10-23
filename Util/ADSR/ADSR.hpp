@@ -82,7 +82,7 @@ void ADSR::updateValue()
 			}
 			break;
 		case IN_DECAY:
-			envelopeValue-=1/(D*fs); //Increment envelope value
+			envelopeValue-=1/(D*fs); //Decrement envelope value
 			if(envelopeValue<=S) //If sustain value reached, set in sustain mode, and make sure value doesn't go below sustain value
 			{
 				envelopeValue=S;
@@ -93,7 +93,14 @@ void ADSR::updateValue()
 			//Do nothing
 			break;
 		case IN_RELEASE:
-			envelopeValue-=1/(R*fs); //Increment envelope value
+			if(R==0) //If R is 0, set envelope value to 0. Done this way to avoid division-by-zero-error
+			{
+				envelopeValue=0;
+			}
+			else
+			{
+				envelopeValue-=1/(R*fs); //Decrement envelope value
+			}
 			if(envelopeValue<=0) //If 0 value reached, set in untriggered mode, and make sure value doesn't go below 0;
 			{
 				envelopeValue=0;
