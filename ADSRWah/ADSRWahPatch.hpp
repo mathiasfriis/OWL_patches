@@ -29,7 +29,7 @@
 #include "SVF.hpp"
 
 #define CUTOFF_MIN 0
-#define CUTOFF_SCALER 10000
+#define CUTOFF_SCALER 2000
 #define Q_SCALER 10
 #define A_SCALER 1
 #define D_SCALER 1
@@ -76,7 +76,7 @@ public:
     A     = getParameterValue(PARAMETER_A)*A_SCALER;
     D = getParameterValue(PARAMETER_B)*D_SCALER; // so we keep a -3dB summation of the delayed signal
     S = getParameterValue(PARAMETER_C)*S_SCALER;
-    R = 0*R_SCALER; //Instant release
+    R = 0.2*R_SCALER; //Instant release
 
     depth = getParameterValue(PARAMETER_D)*2-1; //-1:1
 
