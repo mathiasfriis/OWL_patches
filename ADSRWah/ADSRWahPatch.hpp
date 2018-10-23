@@ -29,7 +29,7 @@
 #include "SVF.hpp"
 
 #define CUTOFF_MIN 0
-#define CUTOFF_SCALER 2000
+#define CUTOFF_SCALER 10000
 #define Q_SCALER 10
 #define A_SCALER 1
 #define D_SCALER 1
