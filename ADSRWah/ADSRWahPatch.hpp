@@ -137,7 +137,7 @@ public:
                 fc=fs/2-1;
             }
             filter.setCutoff(fc);
-
+            fc=500;
             float dry = buf[i]*(1-mix);
             //float wet = buf[i]*fc/10000;
             float wet = filter.doFiltering(buf[i])*mix;
