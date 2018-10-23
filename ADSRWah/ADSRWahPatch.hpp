@@ -53,7 +53,7 @@ public:
     registerParameter(PARAMETER_B, "D");
     registerParameter(PARAMETER_C, "S");
     registerParameter(PARAMETER_D, "Depth"); 
-    registerParameter(PARAMETER_D, "ExpressionTrigger"); 
+    registerParameter(PARAMETER_E, "ExpressionTrigger"); 
     float fs = getSampleRate();
     filter.initFilter(fs);
     fc=0;
