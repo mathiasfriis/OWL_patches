@@ -32,7 +32,7 @@ class ADSR
 	};
 
 
-ADSR()
+ADSR::ADSR()
 {
 	A=1;
 	D=1;
@@ -51,7 +51,7 @@ void ADSR::setSampleFrequency(float sampleFrequency)
 }
 
 // Update envelope value
-void ADSR::updateValue(float input)
+void ADSR::updateValue()
 {
 	//Check for change in trigger state
 	if(TriggerHeldDown!=TriggerHeldDownState)
