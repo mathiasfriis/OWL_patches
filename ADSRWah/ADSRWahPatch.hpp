@@ -39,7 +39,7 @@
 class ADSRWahPatch : public Patch {
 private:
     float A,D,S,R Q, fc, fc_offset, mix, depth;
-    ADSR* eg;
+    ADSR eg;
     StateVariableFilter filter;
     SVF_FILTER_TYPE FilterType;
     bool buttonState;
@@ -60,7 +60,8 @@ public:
     FilterType = BAND_PASS;
     filter.setFilterType(FilterType);
     mix=1;
-    eg = new ADSR(fs);
+
+    eg.setSampleFrequency(fs);
 
     ADSR_triggered=false;
     ADSR_triggered_state=false;

@@ -20,7 +20,7 @@ class ADSR
 		bool TriggerHeldDown, TriggerHeldDownState;
 		ADSR_STATUS status;
 	public:
-		ADSR(float);
+		ADSR();
 		void updateValue();
 		float getValue(void);
 		void setAttack(float);
@@ -28,22 +28,26 @@ class ADSR
 		void setSustain(float);
 		void setRelease(float);
 		void setTriggerHeldDown(bool);
+		void setSampleFrequency(float);
 	};
 
 
-ADSR(float sampleFrequency)
+ADSR()
 {
 	A=1;
 	D=1;
 	S=0.5;
 	R=1;
 
-	fs=sampleFrequency;
-
 	envelopeValue = 0;
 
 	TriggerHeldDown=false;
 	TriggerHeldDownState=false;
+}
+
+void ADSR::setSampleFrequency(float sampleFrequency)
+{
+	fs= sampleFrequency;
 }
 
 // Update envelope value
