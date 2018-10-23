@@ -123,20 +123,17 @@ public:
     }
 
     for (int ch = 0; ch<buffer.getChannels()-1; ++ch) {
-    	float* buf = buffer.getSamples(ch);
-        for (int i = 0 ; i < size-1; i++) {
+        float* buf = buffer.getSamples(ch);
+        for (int i = 0 ; i < size; i++) {
             eg.updateValue();
-            fc=fc_offset+eg.getValue()*CUTOFF_SCALER*depth;
+            //fc=fc_offset+ef.getEnvelopeValue()*EG_TO_CUTOFF_SCALER*depth;
+            fc=500;
             if(fc<0)
             {
                 fc=0;
             }
-            if(fc>(fs/2-1))
-            {
-                fc=fs/2-1;
-            }
-            fc=500;
             filter.setCutoff(fc);
+
             float dry = buf[i]*(1-mix);
             //float wet = buf[i]*fc/10000;
             float wet = filter.doFiltering(buf[i])*mix;
