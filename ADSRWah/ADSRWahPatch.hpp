@@ -132,6 +132,10 @@ public:
             {
                 fc=0;
             }
+            if(fc>fs/2)
+            {
+                fc=fs/2;
+            }
             filter.setCutoff(fc);
 
             float dry = buf[i]*(1-mix);
