@@ -132,9 +132,9 @@ public:
             {
                 fc=0;
             }
-            if(fc>fs/2)
+            if(fc>fs/2-1)
             {
-                fc=fs/2;
+                fc=fs/2-1;
             }
             filter.setCutoff(fc);
 
