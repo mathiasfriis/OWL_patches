@@ -65,6 +65,8 @@ public:
 
     ADSR_triggered=false;
     ADSR_triggered_state=false;
+
+    fc_offset=0;
   }
  
 
