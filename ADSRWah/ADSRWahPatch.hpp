@@ -127,7 +127,7 @@ public:
         for (int i = 0 ; i < size; i++) {
             eg.updateValue();
             //fc=fc_offset+ef.getEnvelopeValue()*EG_TO_CUTOFF_SCALER*depth;
-            fc=500;
+            fc=fc_offset+eg.getValue()*CUTOFF_SCALER*depth;
             if(fc<0)
             {
                 fc=0;
