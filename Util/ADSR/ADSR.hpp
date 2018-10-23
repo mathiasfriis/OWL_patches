@@ -20,7 +20,7 @@ class ADSR
 		bool TriggerHeldDown, TriggerHeldDownState;
 		ADSR_STATUS status;
 	public:
-		ADSR();
+		ADSR(float);
 		void updateValue();
 		float getValue(void);
 		void setAttack(float);
