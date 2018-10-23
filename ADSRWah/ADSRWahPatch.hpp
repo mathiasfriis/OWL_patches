@@ -38,7 +38,7 @@
 
 class ADSRWahPatch : public Patch {
 private:
-    float A,D,S,R, Q, fc, fc_offset, mix, depth;
+    float fs,A,D,S,R, Q, fc, fc_offset, mix, depth;
     ADSR eg;
     StateVariableFilter filter;
     SVF_FILTER_TYPE FilterType;
@@ -54,7 +54,7 @@ public:
     registerParameter(PARAMETER_C, "S");
     registerParameter(PARAMETER_D, "Depth"); 
     registerParameter(PARAMETER_E, "ExpressionTrigger"); 
-    float fs = getSampleRate();
+    fs = getSampleRate();
     filter.initFilter(fs);
     fc=0;
     FilterType = BAND_PASS;
