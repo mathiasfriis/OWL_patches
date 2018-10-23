@@ -59,7 +59,7 @@ public:
     fc=0;
     FilterType = BAND_PASS;
     filter.setFilterType(FilterType);
-    mix=0.7;
+    mix=1;
 
     eg.setSampleFrequency(fs);
 
