@@ -103,7 +103,6 @@ public:
             {
                 fc=0;
             }
-            fc=500;
             filter.setCutoff(fc);
 
             float dry = buf[i]*(1-mix);
