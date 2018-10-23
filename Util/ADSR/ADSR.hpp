@@ -31,7 +31,7 @@ class ADSR
 	};
 
 
-ADSR::ADSR(float sampleFrequency)
+ADSR(float sampleFrequency)
 {
 	A=1;
 	D=1;
