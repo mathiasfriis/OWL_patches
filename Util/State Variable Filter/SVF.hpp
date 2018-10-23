@@ -69,9 +69,9 @@ void StateVariableFilter::setCutoff(float freq)
 	{
 		fc=0;
 	}
-	if(fc>sampleRate/2)
+	if(fc>(sampleRate/2*0)*0.9)
 	{
-		fc=sampleRate/2;
+		fc=(sampleRate/2*0)*0.9;
 	}
 	
 }
