@@ -38,7 +38,7 @@
 
 class ADSRWahPatch : public Patch {
 private:
-    float A,D,S,R Q, fc, fc_offset, mix, depth;
+    float A,D,S,R, Q, fc, fc_offset, mix, depth;
     ADSR eg;
     StateVariableFilter filter;
     SVF_FILTER_TYPE FilterType;
@@ -71,9 +71,9 @@ public:
   void processAudio(AudioBuffer &buffer){
     int size = buffer.getSize();
       
-    A     = getParameterValue(PARAMETER_A)*RESPONSIVENESS_SCALER;
-    D = getParameterValue(PARAMETER_B)*Q_SCALER; // so we keep a -3dB summation of the delayed signal
-    S = getParameterValue(PARAMETER_C)*CUTOFF_SCALER+CUTOFF_MIN;
+    A     = getParameterValue(PARAMETER_A);
+    D = getParameterValue(PARAMETER_B); // so we keep a -3dB summation of the delayed signal
+    S = getParameterValue(PARAMETER_C);
     R = 0; //Instant release
 
     depth = getParameterValue(PARAMETER_D)*2-1; //-1:1
