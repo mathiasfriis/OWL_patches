@@ -59,7 +59,7 @@ public:
     fc=0;
     FilterType = BAND_PASS;
     filter.setFilterType(FilterType);
-    mix=1;
+    mix=0.7;
 
     eg.setSampleFrequency(fs);
 
@@ -73,10 +73,10 @@ public:
   void processAudio(AudioBuffer &buffer){
     int size = buffer.getSize();
       
-    A     = getParameterValue(PARAMETER_A);
-    D = getParameterValue(PARAMETER_B); // so we keep a -3dB summation of the delayed signal
-    S = getParameterValue(PARAMETER_C);
-    R = 0; //Instant release
+    A     = getParameterValue(PARAMETER_A)*A_SCALER;
+    D = getParameterValue(PARAMETER_B)*D_SCALER; // so we keep a -3dB summation of the delayed signal
+    S = getParameterValue(PARAMETER_C)*S_SCALER;
+    R = 0*R_SCALER; //Instant release
 
     depth = getParameterValue(PARAMETER_D)*2-1; //-1:1
 
@@ -98,8 +98,6 @@ public:
     }
 
     eg.setTriggerHeldDown(ADSR_triggered);
-
-    ADSR_triggered_state=ADSR_triggered;
 
     if(buttonState!=isButtonPressed(PUSHBUTTON))
     {
