@@ -85,8 +85,7 @@ public:
     eg.setSustain(S);
     eg.setRelease(R);
 
-    filter.setQfactor(0.5*Q);
-
+    filter.setQfactor(0.5*Q_SCALER);
     //Check if ExpressionTriggerer has been pressed - set ASDF-trigger accordingly;
     if(getParameterValue(PARAMETER_E)<0.05)
     {
