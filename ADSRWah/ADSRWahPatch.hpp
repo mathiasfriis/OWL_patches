@@ -126,8 +126,8 @@ public:
     for (int ch = 0; ch<buffer.getChannels()-1; ++ch) {
     	float* buf = buffer.getSamples(ch);
         for (int i = 0 ; i < size-1; i++) {
-            eg.updateEnvelopeValue();
-            fc=fc_offset+eg.getEnvelopeValue()*CUTOFF_SCALER*depth;
+            eg.updateValue();
+            fc=fc_offset+eg.getValue()*CUTOFF_SCALER*depth;
             if(fc<0)
             {
                 fc=0;
