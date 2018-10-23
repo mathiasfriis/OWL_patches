@@ -74,7 +74,14 @@ void ADSR::updateValue()
 			envelopeValue=0;
 			break;
 		case IN_ATTACK:
-			envelopeValue+=1/(A*fs); //Increment envelope value
+			if(A==0) //If A is 0, set envelope value to 1. Done this way to avoid division-by-zero-error
+			{
+				envelopeValue=1;
+			}
+			else
+			{
+				envelopeValue+=1/(A*fs); //Increment envelope value
+			}
 			if(envelopeValue>=1) //If max value reached, set in decay mode, and make sure value doesn't go above 1
 			{
 				envelopeValue=1;
@@ -82,7 +89,14 @@ void ADSR::updateValue()
 			}
 			break;
 		case IN_DECAY:
-			envelopeValue-=1/(D*fs); //Decrement envelope value
+			if(D==0) //If D is 0, set envelope value to S. Done this way to avoid division-by-zero-error
+			{
+				envelopeValue=S;
+			}
+			else
+			{
+				envelopeValue-=1/(D*fs); //Decrement envelope value
+			}
 			if(envelopeValue<=S) //If sustain value reached, set in sustain mode, and make sure value doesn't go below sustain value
 			{
 				envelopeValue=S;
