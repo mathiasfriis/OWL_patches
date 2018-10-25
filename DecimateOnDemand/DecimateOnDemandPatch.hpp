@@ -97,7 +97,7 @@ public:
     	eg.updateValue();
     }
     //calculate relative sample rate
-    //relativeSampleRate = 1 - eg.getValue()*depth;
+    relativeSampleRate = 1 - eg.getValue()*depth;
      
     //Make sure relative sample rate stays between 0:1
     if(relativeSampleRate>1)
@@ -107,7 +107,6 @@ public:
     if(relativeSampleRate<0)
     {
     	relativeSampleRate=0;
-    	relativeSampleRate=0.8;//for test
     }
 
     //resample signal
