@@ -25,7 +25,6 @@
 #ifndef ___DecimatorPatch_hpp__
 #define __DecimatorPatch_hpp__
 
-#include "CircularBuffer.hpp"
 #include "ADSR.hpp"
 #include "reSampler.hpp"
 
