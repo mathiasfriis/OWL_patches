@@ -53,6 +53,7 @@ public:
     registerParameter(PARAMETER_B, "Decay");
     registerParameter(PARAMETER_C, "Release");
     registerParameter(PARAMETER_D, "Depth");
+    registerParameter(PARAMETER_E, "ExpressionTrigger"); 
    
     fs_system = getSampleRate();
 
@@ -97,7 +98,6 @@ public:
     }
     //calculate relative sample rate
     relativeSampleRate = 1 - eg.getValue()*depth;
-    relativeSampleRate=0.1;
      
     //Make sure relative sample rate stays between 0:1
     if(relativeSampleRate>1)
