@@ -23,6 +23,7 @@ class ADSR
 		ADSR();
 		void updateValue();
 		float getValue(void);
+		ADSR_STATUS getADSR_Status(void);
 		void setAttack(float);
 		void setDecay(float);
 		void setSustain(float);
@@ -135,6 +136,11 @@ void ADSR::setTriggerHeldDown(bool status)
 float ADSR::getValue()
 {
 	return envelopeValue;
+}
+
+ADSR_STATUS ADSR::getADSR_Status()
+{
+	return status;
 }
 
 void ADSR::setAttack(float value)

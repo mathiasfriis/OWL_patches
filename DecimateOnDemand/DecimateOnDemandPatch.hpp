@@ -34,6 +34,7 @@
 #define DECAY_SCALER 2
 #define RELEASE_SCALER 2
 #define DEPTH_SCALER 1
+#define FS_OFFSET 0.5
 
 class DecimateOnDemandPatch : public Patch {
 private:
@@ -96,8 +97,17 @@ public:
     {
     	eg.updateValue();
     }
-    //calculate relative sample rate
-    relativeSampleRate = 1 - eg.getValue()*depth;
+
+    if(eg.getADSR_Status()==UNTRIGGERED)
+    {
+    	relativeSampleRate
+    }
+    else
+    {
+    	//calculate relative sample rate
+   		relativeSampleRate = 1 - FS_OFFSET - eg.getValue()*depth;
+    }
+    
      
     //Make sure relative sample rate stays between 0:1
     if(relativeSampleRate>1)
