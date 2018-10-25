@@ -91,6 +91,10 @@ public:
     }
     eg.setTriggerHeldDown(ADSR_triggered);
 
+    for(int i=0; i<size;i++)
+    {
+    	void updateValue();
+    }
     //calculate relative sample rate
     relativeSampleRate = 1 - eg.getValue()*depth;
      
