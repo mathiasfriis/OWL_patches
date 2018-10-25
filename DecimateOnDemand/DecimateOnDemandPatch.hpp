@@ -22,8 +22,8 @@
 /* created by the OWL team 2013 */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-#ifndef ___DecimatorPatch_hpp__
-#define __DecimatorPatch_hpp__
+#ifndef ___DecimateOnDemandPatch_hpp__
+#define __DecimateOnDemandPatch_hpp__
 
 #include "ADSR.hpp"
 #include "reSampler.hpp"
@@ -35,20 +35,20 @@
 #define RELEASE_SCALER 2
 #define DEPTH_SCALER 1
 
-class DecimatorPatch : public Patch {
+class DecimateOnDemandPatch : public Patch {
 private:
     float fs_system;
     float fs_offset;
     float A,D,S,R;
     float depth;
     float relativeSampleRate, multiRateState;
-    bool buttonState;
+    bool ADSR_triggered;
     reSampler decimator;
     ADSR eg;
     
 
 public:
-  DecimatorPatch(){
+  DecimateOnDemandPatch(){
     registerParameter(PARAMETER_A, "Attack");
     registerParameter(PARAMETER_B, "Decay");
     registerParameter(PARAMETER_C, "Release");
@@ -110,4 +110,4 @@ public:
 };
 
 
-#endif /* __DecimatorPatch_hpp__ */
+#endif /* __DecimateOnDemandPatch_hpp__ */
