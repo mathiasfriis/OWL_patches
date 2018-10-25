@@ -94,7 +94,7 @@ public:
 
     for(int i=0; i<size;i++)
     {
-    	updateValue();
+    	eg.updateValue();
     }
     //calculate relative sample rate
     //relativeSampleRate = 1 - eg.getValue()*depth;
