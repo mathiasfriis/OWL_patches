@@ -97,6 +97,7 @@ public:
     }
     //calculate relative sample rate
     relativeSampleRate = 1 - eg.getValue()*depth;
+    relativeSampleRate=0.1;
      
     //Make sure relative sample rate stays between 0:1
     if(relativeSampleRate>1)
