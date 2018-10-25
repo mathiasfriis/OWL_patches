@@ -107,6 +107,7 @@ public:
     if(relativeSampleRate<0)
     {
     	relativeSampleRate=0;
+    	relativeSampleRate=0.8;//for test
     }
 
     //resample signal
