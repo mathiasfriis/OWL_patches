@@ -85,18 +85,16 @@ public:
     if(getParameterValue(PARAMETER_E)<0.05)
     {
         ADSR_triggered=true;
-        relativeSampleRate=0.1;
     }
     else
     {
         ADSR_triggered=false;
-        relativeSampleRate=1;
     }
     eg.setTriggerHeldDown(ADSR_triggered);
 
     for(int i=0; i<size;i++)
     {
-    	void updateValue();
+    	updateValue();
     }
     //calculate relative sample rate
     //relativeSampleRate = 1 - eg.getValue()*depth;
