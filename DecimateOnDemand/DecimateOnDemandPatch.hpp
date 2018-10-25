@@ -100,7 +100,7 @@ public:
 
     if(eg.getADSR_Status()==UNTRIGGERED)
     {
-    	relativeSampleRate
+    	relativeSampleRate = 1;
     }
     else
     {
