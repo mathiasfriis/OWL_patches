@@ -26,48 +26,42 @@
 #define __DecimatorPatch_hpp__
 
 #include "CircularBuffer.hpp"
-#include "lfo.hpp"
+#include "ADSR.hpp"
 #include "reSampler.hpp"
-#include "Resample.h"
 
 #define FLANGER_BUFFER_SIZE 1024
 
-#define RATE_SCALER 20
-#define DEPTH_SCALER 0.4
-#define OFFSET_SCALER 0.4
+#define ATTACK_SCALER 2
+#define DECAY_SCALER 2
+#define RELEASE_SCALER 2
+#define DEPTH_SCALER 1
 
 class DecimatorPatch : public Patch {
 private:
     float fs_system;
     float fs_offset;
-    float LFO_rate, LFO_depth, LFO_waveshape;
+    float A,D,S,R;
+    float depth;
     float relativeSampleRate, multiRateState;
     bool buttonState;
     reSampler decimator;
-    LFO lfo;
-    lfo_mode LFO_MODE = sine;
+    ADSR eg;
     
 
 public:
   DecimatorPatch(){
-    AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
-
-    registerParameter(PARAMETER_A, "LFO Rate");
-    registerParameter(PARAMETER_B, "LFO Depth");
-    registerParameter(PARAMETER_C, "LFO Waveshape");
-    registerParameter(PARAMETER_D, "Sample Freq Offset");
+    registerParameter(PARAMETER_A, "Attack");
+    registerParameter(PARAMETER_B, "Decay");
+    registerParameter(PARAMETER_C, "Release");
+    registerParameter(PARAMETER_D, "Depth");
    
     fs_system = getSampleRate();
 
-    //decimator = new reSampler(getBlockSize());
     decimator.initDownSampler(getBlockSize());
 
     decimator.setInputSampleRate(fs_system);
    
-    lfo.initLFO();
-    lfo.setSampleRate(fs_system);
-    lfo.setLFO_mode(LFO_MODE);
-    lfo.setWaveshape(50);
+    eg.setSampleFrequency(fs_system);
   }
  
 
@@ -75,54 +69,43 @@ public:
     int size = buffer.getSize();
       
 	  
-    	//read parameters from knobs
-      LFO_rate=getParameterValue(PARAMETER_A)*RATE_SCALER;
-      LFO_depth=getParameterValue(PARAMETER_B)*DEPTH_SCALER; //0:1
-      LFO_waveshape=getParameterValue(PARAMETER_C)*100;
-      fs_offset = getParameterValue(PARAMETER_D)*OFFSET_SCALER; //0:1
+   	//read parameters from knobs
+    A=getParameterValue(PARAMETER_A)*ATTACK_SCALER;
+    D=getParameterValue(PARAMETER_B)*DECAY_SCALER; //0:1
+    R=getParameterValue(PARAMETER_C)*RELEASE_SCALER;
+    depth = getParameterValue(PARAMETER_D)*DEPTH_SCALER; //0:1
 
-      //set LFO rate and Waveshape
-      lfo.setFrequency(LFO_rate);
-      lfo.setWaveshape(LFO_waveshape);
+    //Update ADSR
+    eg.setAttack(A);
+    eg.setDecay(D);
+    eg.setSustain(0);
+    eg.setRelease(R);
 
-	//Update LFO value according to chunk size.
-      for (int i = 0; i < size ; i++)
-      {
-      	lfo.updateLFO_value();
-      }
-
-      relativeSampleRate = fs_offset + lfo.get_LFO_value()*LFO_depth;
-     
-    //Manage button push - If pushed, change LFO mode
-    if(buttonState!=isButtonPressed(PUSHBUTTON))
+    //Check if ExpressionTriggerer has been pressed - set ASDF-trigger accordingly;
+    if(getParameterValue(PARAMETER_E)<0.05)
     {
-        buttonState=isButtonPressed(PUSHBUTTON);
-        if(buttonState==false)
-        {
-            //If button pressed
-            switch(LFO_MODE)
-            {
-              case sine:
-                LFO_MODE = square;
-                break;
-              case square:
-                LFO_MODE = triangle;
-                break;
-              case triangle:
-                LFO_MODE = sampleHold;
-                break;
-              case sampleHold:
-                LFO_MODE = sine;
-                break;
-            }
-            lfo.setLFO_mode(LFO_MODE);
-        }
+        ADSR_triggered=true;
     }
+    else
+    {
+        ADSR_triggered=false;
+    }
+    eg.setTriggerHeldDown(ADSR_triggered);
 
+    //calculate relative sample rate
+    relativeSampleRate = 1 - eg.getValue()*depth;
+     
+    //Make sure relative sample rate stays between 0:1
     if(relativeSampleRate>1)
     {
     	relativeSampleRate=1;
     }
+    if(relativeSampleRate<0)
+    {
+    	relativeSampleRate=0;
+    }
+
+    //resample signal
     decimator.reSample(buffer,buffer,relativeSampleRate,0.1);
   }
 };
