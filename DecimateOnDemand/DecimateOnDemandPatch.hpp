@@ -105,7 +105,7 @@ public:
     else
     {
     	//calculate relative sample rate
-   		relativeSampleRate = 1 - FS_OFFSET - eg.getValue()*depth;
+   		relativeSampleRate = 1 - FS_OFFSET - eg.getValue()*depth*(1-FS_OFFSET);
     }
     
      
