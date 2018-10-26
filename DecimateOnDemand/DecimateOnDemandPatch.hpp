@@ -108,7 +108,7 @@ public:
     {
     	//calculate relative sample rate
    		//relativeSampleRate = 1 - FS_OFFSET - eg.getValue()*depth*(1-FS_OFFSET);
-   		relativeSampleRate = pow(1/(eg.getValue()+1),5) * depth * (1-FS_OFFSET-MIN_RELATIVE_FS) + MIN_RELATIVE_FS; //Gives an exponential-like movement, so that movement around lower sample freqs are more fine, and more course in higher.
+   		relativeSampleRate = (1-depth)*FS_OFFSET + pow(1/(eg.getValue()+1),5) * depth * (1-FS_OFFSET-MIN_RELATIVE_FS) + MIN_RELATIVE_FS; //Gives an exponential-like movement, so that movement around lower sample freqs are more fine, and more course in higher.
     }
     
      
