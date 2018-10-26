@@ -36,7 +36,7 @@
 #define RELEASE_SCALER 2
 #define DEPTH_SCALER 1
 #define FS_OFFSET 0.8
-#define MIN_RELATIVE_FS 0.05
+#define MIN_RELATIVE_FS 0.005
 
 class DecimateOnDemandPatch : public Patch {
 private:
