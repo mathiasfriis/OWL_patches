@@ -27,6 +27,7 @@
 
 #include "ADSR.hpp"
 #include "reSampler.hpp"
+#include <math.h>
 
 #define FLANGER_BUFFER_SIZE 1024
 
@@ -105,7 +106,8 @@ public:
     else
     {
     	//calculate relative sample rate
-   		relativeSampleRate = 1 - FS_OFFSET - eg.getValue()*depth*(1-FS_OFFSET);
+   		//relativeSampleRate = 1 - FS_OFFSET - eg.getValue()*depth*(1-FS_OFFSET);
+   		relativeSampleRate = 1 - FS_OFFSET + pow(1/(eg.getValue()+1),5)*depth*(1-FS_OFFSET); //Gives an exponential-like movement, so that movement around lower sample freqs are more fine, and more course in higher.
     }
     
      
