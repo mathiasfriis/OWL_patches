@@ -140,7 +140,7 @@ public:
         onExpressionPedalReleased();
     }
 
-    processAudioLoop(float* buf_L, float* buf_L, int buffer_size);
+    processAudioLoop(float* buf_L, float* buf_R, int buffer_size);
 
   }
 };

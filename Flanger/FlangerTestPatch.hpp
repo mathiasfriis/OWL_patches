@@ -112,7 +112,7 @@ public:
         }
   }
  
-void processAudioLoop(float* buf_L, float* buf_L, int buffer_size)
+void processAudioLoop(float* buf_L, float* buf_R, int buffer_size)
 {
     lfo_freq = getParameterValue(PARAMETER_A)*MAX_LFO_RATE;
     feedback = (getParameterValue(PARAMETER_B)-0.5)*2;
