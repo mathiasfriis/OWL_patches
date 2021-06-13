@@ -42,7 +42,7 @@ private:
     
 public:
   TwinTremoloPatch(){
-    AudioBuffer* buffer = createMemoryBuffer(1, FLANGER_BUFFER_SIZE);
+    AudioBuffer* buffer = createMemoryBuffer(1, BUFFER_SIZE);
     registerParameter(PARAMETER_A, "Control Rate");
     registerParameter(PARAMETER_B, "Control Depth");
     registerParameter(PARAMETER_C, "Main Rate");
