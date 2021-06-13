@@ -39,7 +39,8 @@ class FlangerTestPatch : public Patch {
 private:
     //static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE/1000;
     int MAX_DELAY_SAMPLES = (MAX_DELAY_MS+MIN_DELAY_MS)*getSampleRate()/1000;
-    CircularBuffer* y;
+    CircularBuffer* output_L;
+    CircularBuffer* output_R;
     float delay_ms;
     float feedback;
     float depth; //modulation depth
@@ -49,8 +50,6 @@ private:
     LFO lfo;
     float lfo_freq;
     bool buttonState, ExpressionPedalTriggered, ExpressionPedalTriggered_state;
-    //float fs;
-    CircularBuffer* delayBuffer;
 
     void changeModulationMode();
     void changeLFOMode();
@@ -61,7 +60,8 @@ public:
     registerParameter(PARAMETER_B, "Feedback");
     registerParameter(PARAMETER_C, "Depth");
     registerParameter(PARAMETER_D, "Mix");
-    y = CircularBuffer::create(MAX_DELAY_SAMPLES);
+    output_L = CircularBuffer::create(MAX_DELAY_SAMPLES);
+    output_R = CircularBuffer::create(MAX_DELAY_SAMPLES);
     mod_mode = flanger;
     LFO_mode = sine;
 
@@ -76,7 +76,8 @@ public:
   }
 
   ~FlangerTestPatch() {
-        CircularBuffer::destroy(y);
+        CircularBuffer::destroy(output_L);
+        CircularBuffer::destroy(output_R);
     }
  
 
@@ -146,8 +147,10 @@ public:
 
     lfo.setFrequency(lfo_freq);
 
-    for (int ch = 0; ch<buffer.getChannels()-1; ++ch) {
-        for (int i = 0 ; i < size; i++) {
+    float* buf_L = buffer.getSamples(0);
+    float* buf_R = buffer.getSamples(1);
+
+    for (int i = 0 ; i < size; i++) {
             float* buf = buffer.getSamples(ch);
 
             //update LFO
@@ -179,16 +182,22 @@ public:
             delaySamples =delay_ms*getSampleRate()/1000;
 
            //Seperate delay line and input signal
-            float delayedSignal = y->readDelayed(delaySamples);
-            float inputSignal = buf[i];
+            float delayedSignal_L = output_L->readDelayed(delaySamples);
+            float inputSignal_L = buf_L[i];
+
+            float delayedSignal_R = output_R->readDelayed(delaySamples);
+            float inputSignal_R = buf_R[i];
 
             //write the feedback to the output delay line.
-            y->write(inputSignal+delayedSignal*feedback);
+            output_L->write(inputSignal+delayedSignal*feedback);
+            output_R->write(inputSignal+delayedSignal*feedback);
 
             //Write to output buffer.
-            buf[i]=inputSignal*(1-mix)+delayedSignal*mix;
+            buf_L[i]=inputSignal_L*(1-mix)+delayedSignal_L*mix;
+            buf_R[i]=inputSignal_R*(1-mix)+delayedSignal_L*mix;
         }
-    }
+
+
   }
 };
 
