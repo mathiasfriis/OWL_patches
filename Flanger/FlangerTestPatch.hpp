@@ -38,14 +38,13 @@ enum modulator_mode{flanger,chorus};
 class FlangerTestPatch : StompBoxTemplate {
 private:
     //static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE/1000;
-    int MAX_DELAY_SAMPLES = (MAX_DELAY_MS+MIN_DELAY_MS)*StompBoxTemplate::getSampleRate()/1000;
+    int MAX_DELAY_SAMPLES = (MAX_DELAY_MS+MIN_DELAY_MS)*DEFAULT_SAMPLE_RATE/1000;
     CircularBuffer* output_L;
     CircularBuffer* output_R;
     float delay_ms;
     float feedback;
     float depth; //modulation depth
     float mix; //dry wet mix
-    float fs;
     modulator_mode mod_mode;
     lfo_mode LFO_mode;
     LFO lfo;
@@ -66,7 +65,7 @@ public:
     LFO_mode = sine;
 
     lfo.initLFO();
-    fs = StompBoxTemplate::getSampleRate();
+    fs = DEFAULT_SAMPLE_RATE;
     lfo.setSampleRate(fs);
     lfo.setWaveshape(50);
     lfo.setLFO_mode(LFO_mode);
