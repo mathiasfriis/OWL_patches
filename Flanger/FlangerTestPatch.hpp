@@ -45,6 +45,7 @@ private:
     float feedback;
     float depth; //modulation depth
     float mix; //dry wet mix
+    float fs;
     modulator_mode mod_mode;
     lfo_mode LFO_mode;
     LFO lfo;
