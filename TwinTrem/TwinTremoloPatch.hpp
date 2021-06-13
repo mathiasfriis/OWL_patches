@@ -28,7 +28,7 @@
 #include "CircularBuffer.hpp"
 #include "lfo.hpp"
 
-#define FLANGER_BUFFER_SIZE 1024
+#define BUFFER_SIZE 1024
 #define LFO_MAX_RATE 20 //Hz
 
 class TwinTremoloPatch : public Patch {

@@ -28,7 +28,7 @@
 #include "CircularBuffer.hpp"
 #include "lfo.hpp"
 
-#define FLANGER_BUFFER_SIZE 1024
+#define BUFFER_SIZE 1024
 #define LFO_MAX_RATE 10000 //Hz
 #define LFO_MIN_RATE 30 //Hz
 
@@ -109,14 +109,21 @@ public:
     }
     main_lfo.setFrequency(main_rate+control_lfo.get_LFO_value()*LFO_MAX_RATE*control_depth); //Modulate main LFO rate by value gained from control LFO.
 
-    for (int ch = 0; ch<buffer.getChannels(); ++ch) {
-        for (int i = 0 ; i < size; i++) {
-            float* buf = buffer.getSamples(ch);
-            main_lfo.updateLFO_value();
-            float dry = buf[i]*(1-main_depth);
-            float wet = buf[i]*main_lfo.get_LFO_value()*(main_depth);
-            buf[i] = dry+wet;
-        }
+
+    float* buf_L = buffer.getSamples(0);
+    float* buf_R = buffer.getSamples(1);
+
+    for (int i = 0 ; i < size; i++) 
+    {
+        main_lfo.updateLFO_value();
+
+        float dry_L = buf_L[i]*(1-main_depth);
+        float wet_L = buf_L[i]*main_lfo.get_LFO_value()*(main_depth);
+        buf_L[i] = dry_L+wet_L;
+
+        float dry_R = buf_R[i]*(1-main_depth);
+        float wet_R = buf_R[i]*main_lfo.get_LFO_value()*(main_depth);
+        buf_R[i] = dry_R+wet_R;
     }
   }
     
