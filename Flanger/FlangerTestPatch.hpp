@@ -35,7 +35,7 @@
 
 enum modulator_mode{flanger,chorus};
 
-class FlangerTestPatch : public Patch {
+class FlangerTestPatch : StompBoxTemplate() {
 private:
     //static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE/1000;
     int MAX_DELAY_SAMPLES = (MAX_DELAY_MS+MIN_DELAY_MS)*getSampleRate()/1000;
@@ -49,7 +49,6 @@ private:
     lfo_mode LFO_mode;
     LFO lfo;
     float lfo_freq;
-    bool buttonState, ExpressionPedalTriggered, ExpressionPedalTriggered_state;
 
     void changeModulationMode();
     void changeLFOMode();
@@ -70,28 +69,16 @@ public:
     lfo.setSampleRate(fs);
     lfo.setWaveshape(50);
     lfo.setLFO_mode(LFO_mode);
-
-    ExpressionPedalTriggered=false;
-    ExpressionPedalTriggered_state=false;
   }
 
   ~FlangerTestPatch() {
         CircularBuffer::destroy(output_L);
         CircularBuffer::destroy(output_R);
     }
- 
 
-  void processAudio(AudioBuffer &buffer){
-    int size = buffer.getSize();
-
-    //Manage button push - If pushed, change LFO mode
-    if(buttonState!=isButtonPressed(PUSHBUTTON))
-    {
-        buttonState=isButtonPressed(PUSHBUTTON);
-        if(buttonState==false)
-        {
-            //If button pressed
-            switch(LFO_mode)
+  void onButtonReleased()
+  {
+    switch(LFO_mode)
             {
               case sine:
                 LFO_mode = square;
@@ -108,23 +95,12 @@ public:
               case walk:
                 LFO_mode = sine;
             }
-            lfo.setLFO_mode(LFO_mode);
-        }
-    }
+            lfo.setLFO_mode(LFO_mode);    
+  }
 
-    if(getParameterValue(PARAMETER_E)<0.05)
-    {
-        ExpressionPedalTriggered=true;
-    }
-    else
-    {
-        ExpressionPedalTriggered=false;
-    }
-
-     //If just triggered
-    if((ExpressionPedalTriggered==true) && (ExpressionPedalTriggered_state==false))
-    {
-        //Change modulation mode
+  void onExpressionPedalReleased()
+  {
+    //Change modulation mode
         switch(mod_mode)
         {
             case flanger:
@@ -134,10 +110,10 @@ public:
                 mod_mode=flanger;
                 break;
         }
-    }
-
-    ExpressionPedalTriggered_state=ExpressionPedalTriggered;
-
+  }
+ 
+void processAudioLoop(float* buf_L, float* buf_L, int buffer_size)
+{
     lfo_freq = getParameterValue(PARAMETER_A)*MAX_LFO_RATE;
     feedback = (getParameterValue(PARAMETER_B)-0.5)*2;
     depth    = getParameterValue(PARAMETER_C);
@@ -146,9 +122,6 @@ public:
     int delaySamples;    
 
     lfo.setFrequency(lfo_freq);
-
-    float* buf_L = buffer.getSamples(0);
-    float* buf_R = buffer.getSamples(1);
 
     for (int i = 0 ; i < size; i++) {
 
@@ -195,9 +168,8 @@ public:
             buf_L[i]=inputSignal_L*(1-mix)+delayedSignal_L*mix;
             buf_R[i]=inputSignal_R*(1-mix)+delayedSignal_L*mix;
         }
+}
 
-
-  }
 };
 
 
