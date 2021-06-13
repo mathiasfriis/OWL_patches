@@ -35,11 +35,8 @@
 
 enum modulator_mode{flanger,chorus};
 
-<<<<<<< HEAD
-class FlangerTestPatch : public StompBoxTemplate {
-=======
+
 class FlangerTestPatch : public Patch {
->>>>>>> parent of 2e4bf58 (Update Flanger patch to use StompBoxTemplate)
 private:
     //static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE/1000;
     int MAX_DELAY_SAMPLES = (MAX_DELAY_MS+MIN_DELAY_MS)*DEFAULT_SAMPLE_RATE/1000;
@@ -139,17 +136,11 @@ public:
                 mod_mode=flanger;
                 break;
         }
-<<<<<<< HEAD
-  }
- 
-void processAudioLoop(float* buf_L, float* buf_R, int buffer_size)
-{
-=======
+
     }
 
     ExpressionPedalTriggered_state=ExpressionPedalTriggered;
 
->>>>>>> parent of 2e4bf58 (Update Flanger patch to use StompBoxTemplate)
     lfo_freq = getParameterValue(PARAMETER_A)*MAX_LFO_RATE;
     feedback = (getParameterValue(PARAMETER_B)-0.5)*2;
     depth    = getParameterValue(PARAMETER_C);
