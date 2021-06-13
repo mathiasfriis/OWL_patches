@@ -188,8 +188,8 @@ public:
             float inputSignal_R = buf_R[i];
 
             //write the feedback to the output delay line.
-            output_L->write(inputSignal+delayedSignal*feedback);
-            output_R->write(inputSignal+delayedSignal*feedback);
+            output_L->write(inputSignal_L+delayedSignal_L*feedback);
+            output_R->write(inputSignal_R+delayedSignal_R*feedback);
 
             //Write to output buffer.
             buf_L[i]=inputSignal_L*(1-mix)+delayedSignal_L*mix;
