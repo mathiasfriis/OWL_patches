@@ -35,7 +35,7 @@
 
 enum modulator_mode{flanger,chorus};
 
-class FlangerTestPatch : StompBoxTemplate() {
+class FlangerTestPatch : StompBoxTemplate {
 private:
     //static const int MAX_DELAY_SAMPLES = MAX_DELAY_MS*DEFAULT_SAMPLE_RATE/1000;
     int MAX_DELAY_SAMPLES = (MAX_DELAY_MS+MIN_DELAY_MS)*getSampleRate()/1000;
