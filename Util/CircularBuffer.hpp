@@ -69,7 +69,7 @@ public:
     float low = read(idx);
     float high = read(idx+1);
     float frac = index - idx;
-    return low*frac + high*(1-frac);
+    return low*(1-frac) + high*(frac);
   }
 
   FloatArray getSamples(){
