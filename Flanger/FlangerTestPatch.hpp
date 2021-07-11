@@ -196,7 +196,7 @@ public:
 
             //Write to output buffer.
             buf_L[i]=inputSignal_L*(1-mix)+delayedSignal_L*mix;
-            buf_R[i]=inputSignal_R*(1-mix)+delayedSignal_L*mix;
+            buf_R[i]=inputSignal_R*(1-mix)+delayedSignal_R*mix;
         }
 
 

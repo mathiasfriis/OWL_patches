@@ -50,7 +50,8 @@ public:
     {
       index = getSize()+index;
     }
-    return buffer[index];
+    return interpolate(index);
+    //return buffer[index];
   }
 
   /**
