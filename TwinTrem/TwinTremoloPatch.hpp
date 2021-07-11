@@ -30,6 +30,7 @@
 
 #define BUFFER_SIZE 1024
 #define LFO_MAX_RATE 20 //Hz
+#define LFO_CONTROL_MAX_RATE 4 //HZ 
 
 class TwinTremoloPatch : public Patch {
 private:
@@ -64,7 +65,7 @@ public:
     int size = buffer.getSize();
     unsigned int delaySamples;
       
-    control_rate     = (getParameterValue(PARAMETER_A)*LFO_MAX_RATE);
+    control_rate     = (getParameterValue(PARAMETER_A)*LFO_CONTROL_MAX_RATE);
     control_depth    = getParameterValue(PARAMETER_B);
     main_rate = getParameterValue(PARAMETER_C)*LFO_MAX_RATE;
     main_depth = getParameterValue(PARAMETER_D);
